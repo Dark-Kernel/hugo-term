@@ -16,6 +16,8 @@ paginate = 5
   centerTheme = false
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
+  DisqusShortname = 'sumitpatel'
+
 
 [languages]
   [languages.en]

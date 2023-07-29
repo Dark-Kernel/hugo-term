@@ -1,0 +1,16 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<h2>Phone</h2>
+<p><a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a></p>
+<h2>Email</h2>
+<p><a href="{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p>
+<h2>Facebook</h2>
+<p><a href="{{ .Site.Params.facebook }}">{{ .Site.Params.facebook }}</a></p>
+<h2>Location</h2>
+<p>
+  <div>
+    <iframe class="h-64 w-full" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6786.93412427309!2d152.696789!3d-31.73045!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xca427c5d8f2e3cc1!2sJohns+River+Community+Progress+Association%2C+Inc.!5e0!3m2!1sen!2sau!4v1543749599560" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+</p>
+
+{{ end }}

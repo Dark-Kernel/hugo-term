@@ -21,8 +21,10 @@ paginate = 5
   enableSearch = true
   enableInlineShortcodes = true
   contentDir = "content/post"
-  disqusShortname = 'sumitpatel'
   facebook = "https://www.facebook.com/theauctionqueens"
+  email = "theauctionqueens@gmail.com"
+
+DisqusShortname = 'sumitpatel'
 
 [social]
     twitter = 'sumitpatel'

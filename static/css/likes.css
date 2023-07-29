@@ -1,0 +1,23 @@
+.likes {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px;
+}
+.likes__button {
+    display: flex;
+    border-radius: 5px;
+    border: 2px solid #ff8181;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    min-width: 50px;
+}
+.likes__button:hover {
+    background-color: #ff8181;
+    cursor: pointer;
+}
+.likes__emoji {
+    font-size: 25px;
+}
+
