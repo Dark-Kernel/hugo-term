@@ -6,7 +6,160 @@
     <description>Recent content in Posts on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Jul 2023 16:21:22 +0000</lastBuildDate><atom:link href="https://dark-kernel.web.app/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jul 2023 16:43:11 +0530</lastBuildDate><atom:link href="https://dark-kernel.web.app/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firefox Hardening</title>
+      <link>https://dark-kernel.web.app/post/firefox-hardening/</link>
+      <pubDate>Sat, 29 Jul 2023 16:43:11 +0530</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/firefox-hardening/</guid>
+      <description>Using firefox? Firefox is the best browser for linux nerds and others, it&amp;rsquo;s being almost 2 decades of firefox and now it is filled with bloatwares which needs to be remove to increase the quality. You might heard this way long ago. But have you done something to get less tracked by google?
+Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.</description>
+      <content>&lt;h3 id=&#34;using-firefox&#34;&gt;Using firefox?&lt;/h3&gt;
+&lt;p&gt;Firefox is the best browser for linux nerds and others, it&amp;rsquo;s being almost 2 decades of firefox and now it is filled with bloatwares which needs to be remove to increase the quality.
+You might heard this way long ago. But have you done something to get less tracked by google?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Well, today we will see some of the steps to increase the security and surfing experience of firefox.&lt;/p&gt;
+&lt;h2 id=&#34;update-the-userjs-profile&#34;&gt;Update the user.js profile.&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Visit &lt;code&gt;about:profiles&lt;/code&gt; on your firefox, don&amp;rsquo;t touch any profile, create new.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;click on &lt;code&gt;open directory&lt;/code&gt;, it will open the location where that user profile exists.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create new file &lt;code&gt;user.js&lt;/code&gt; in that directory&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim user.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now here the game starts,&lt;/p&gt;
+&lt;p&gt;This file is used to toggle and set multiple preferences for firefox which cannot be changed directly using firefox ui.
+So here we will be defining some the important user_preferences.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Increase speed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nglayout.initialpaint.delay&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nglayout.initialpaint.delay_in_oopif&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;content.notify.interval&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.startup.preXulSkeletonUI&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Set the browser cache limit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.cache.memory.max_entry_size&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;153600&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Increase tracking protections&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.contentblocking.category&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;strict&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urlclassifier.trackingSkipURLs&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*.reddit.com, *.twitter.com, *.twimg.com, *.tiktok.com&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;urlclassifier.features.socialtracking.skipURLs&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*.instagram.com, *.twitter.com, *.twimg.com&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;privacy.query_stripping.strip_list&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.uitour.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;privacy.globalprivacycontrol.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;privacy.globalprivacycontrol.functionality.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Avoid the usage of disk cache&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.cache.disk.enable&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.privatebrowsing.forceMediaMemoryCache&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.sessionstore.privacy_level&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Disable search prefecher/predictor&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.http.speculative-parallel-limit&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.dns.disablePrefetch&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.speculativeConnect.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.places.speculativeConnect.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.prefetch-next&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.predictor.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.predictor.enable-prefetch&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Disable annoying search suggestions like: topsites, search engines, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.search.separatePrivateDefault.ui.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.update2.engineAliasRefresh&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.search.suggest.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.suggest.quicksuggest.sponsored&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.suggest.quicksuggest.nonsponsored&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;security.insecure_connection_text.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;security.insecure_connection_text.pbmode.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.IDN_show_punycode&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.suggest.engines&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.suggest.topsites&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Adding&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;some&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;features&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.suggest.calculator&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.urlbar.unitConversion.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Disable cross site scirpting&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;network.auth.subresource-http-auth-allow&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdfjs.enableScripting&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;extensions.postDownloadThirdPartyPrompt&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;permissions.delegation.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Disbale accessibility and location services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accessibility.force_disabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;identity.fxaccounts.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;browser.tabs.firefox-view&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;permissions.default.desktop-notification&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;permissions.default.geo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;geo.provider.network.url&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;geo.provider.ms-windows-location&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// WINDOWS
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;geo.provider.use_corelocation&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// MAC
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;geo.provider.use_gpsd&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// LINUX
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;geo.provider.use_geoclue&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// LINUX
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;permissions.manager.defaultsUrl&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webchannel.allowObject.urlWhitelist&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Disable pockets&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;user_pref&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;extensions.pocket.enabled&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By adding these preferences your firefox is now more secure, but you also needs an adblocker.&lt;/p&gt;
+&lt;h3 id=&#34;ad-blockers-recommended&#34;&gt;Ad-blockers (recommended)&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;UBlock origin&lt;/li&gt;
+&lt;li&gt;AdGuard AdBlocker&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Both are free and opensource.&lt;/p&gt;
+&lt;h3 id=&#34;search-engine&#34;&gt;Search engine&lt;/h3&gt;
+&lt;p&gt;Even after all these you need to change one more thing i.e &lt;code&gt;search engine&lt;/code&gt;. By default google is set which sucks lot of user data and also show the ads in search results.
+That&amp;rsquo;s why we need to change search engine also.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/searxng/searxng&#34;&gt;SearXNG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.startpage.com/en/&#34;&gt;Startpage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://search.brave.com/default&#34;&gt;Brave&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These are few safe search engines with minimal look &amp;amp; great results without &lt;strong&gt;ads&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;To add any search engine,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;first visit the page of it.&lt;/li&gt;
+&lt;li&gt;click on search bar and click on &lt;code&gt;add search engine..&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;img src=&#34;https://dark-kernel.web.app/search-engine.png&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;    /&gt;
+
+
+&lt;h3 id=&#34;customize-look-with-pywal-optional&#34;&gt;Customize look with pywal (optional)&lt;/h3&gt;
+&lt;p&gt;To customize look of firefox you can use pywal to generate colorscheme according to your wallpaper which can improve the look.
+There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/pywalfox/?utm_source=addons.mozilla.org&amp;amp;utm_medium=referral&amp;amp;utm_content=search&#34;&gt;&lt;code&gt;pywalfox&lt;/code&gt;&lt;/a&gt; which will be using.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install pywalfox&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install pywalfox --break-system-packages
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Run command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pywalfox install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Add the extension then, open it and click &lt;code&gt;Fetch pywal colors&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
     <item>
       <title>Set custom HTML file as a new tab in Firefox</title>
       <link>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</link>
@@ -129,8 +282,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;652781439&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;652781439&#34;&gt;
+    &lt;input id=&#34;984325716&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;984325716&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

@@ -23,6 +23,10 @@ paginate = 5
   contentDir = "content/post"
   facebook = "https://www.facebook.com/theauctionqueens"
   email = "theauctionqueens@gmail.com"
+  include_toc = true
+  Toc = false
+  show_comments = true 
+
 
 DisqusShortname = 'sumitpatel'
 

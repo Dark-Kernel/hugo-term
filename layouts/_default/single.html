@@ -30,12 +30,14 @@
   {{ partial "cover.html" . }}
 
   {{ if (.Params.Toc | default .Site.Params.Toc) }}
-    <div class="table-of-contents">
-      <h2>
-        {{ (.Params.TocTitle | default .Site.Params.TocTitle) | default "Table of Contents" }}
-      </h2>
-      {{ .TableOfContents }}
-    </div>
+  <aside>
+      <div class="table-of-contents">
+          <h2>
+              {{ (.Params.TocTitle | default .Site.Params.TocTitle) | default "Table of Contents" }}
+          </h2>
+          {{ .TableOfContents }}
+      </div>
+  </aside>
   {{ end }}
 
   <div class="post-content">
@@ -53,6 +55,10 @@
   {{ if not (.Params.hideComments | default false) }}
     {{ partial "comments.html" . }}
   {{ end }}
-  {{ partial "likes" }}
+  <!-- {{ partial "likes" }} -->
 </article>
+<!-- <aside> -->
+<!--     {{ .TableOfContents }} -->
+<!-- </aside> -->
+
 {{ end }}
