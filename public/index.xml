@@ -166,35 +166,43 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
       <pubDate>Thu, 27 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://dark-kernel.web.app/about/</guid>
-      <description>Hi there My name is Radek and I&amp;rsquo;m the author of this theme. I made it to help you present your ideas easier.
-We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
-This theme is pretty basic and covers all of the essentials. All you have to do is start typing!</description>
+      <description>Hi there My name is Sumit Patel
+Resume RSS Feed I&amp;rsquo;m a Linux enthusiast with a passion for open-source software and programming. I&amp;rsquo;m experienced in Shell scripting, C, C++, Java, Python, and Node.js, and have worked on web backend and mobile app development projects. In my free time, I explore DevOps, Cybersecurity &amp;amp; Linux topics. I excel in both independent and team work, have great communication skills, and love solving challenges.</description>
       <content>&lt;h1 id=&#34;hi-there&#34;&gt;Hi there&lt;/h1&gt;
-&lt;p&gt;My name is Radek and I&amp;rsquo;m the author of this theme. I made it to help you present your ideas easier.&lt;/p&gt;
-&lt;p&gt;We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.&lt;/p&gt;
-&lt;p&gt;This theme is pretty basic and covers all of the essentials. All you have to do is start typing!&lt;/p&gt;
-&lt;p&gt;The theme includes:&lt;/p&gt;
+&lt;p&gt;My name is Sumit Patel&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;5 duotone themes&lt;/strong&gt;, depending on your preferences (orange, red, blue, green, pink)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/tonsky/FiraCode&#34;&gt;&lt;strong&gt;Fira Code&lt;/strong&gt;&lt;/a&gt; as default monospaced font. It&amp;rsquo;s gorgeous!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;realy nice, custom duotone&lt;/strong&gt; syntax highlighting based on &lt;a href=&#34;https://prismjs.com&#34;&gt;&lt;strong&gt;PrismJS&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;mobile friendly layout&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dark-kernel.web.app/sumit-patel.pdf&#34;&gt;Resume&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dark-kernel.web.app/index.xml&#34;&gt;RSS Feed&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;So, there you have it&amp;hellip; enjoy!&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;                                           |
-                                           |   ❯ echo $USER
-.........    Escape the &amp;#39;Gates&amp;#39; of Hell    |   sumit-patel
-  `:::&amp;#39;                  .......  ......   |  
-   :::  *                  `::.    ::&amp;#39;     |   ❯ uname -o
-   ::: .::  .:.::.  .:: .::  `::. :&amp;#39;       |   Arch Linux
-   :::  ::   ::  ::  ::  ::    :::.        |  
-   ::: .::. .::  ::.  `::::. .:&amp;#39;  ::.      |   ❯ whoami    
-...:::.....................::&amp;#39;   .::::..   |   DevOps | Developer | Backend | Student
-        -- William E. Roadcap              |
-                                           |   # Reach me out using... 
-                                           |   ❯ mail -s &amp;#34;Hello from..&amp;#34; sumitpatel24389@gmail.com
-                                           |
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;{{- partial &amp;ldquo;comments.html&amp;rdquo; . }}&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m a Linux enthusiast with a passion for open-source software and programming. I&amp;rsquo;m experienced in Shell scripting, C, C++, Java, Python, and Node.js, and have worked on web backend and mobile app development projects.
+In my free time, I explore DevOps, Cybersecurity &amp;amp; Linux topics. I excel in both independent and team work, have great communication skills, and love solving challenges. Let&amp;rsquo;s connect to discuss how I can contribute to your projects.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   ❯ echo $USER
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sumit-patel
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   ❯ uname -o
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      Arch Linux
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   ❯ whoami    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    DevOps | Developer | Backend | Student
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;# Reach me out using... &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   ❯ mail -s &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello from..&amp;#34;&lt;/span&gt; sumitpatel24389@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 </content>
     </item>
     
@@ -320,8 +328,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;984325716&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;984325716&#34;&gt;
+    &lt;input id=&#34;325198674&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;325198674&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

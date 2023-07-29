@@ -6,39 +6,47 @@ author = "Sumit Patel"
 
 # Hi there
 
-My name is Radek and I'm the author of this theme. I made it to help you present your ideas easier.
+My name is Sumit Patel
 
-We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
+- [Resume](/sumit-patel.pdf)
+- [RSS Feed](https://dark-kernel.web.app/index.xml)
 
-This theme is pretty basic and covers all of the essentials. All you have to do is start typing!
-
-The theme includes:
-
-- **5 duotone themes**, depending on your preferences (orange, red, blue, green, pink)
-- [**Fira Code**](https://github.com/tonsky/FiraCode) as default monospaced font. It's gorgeous!
-- **realy nice, custom duotone** syntax highlighting based on [**PrismJS**](https://prismjs.com)
-- mobile friendly layout
-
-So, there you have it... enjoy!
+I'm a Linux enthusiast with a passion for open-source software and programming. I'm experienced in Shell scripting, C, C++, Java, Python, and Node.js, and have worked on web backend and mobile app development projects. 
+In my free time, I explore DevOps, Cybersecurity & Linux topics. I excel in both independent and team work, have great communication skills, and love solving challenges. Let's connect to discuss how I can contribute to your projects.
 
 
+```bash
+   ❯ echo $USER
+    sumit-patel
+ 
+   ❯ uname -o
+      Arch Linux
+ 
+   ❯ whoami    
+    DevOps | Developer | Backend | Student
 
+   # Reach me out using... 
+   ❯ mail -s "Hello from.." sumitpatel24389@gmail.com
 
-```
-                                           |
-                                           |   ❯ echo $USER
-.........    Escape the 'Gates' of Hell    |   sumit-patel
-  `:::'                  .......  ......   |  
-   :::  *                  `::.    ::'     |   ❯ uname -o
-   ::: .::  .:.::.  .:: .::  `::. :'       |   Arch Linux
-   :::  ::   ::  ::  ::  ::    :::.        |  
-   ::: .::. .::  ::.  `::::. .:'  ::.      |   ❯ whoami    
-...:::.....................::'   .::::..   |   DevOps | Developer | Backend | Student
-        -- William E. Roadcap              |
-                                           |   # Reach me out using... 
-                                           |   ❯ mail -s "Hello from.." sumitpatel24389@gmail.com
-                                           |
 ```
 
 
-{{- partial "comments.html" . }}
+<!-- ``` -->
+
+<!--                                            | -->
+<!--                                            |   ❯ echo $USER -->
+<!-- .........    Escape the 'Gates' of Hell    |   sumit-patel -->
+<!--   `:::'                  .......  ......   | -->  
+<!--    :::  *                  `::.    ::'     |   ❯ uname -o -->
+<!--    ::: .::  .:.::.  .:: .::  `::. :'       |   Arch Linux -->
+<!--    :::  ::   ::  ::  ::  ::    :::.        | -->  
+<!--    ::: .::. .::  ::.  `::::. .:'  ::.      |   ❯ whoami -->    
+<!-- ...:::.....................::'   .::::..   |   DevOps | Developer | Backend | Student -->
+<!--         -- William E. Roadcap              | -->
+<!--                                            |   # Reach me out using... --> 
+<!--                                            |   ❯ mail -s "Hello from.." sumitpatel24389@gmail.com -->
+<!--                                            | -->
+<!-- ``` -->
+
+
+<!-- {{- partial "comments.html" . }} -->

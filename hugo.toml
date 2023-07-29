@@ -26,6 +26,7 @@ paginate = 5
   include_toc = true
   Toc = false
   show_comments = true 
+  favicon = "/profile.jpg"
 
 
 DisqusShortname = 'sumitpatel'
