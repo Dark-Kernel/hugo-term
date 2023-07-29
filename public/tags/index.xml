@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Sumit Patel</title>
-    <link>http://example.org/tags/</link>
+    <link>https://dark-kernel.web.app/tags/</link>
     <description>Recent content in Tags on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://dark-kernel.web.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>first</title>
-      <link>http://example.org/tags/first/</link>
+      <link>https://dark-kernel.web.app/tags/first/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/first/</guid>
+      <guid>https://dark-kernel.web.app/tags/first/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>hello</title>
-      <link>http://example.org/tags/hello/</link>
+      <link>https://dark-kernel.web.app/tags/hello/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/hello/</guid>
+      <guid>https://dark-kernel.web.app/tags/hello/</guid>
       <description></description>
       <content></content>
     </item>

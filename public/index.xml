@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>simet on Sumit Patel</title>
-    <link>http://example.org/</link>
+    <link>https://dark-kernel.web.app/</link>
     <description>Recent content in simet on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Jul 2023 16:21:22 +0000</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jul 2023 16:21:22 +0000</lastBuildDate><atom:link href="https://dark-kernel.web.app/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>http://example.org/about/</link>
+      <link>https://dark-kernel.web.app/about/</link>
       <pubDate>Thu, 27 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/about/</guid>
+      <guid>https://dark-kernel.web.app/about/</guid>
       <description>Hi there My name is Radek and I&amp;rsquo;m the author of this theme. I made it to help you present your ideas easier.
 We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
 This theme is pretty basic and covers all of the essentials. All you have to do is start typing!</description>
@@ -47,10 +47,10 @@ This theme is pretty basic and covers all of the essentials. All you have to do 
     
     <item>
       <title>Set custom HTML file as a new tab in Firefox</title>
-      <link>http://example.org/post/firefox-custom-new-tab-file/</link>
+      <link>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</link>
       <pubDate>Mon, 24 Jul 2023 16:21:22 +0000</pubDate>
       
-      <guid>http://example.org/post/firefox-custom-new-tab-file/</guid>
+      <guid>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</guid>
       <description>You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use StartTree and something like that. [&amp;ndash;more&amp;ndash;]
 We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy, This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig.</description>
       <content>&lt;p&gt;You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use &lt;a href=&#34;https://github.com/Paul-Houser/StartTree&#34;&gt;StartTree&lt;/a&gt; and something like that. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
@@ -106,10 +106,10 @@ pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
     
     <item>
       <title>Markdown test</title>
-      <link>http://example.org/post/markdown-test/</link>
+      <link>https://dark-kernel.web.app/post/markdown-test/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/markdown-test/</guid>
+      <guid>https://dark-kernel.web.app/post/markdown-test/</guid>
       <description>List item1 Item2 Bullet Block quote
 // your code here #!/bin/bash echo &amp;#34;Hello world&amp;#34; exit 0; Code block title css Really cool snippet pre { background: #1a1a1d; padding: 20px; border-radius: 8px; font-size: 1rem; overflow: auto; @media (--phone) { white-space: pre-wrap; word-wrap: break-word; } code { background: none !important; color: #ccc; padding: 0; font-size: inherit; } } bash Simple cool shell script #!/bin/bash echo &amp;#34;Hello World&amp;#34; exit 0; </description>
       <content>&lt;h3 id=&#34;list&#34;&gt;List&lt;/h3&gt;
@@ -167,8 +167,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;523749861&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;523749861&#34;&gt;
+    &lt;input id=&#34;163785492&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;163785492&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -190,10 +190,10 @@ exit 0;
     
     <item>
       <title>Welcome</title>
-      <link>http://example.org/post/first/</link>
+      <link>https://dark-kernel.web.app/post/first/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/first/</guid>
+      <guid>https://dark-kernel.web.app/post/first/</guid>
       <description>Hello </description>
       <content>&lt;h1 id=&#34;hello&#34;&gt;Hello&lt;/h1&gt;
 </content>

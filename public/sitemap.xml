@@ -2,28 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/about/</loc>
+    <loc>https://dark-kernel.web.app/about/</loc>
     <lastmod>2023-07-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/</loc>
+    <loc>https://dark-kernel.web.app/post/</loc>
     <lastmod>2023-07-24T16:21:22+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/post/firefox-custom-new-tab-file/</loc>
+    <loc>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</loc>
     <lastmod>2023-07-24T16:21:22+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/</loc>
+    <loc>https://dark-kernel.web.app/</loc>
     <lastmod>2023-07-24T16:21:22+00:00</lastmod>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://dark-kernel.web.app/categories/</loc>
   </url><url>
-    <loc>http://example.org/tags/first/</loc>
+    <loc>https://dark-kernel.web.app/tags/first/</loc>
   </url><url>
-    <loc>http://example.org/tags/hello/</loc>
+    <loc>https://dark-kernel.web.app/tags/hello/</loc>
   </url><url>
-    <loc>http://example.org/post/markdown-test/</loc>
+    <loc>https://dark-kernel.web.app/post/markdown-test/</loc>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://dark-kernel.web.app/tags/</loc>
   </url><url>
-    <loc>http://example.org/post/first/</loc>
+    <loc>https://dark-kernel.web.app/post/first/</loc>
   </url>
 </urlset>
