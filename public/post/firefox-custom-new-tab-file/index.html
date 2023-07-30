@@ -6,8 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use StartTree and something like that. [&amp;ndash;more&amp;ndash;]
-We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy, This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig." />
+<meta name="description" content="Setting up firefox custom new/home tab using pywal and starttree.py" />
 <meta name="keywords" content="" />
 
   <meta name="robots" content="noodp" />
@@ -43,8 +42,7 @@ We will be using AutoConfig, which is used to set and lock preferences that are 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Set custom HTML file as a new tab in Firefox">
-<meta property="og:description" content="You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use StartTree and something like that. [&amp;ndash;more&amp;ndash;]
-We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy, This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig." />
+<meta property="og:description" content="Setting up firefox custom new/home tab using pywal and starttree.py" />
 <meta property="og:url" content="https://dark-kernel.web.app/post/firefox-custom-new-tab-file/" />
 <meta property="og:site_name" content="Sumit Patel" />
 
@@ -146,13 +144,21 @@ We will be using AutoConfig, which is used to set and lock preferences that are 
   <div class="post-meta"><time class="post-date">2023-07-24</time><span class="post-author">Sumit Patel</span></div>
 
   
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/firefox/">Firefox</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/pywal/">Pywal</a>&nbsp;
+      
+    </span>
+  
   
 
 
   
 
   <div class="post-content"><div>
-        <p>You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use <a href="https://github.com/Paul-Houser/StartTree">StartTree</a> and something like that. [&ndash;more&ndash;]</p>
+        <p>You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use <a href="https://github.com/Paul-Houser/StartTree">StartTree</a> and something like that.</p>
 <p>We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy,
 This requires an autoconfig.js file in the &ldquo;defaults/pref&rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig.cfg.</p>
 <h3 id="steps">Steps:<a href="#steps" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
@@ -168,34 +174,66 @@ This requires an autoconfig.js file in the &ldquo;defaults/pref&rdquo; folder wh
 </li>
 <li>
 <p>Create autoconfig.cfg file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vim /usr/lib/firefox/autoconfig.cfg
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">h1</span>&gt;Hello&lt;/<span style="color:#f92672">hello</span>&gt;
+</span></span></code></pre></div><p>Paste this:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox"  />
+    <label for="1">
+      <span class="collapsable-code__language">JS</span>
+      <span class="collapsable-code__title">autoconfig.cfg</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-JS" ><code>
+    /* first line must be comment */
+    var {classes:Cc,interfaces:Ci,utils:Cu} = Components;
+
+    /* set new tab page */
+    try {
+      Cu.import(&#34;resource:///modules/AboutNewTab.jsm&#34;);
+      var newTabURL = &#34;file:///home/stroky/.cache/StartTree/index.html&#34;;
+      AboutNewTab.newTabURL = newTabURL;
+    } catch(e){Cu.reportError(e);} // report errors in the Browser Console
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>Then create autoconfig.js</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vim /usr/lib/firefox/defaults/pref/autoconfig.js
+</span></span></code></pre></div><p>Paste this:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="2" type="checkbox"  />
+    <label for="2">
+      <span class="collapsable-code__language">JS</span>
+      <span class="collapsable-code__title">autconfig.js</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-JS" ><code>
+    // *First line must be a comment*
+    pref(&#34;general.config.filename&#34;, &#34;autoconfig.cfg&#34;);
+    pref(&#34;general.config.obscure_value&#34;, 0);
+    pref(&#34;general.config.sandbox_enabled&#34;, false);
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>Quit the Firefox, and relaunch it.</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  sudo vim /usr/lib/firefox/autoconfig.cfg
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>  &lt;<span style="color:#f92672">h1</span>&gt;Hello&lt;/<span style="color:#f92672">hello</span>&gt;
-</span></span></code></pre></div><p>Paste this:</p>
-<pre tabindex="0"><code>//
-var {classes:Cc,interfaces:Ci,utils:Cu} = Components;
-
-/* set new tab page */
-try {
-  Cu.import(&#34;resource:///modules/AboutNewTab.jsm&#34;);
-  var newTabURL = &#34;file:///home/stroky/.cache/StartTree/index.html&#34;;
-  AboutNewTab.newTabURL = newTabURL;
-} catch(e){Cu.reportError(e);} // report errors in the Browser Console
-</code></pre><ol start="5">
-<li>Then create autoconfig.js</li>
-</ol>
-<pre tabindex="0"><code>sudo vim /usr/lib/firefox/defaults/pref/autoconfig.js
-</code></pre><p>Paste this:</p>
-<pre tabindex="0"><code>// *First line must be a comment*
-pref(&#34;general.config.filename&#34;, &#34;autoconfig.cfg&#34;);
-pref(&#34;general.config.obscure_value&#34;, 0);
-pref(&#34;general.config.sandbox_enabled&#34;, false);
-</code></pre><ol start="6">
-<li>Quit the Firefox, and relaunch it.</li>
-</ol>
-<p>And we are done.
- </p>
+<ul>
+<li>And we are done.</li>
+</ul>
+<p> </p>
 <hr>
 <p>Reference:
 <a href="https://support.mozilla.org/en-US/questions/1283835">Mozilla support</a> |
@@ -213,9 +251,9 @@ pref(&#34;general.config.sandbox_enabled&#34;, false);
     <div class="pagination__buttons">
         
         <span class="button previous">
-            <a href="https://dark-kernel.web.app/post/firefox-hardening/">
+            <a href="https://dark-kernel.web.app/post/decrypt-browser-pass/">
                 <span class="button__icon">←</span>
-                <span class="button__text">Firefox Hardening</span>
+                <span class="button__text">Decrypt firefox&#39;s &amp; chrome&#39;s  saved passwords</span>
             </a>
         </span>
         

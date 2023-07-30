@@ -2,17 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dark-kernel.web.app/tags/firefox/</loc>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
+  </url><url>
     <loc>https://dark-kernel.web.app/post/firefox-hardening/</loc>
-    <lastmod>2023-07-29T16:43:11+05:30</lastmod>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/linux/</loc>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/</loc>
-    <lastmod>2023-07-29T16:43:11+05:30</lastmod>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/</loc>
-    <lastmod>2023-07-29T16:43:11+05:30</lastmod>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/</loc>
+    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/chrome/</loc>
+    <lastmod>2023-07-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/decrypt-browser-pass/</loc>
+    <lastmod>2023-07-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/about/</loc>
     <lastmod>2023-07-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/pywal/</loc>
+    <lastmod>2023-07-24T16:21:22+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</loc>
     <lastmod>2023-07-24T16:21:22+00:00</lastmod>
@@ -24,8 +42,6 @@
     <loc>https://dark-kernel.web.app/tags/hello/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/post/markdown-test/</loc>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/post/first/</loc>
   </url>

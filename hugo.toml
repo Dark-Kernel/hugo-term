@@ -5,6 +5,9 @@ theme = 'terminal-theme'
 paginate = 5
 
 
+[author]
+    name = "My Name Here"
+
 
 [params]
   contentTypeName = "post"

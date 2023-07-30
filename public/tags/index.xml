@@ -5,26 +5,13 @@
     <link>https://dark-kernel.web.app/tags/</link>
     <description>Recent content in Tags on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://dark-kernel.web.app/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>first</title>
-      <link>https://dark-kernel.web.app/tags/first/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dark-kernel.web.app/tags/first/</guid>
-      <description></description>
-      <content></content>
-    </item>
+    <language>en</language>
+    <lastBuildDate>Sun, 30 Jul 2023 16:43:11 +0530</lastBuildDate>
     
-    <item>
-      <title>hello</title>
-      <link>https://dark-kernel.web.app/tags/hello/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dark-kernel.web.app/tags/hello/</guid>
-      <description></description>
-      <content></content>
-    </item>
+	<atom:link href="https://dark-kernel.web.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    
     
   </channel>
 </rss>
+
+

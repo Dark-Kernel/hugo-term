@@ -5,6 +5,12 @@
     <link>https://dark-kernel.web.app/categories/</link>
     <description>Recent content in Categories on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://dark-kernel.web.app/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    
+	<atom:link href="https://dark-kernel.web.app/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>
+
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome on Sumit Patel</title>
+    <link>https://dark-kernel.web.app/tags/chrome/</link>
+    <description>Recent content in Chrome on Sumit Patel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 29 Jul 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Decrypt firefox&#39;s &amp; chrome&#39;s  saved passwords</title>
+      <link>https://dark-kernel.web.app/post/decrypt-browser-pass/</link>
+      <pubDate>Sat, 29 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/decrypt-browser-pass/</guid>
+      <description>&lt;h2 id=&#34;firefox&#34;&gt;Firefox&lt;/h2&gt;
+&lt;p&gt;There are many tools available out there to decrypt firefox passwords, but we will using &lt;a href=&#34;https://github.com/unode/firefox_decrypt.git&#34;&gt;firefox_decrypt&lt;/a&gt; tool. Which is efficient and fast.&lt;/p&gt;
+&lt;p&gt;Steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First clone it to local system and &lt;code&gt;cd&lt;/code&gt; into it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/unode/firefox_decrypt.git 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd firefox_decrypt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Here we have our script &lt;code&gt;firefox_decrypt.py&lt;/code&gt;, execute it with &lt;code&gt;-h&lt;/code&gt; option to get help menu.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python firefox_decrypt.py -h
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Get all the available profiles using &lt;code&gt;-l&lt;/code&gt; option.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python firefox_decrypt.py -l 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Decrypt passwords, use any format like json, tabular, human, etc.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python firefox_decrypt.py -f tabular
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Select your profile number 1 / 2 / 3 &amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And voila, you have your passwords.&lt;/p&gt;
+&lt;h2 id=&#34;chrome&#34;&gt;Chrome&lt;/h2&gt;
+&lt;p&gt;There are tools too to decrypt google chrome&amp;rsquo;s password, and we will use &lt;a href=&#34;https://github.com/ohyicong/decrypt-chrome-passwords&#34;&gt;decrypt-chrome-passwords&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First clone the repository to local and &lt;code&gt;cd&lt;/code&gt; into it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/ohyicong/decrypt-chrome-passwords
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd decrypt-chrome-passwords
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install dependencies&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -r requirements.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Decrypt passwords using &lt;code&gt;decrypt_chrome_password.py&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python decrypt_chrome_password.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And now, we have all the credentials.&lt;/p&gt;
+&lt;h2 id=&#34;how-to-secure-your-passwords&#34;&gt;How to secure your passwords?&lt;/h2&gt;
+&lt;p&gt;We just saw how we can easily decrypt passwords from browser dumps, so now to avoid this kinds of thing we can secure our passwords using either ways&lt;/p&gt;
+&lt;h4 id=&#34;firefox-1&#34;&gt;Firefox&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Using extensions: Bitwarden, 1Password, Lastpass, etc.&lt;/li&gt;
+&lt;li&gt;Using Primary/Master under settings -&amp;gt;  Privacy &amp;amp; security -&amp;gt; Login &amp;amp; Passwords.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;chrome-1&#34;&gt;Chrome&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Using extensions same as firefox.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So that&amp;rsquo;s it.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+
