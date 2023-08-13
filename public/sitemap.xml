@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dark-kernel.web.app/tags/git/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/git/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/linux/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/</loc>
+    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://dark-kernel.web.app/tags/docker/</loc>
     <lastmod>2023-08-06T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,22 +29,10 @@
     <loc>https://dark-kernel.web.app/tags/networking/</loc>
     <lastmod>2023-08-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dark-kernel.web.app/post/</loc>
-    <lastmod>2023-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/</loc>
-    <lastmod>2023-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/</loc>
-    <lastmod>2023-08-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://dark-kernel.web.app/tags/firefox/</loc>
     <lastmod>2023-07-30T16:43:11+05:30</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/firefox-hardening/</loc>
-    <lastmod>2023-07-30T16:43:11+05:30</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/linux/</loc>
     <lastmod>2023-07-30T16:43:11+05:30</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/chrome/</loc>

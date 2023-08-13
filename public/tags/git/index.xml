@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on Sumit Patel</title>
+    <link>https://dark-kernel.web.app/tags/git/</link>
+    <description>Recent content in git on Sumit Patel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 13 Aug 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git concepts</title>
+      <link>https://dark-kernel.web.app/post/git/</link>
+      <pubDate>Sun, 13 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/git/</guid>
+      <description>&lt;h1 id=&#34;git&#34;&gt;Git&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Branching strategies&lt;/li&gt;
+&lt;li&gt;Vcs reset / revert&lt;/li&gt;
+&lt;li&gt;PR merge / branch merge&lt;/li&gt;
+&lt;li&gt;Merge vs rebase&lt;/li&gt;
+&lt;li&gt;Cherry pick&lt;/li&gt;
+&lt;li&gt;git stash&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;important-branches&#34;&gt;Important branches:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;master: The main stable branch.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;staging: For QA team, can be sent for production. Most of the time it is same as master.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;develop: From where developers get codes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;feature: To add any feature.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If passed =&amp;gt; develop ↓&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If passed =&amp;gt; staging ↓&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If passed =&amp;gt; master.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;branching-strategies&#34;&gt;Branching Strategies:&lt;/h3&gt;
+&lt;h4 id=&#34;small-team-strategy&#34;&gt;Small team strategy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use all important branches&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create features from develop/dev branch.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;develop ↴&lt;/p&gt;
+&lt;p&gt;→ feature1&lt;/p&gt;
+&lt;p&gt;→ feature2&lt;/p&gt;
+&lt;p&gt;→ feature3 &amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use hot fixes whenever needed, like for small bugs, can be done by team lead.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;big-team-strategy&#34;&gt;Big team strategy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There is change in branch name conventions like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;master -&amp;gt; prd&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;staging -&amp;gt; stg&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;develop -&amp;gt; dev&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use JIRA like software, to manage projects. Tasks are assigned as tickets and then status is changed according to progress.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Integrate JIRA with github&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;nbsp&#34;&gt; &lt;/h2&gt;
+&lt;h3 id=&#34;git-revert--reset&#34;&gt;Git Revert &amp;amp; Reset&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h5 id=&#34;git-revert&#34;&gt;git revert:&lt;/h5&gt;
+&lt;p&gt;Used to revert/undo a particular commit, It creates new commit of revert, and keeps original commit history.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Get commit id&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git log --oneline
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Revert&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git revert &amp;lt;commit-id&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h5 id=&#34;git-reset&#34;&gt;Git Reset:&lt;/h5&gt;
+&lt;p&gt;It is used to undo to a particular commit but, it removes all commits history after that commit. Mostly used in case like commited security credentials and want to remove it completely from commit history.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If we have following log:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;❯ git log --oneline
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;9210da8 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;HEAD -&amp;gt; dev&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; added git ignore
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;e803737 no keys now
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;de7aa15 Revert &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;added line 2&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;99c25e5 added line &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;25d7961 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;master&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; initial commit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;We want to reset &lt;code&gt;de7aa15&lt;/code&gt;, so we will have to use commitid of previous/below commit.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git reset 99c25e5
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;So after &lt;code&gt;99c25e5&lt;/code&gt; all commits will be deleted.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;git-merge&#34;&gt;Git Merge&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h5 id=&#34;branch-merge&#34;&gt;Branch Merge:&lt;/h5&gt;
+&lt;p&gt;Git merge is used for merging two branches.&lt;/p&gt;
+&lt;p&gt;Example,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You have added some features in dev branch.&lt;/li&gt;
+&lt;li&gt;It is passed by QA.&lt;/li&gt;
+&lt;li&gt;Now to add that feature to release, you need to merge that feature in main/master/production branch.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# first switch to branch in which you want to merge.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git checkout master
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Then merge&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git merge dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;There is something called &lt;code&gt;squash&lt;/code&gt; which is used to merge without commit history.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git merge dev --squash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;git-rebase&#34;&gt;Git rebase&lt;/h3&gt;
+&lt;p&gt;It Adds commit history of other branch/remote in linear/sequence way while merging.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difference:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Merge&lt;/th&gt;
+&lt;th&gt;Rebase&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Only HEAD commit is maintained while merging&lt;/td&gt;
+&lt;td&gt;Full commit history is maintained while merging in sequence&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;While pulling we can use rebase, to reconcile divergent branch.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git pull origin master --rebase
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Rebase a particular branch.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git rebase master
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;cherry-pick&#34;&gt;Cherry pick&lt;/h3&gt;
+&lt;p&gt;Pick a particular commit from any branch and apply to master or any other branch.
+In simple words apply that particular commit to current branch.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git cherry-pick &amp;lt;commit-id&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;git-stash&#34;&gt;Git stash&lt;/h3&gt;
+&lt;p&gt;Using this your current work is stored somewhere, not commited but tracked by git which can be loaded anytime. This is something where you can store your partial changes and commit later on.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Stash&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git stash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Apply stash to working dir&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git stash pop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List stashs&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git stash list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Apply a particular stash&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git stash apply stash@&amp;lt;list-number&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;So, that&amp;rsquo;s it.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+
