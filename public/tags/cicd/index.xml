@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CICD on Sumit Patel</title>
+    <link>https://dark-kernel.web.app/tags/cicd/</link>
+    <description>Recent content in CICD on Sumit Patel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Aug 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/cicd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jenkins</title>
+      <link>https://dark-kernel.web.app/post/jenkins/</link>
+      <pubDate>Sun, 20 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/jenkins/</guid>
+      <description>&lt;p&gt;We will learn,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jenkins basics.&lt;/li&gt;
+&lt;li&gt;How to create simple pipline.&lt;/li&gt;
+&lt;li&gt;How to create Declarative pipeline.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Jenkins is an open source automation server. It helps automate the parts of software development related to building, testing, and deploying, facilitating continuous integration and continuous delivery.
+In simple it is tool for CICD, we can create CICD pipelines using it.&lt;/p&gt;
+&lt;h3 id=&#34;cicd&#34;&gt;CICD&lt;/h3&gt;
+&lt;p&gt;build -&amp;gt; test -&amp;gt; deployment&lt;/p&gt;
+&lt;p&gt;Continuous: No break and rapid development.&lt;/p&gt;
+&lt;p&gt;Continuous integration (CI): To integrate code and it should build and test.&lt;/p&gt;
+&lt;p&gt;Continuos delivery/deployment: automated deployment, delpoyment is when there is change. Delivery is manual when we want.&lt;/p&gt;
+&lt;h3 id=&#34;continuous-integration-continuos-deployment-cicd-pipeline&#34;&gt;Continuous integration Continuos deployment (CI/CD) pipeline:&lt;/h3&gt;
+&lt;p&gt;This is how it works:&lt;/p&gt;
+&lt;p&gt;-&amp;gt; Get the code from Github&lt;/p&gt;
+&lt;p&gt;-&amp;gt; build the code&lt;/p&gt;
+&lt;p&gt;-&amp;gt; test the code&lt;/p&gt;
+&lt;p&gt;-&amp;gt; Create image out of it&lt;/p&gt;
+&lt;p&gt;-&amp;gt; maintain versioning&lt;/p&gt;
+&lt;p&gt;-&amp;gt; push to dockerhub registry&lt;/p&gt;
+&lt;p&gt;-&amp;gt; Deploy on AWS/server.&lt;/p&gt;
+&lt;p&gt;You can do this using jenkins, and it&amp;rsquo;s called jenkins pipeline.&lt;/p&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create aws instance&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install dependencies&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt upgrade -y &lt;span style=&#34;color:#ae81ff&#34;&gt;\\&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt install docker.io docker-compose fontconfig openjdk-17-jre -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the keys &amp;amp; repo&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc &amp;gt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo deb &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;signed-by&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/usr/share/keyrings/jenkins-keyring.asc&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;     https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list &amp;gt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install jenkins -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add jenkins &amp;amp; current user to docker group&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG docker jenkins
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG docker $USER
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;newgrp docker &lt;span style=&#34;color:#75715e&#34;&gt;# reloads the group changes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Get the initial password&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now, installation is done visit your public/local &lt;code&gt;IP&lt;/code&gt; and complete setup.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;creating-simple-pipeline-jobs&#34;&gt;Creating simple pipeline (jobs)&lt;/h3&gt;
+&lt;p&gt;A Jenkins job is a sequential set of tasks that a user defines. It represents a specific unit of work, such as building a software project, running tests, deploying applications, or performing any other automated task.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First, click on &lt;code&gt;create job&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, here we have multiple options we can create &lt;code&gt;freestyle&lt;/code&gt;, &lt;code&gt;pipeline&lt;/code&gt; or any other type of project. we will see &lt;code&gt;freestyle&lt;/code&gt; first.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can write description and select &lt;code&gt;github project&lt;/code&gt; if you are using it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Select &lt;code&gt;git&lt;/code&gt; in &lt;strong&gt;source code management option&lt;/strong&gt;, and enter the repo url also credentials if it is private repo. (select branch also)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next, set build triggers, you can do remotely, periodically, with github wehooks or any other way.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;If you want your jenkins to start build whenever there is a push/commit in repo, then you can check &lt;code&gt;GitHub hook trigger for GITScm polling&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Now you need to setup github webhook, visit github repo.&lt;/li&gt;
+&lt;li&gt;Go to -&amp;gt; settings -&amp;gt; webhooks -&amp;gt; add webhook&lt;/li&gt;
+&lt;li&gt;Enter jenkins url and append &lt;code&gt;github-webhook/&lt;/code&gt;, it should be accessible publicly.
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-url&#34; data-lang=&#34;url&#34;&gt;http://89.304.53.2:8080/github-webhook/
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;Set the event, save and wait for github&amp;rsquo;s ping test.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Triggers: it is some action, when it is performed the pipeline will be started.
+build periodically: Schedule using cron.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now configure build step. and save.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello world&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# your build code here.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker build . -t myapp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d -t -p 8000:8000 myapp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And now you pipeline is ready, Now whenever you will commit or push to that repo jenkins will start the build process and all steps you want.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;declarative-pipeline&#34;&gt;Declarative pipeline&lt;/h3&gt;
+&lt;p&gt;Declarative pipeline can be explained like &amp;lsquo;pipeline as a code&amp;rsquo;, we can write script to build, test, push, and deploy the project; we can make the use of Environment variables and other features. &lt;strong&gt;Groovy&lt;/strong&gt; language is used to write jenkins declarative pipeline.&lt;/p&gt;
+&lt;p&gt;This is a skeleton or syntax of declarative pipeline&amp;rsquo;s groovy script:&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;1&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;1&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;Skeleton of Jenkins Declarative pipeline script&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-groovy&#34; &gt;&lt;code&gt;
+pipeline {
+    agent any
+    stages {
+        stage(&amp;#34;Code&amp;#34;){
+            steps{
+                
+            }
+        }
+        stage(&amp;#34;Build &amp;amp; test&amp;#34;){
+            steps{
+                
+            }
+        }
+        stage(&amp;#34;Push to repo&amp;#34;){
+            steps{
+                
+            }
+        }
+        stage(&amp;#34;Deploy&amp;#34;){
+            steps{
+                
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Stage: The stage/part where a particular task will be performed, like build or deployment, etc.&lt;/li&gt;
+&lt;li&gt;steps: The commands of task to perform for that stage, like &lt;code&gt;git clone&lt;/code&gt;, &lt;code&gt;docker build&lt;/code&gt;, etc&lt;/li&gt;
+&lt;li&gt;agent: Agent specifiy where the entire pipeline will be execute, or a particular stage, like in &lt;code&gt;any&lt;/code&gt; , or in docker, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;steps&#34;&gt;Steps&lt;/h4&gt;
+&lt;p&gt;Let&amp;rsquo;s create it.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Click on new item, select &lt;code&gt;pipeline&lt;/code&gt; as project type and enter your project name.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the github url if it is on it, and configure other option accordingly&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the trigger to &lt;code&gt;GitHub hook trigger for GITScm polling&lt;/code&gt; If you want to use github webhook and automatic pipeline triggering.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, here the main part is pipeline. you can check some script sample by clicking on &lt;code&gt;try scripts&lt;/code&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First write the skeleton.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, enter the commands of code cloning, build, push, deploy, etc.&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;216843957&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;216843957&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-groovy&#34; &gt;&lt;code&gt;
+pipeline {
+    agent any
+    stages {
+        stage(&amp;#34;Code&amp;#34;){
+            steps{
+                git url: &amp;#34;https://github.com/Dark-Kernel/node-todo-cicd.git&amp;#34;, branch: &amp;#34;master&amp;#34;
+                echo &amp;#34;Cloned code successfully.&amp;#34;
+            }
+        }
+        stage(&amp;#34;Build &amp;amp; test&amp;#34;){
+            steps{
+                sh &amp;#34;docker build . -t node-todo-cicd&amp;#34;
+                echo &amp;#34;Docker build done&amp;#34;
+            }
+        }
+        stage(&amp;#34;Push to repo&amp;#34;){
+            steps{
+                withCredentials([usernamePassword(credentialsId:&amp;#34;dockerhubid&amp;#34;, passwordVariable:&amp;#34;dockerhubidPass&amp;#34;, usernameVariable:&amp;#34;dockerhubidUser&amp;#34;)]){
+                    sh &amp;#34;docker login -u ${env.dockerhubidUser} -p ${env.dockerhubidPass}&amp;#34;
+                    sh &amp;#34;docker tag node-todo-cicd ${env.dockerhubidUser}/node-todo-cicd:latest&amp;#34;
+                    sh &amp;#34;docker push ${env.dockerhubidUser}/node-todo-cicd:latest&amp;#34;
+                }
+                echo &amp;#34;Pushed to docker hub registry&amp;#34;
+                
+            }
+        }
+        stage(&amp;#34;Deploy&amp;#34;){
+            steps{
+                sh &amp;#34;docker-compose up -d&amp;#34;
+                echo &amp;#34;Deployed to ec2&amp;#34;
+            }
+        }
+    }
+}
+        &lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;p&gt;It goes like:&lt;/p&gt;
+&lt;p&gt;=&amp;gt; clone the code&lt;/p&gt;
+&lt;p&gt;=&amp;gt; build &amp;amp; test using Dockerfile&lt;/p&gt;
+&lt;p&gt;=&amp;gt; Login to registry -&amp;gt; tag image -&amp;gt; Push image to docker hub or any other registry&lt;/p&gt;
+&lt;p&gt;=&amp;gt; Finally, deploy (execute) it .&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To login into registry we need username and password, so don&amp;rsquo;t enter your credentials directly in script, use &lt;code&gt;Environment variables&lt;/code&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go to -&amp;gt; Dashboard -&amp;gt; manage jenkins -&amp;gt; credentials -&amp;gt; system -&amp;gt; global credentials -&amp;gt; Add credentials.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set type to accordingly, in this case it is &lt;code&gt;username with password&lt;/code&gt;, set the scope.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, enter username and password, provide unique id, because we will use &lt;code&gt;id&lt;/code&gt; to access our credentials.&lt;/p&gt;
+&lt;p&gt;credentials can used by id like for username: &lt;code&gt;id+User&lt;/code&gt; password: &lt;code&gt;id+Pass&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ex. id is &lt;code&gt;myid&lt;/code&gt; then, username: myidUser, password: myidPass&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To use it in file, enclose it with &lt;code&gt;${env.}&lt;/code&gt; Ex. &lt;code&gt;${env.myidUser}&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, save it and our pipeline is ready, you can setup github webhook by adding url as explained in above step.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&#34;instead-of-writting-script-in-jenkins-you-can-pass-it-with-the-source-code-it-self&#34;&gt;Instead of writting script in jenkins, you can pass it with the source code it self.&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;You can create a &lt;code&gt;Jenkinsfile&lt;/code&gt; and write your script inside it.&lt;/li&gt;
+&lt;li&gt;Select definition to &lt;code&gt;Pipeline script from SCM&lt;/code&gt;, select &lt;code&gt;SCM&lt;/code&gt; as &lt;code&gt;Git&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Enter the url of repo, select branch, give script path and save.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Jenkins file:&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;386452719&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;386452719&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-groovy&#34; &gt;&lt;code&gt;
+pipeline {
+    agent any
+    stages {
+        stage(&amp;#34;Code&amp;#34;){
+            steps{
+                git url: &amp;#34;https://github.com/Dark-Kernel/node-api.git&amp;#34;, branch: &amp;#34;master&amp;#34;
+            }
+        }
+        stage(&amp;#34;Build &amp;amp; test&amp;#34;){
+            steps{
+                sh &amp;#34;docker build . -t node-api&amp;#34;
+            }
+        }
+        stage(&amp;#34;Push to repo&amp;#34;){
+            steps{
+                withCredentials([usernamePassword(credentialsId:&amp;#34;dockerhubid&amp;#34;, passwordVariable:&amp;#34;dockerhubidPass&amp;#34;, usernameVariable:&amp;#34;dockerhubidUser&amp;#34;)]){
+                    sh &amp;#34;docker login -u ${env.dockerhubidUser} -p ${env.dockerhubidPass}&amp;#34;
+                    sh &amp;#34;docker tag node-api ${env.dockerhubidUser}/node-api:latest&amp;#34;
+                    sh &amp;#34;docker push ${env.dockerhubidUser}/node-api:latest&amp;#34;
+                }
+                echo &amp;#34;Pushed to docker hub registry&amp;#34;
+                
+            }
+        }
+        stage(&amp;#34;Deploy&amp;#34;){
+            steps{
+                sh &amp;#34;docker-compose down &amp;amp;&amp;amp; docker-compose up -d&amp;#34;
+                echo &amp;#34;Deployed to ec2&amp;#34;
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;p&gt;So, that&amp;rsquo;s it.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+
