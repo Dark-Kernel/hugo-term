@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Sumit Patel</title>
+    <link>https://dark-kernel.web.app/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Sumit Patel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 27 Aug 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kubernetes Ahoy   - Start Steering Your Container Ship</title>
+      <link>https://dark-kernel.web.app/post/kubernetes-start/</link>
+      <pubDate>Sun, 27 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/kubernetes-start/</guid>
+      <description>&lt;p&gt;We will learn,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Kubernetes Architecture&lt;/li&gt;
+&lt;li&gt;Deployment of first cluster.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;kubernetes&#34;&gt;Kubernetes&lt;/h1&gt;
+&lt;p&gt;Kubernetes, also known as K8s, is an open-source container orchestration platform system for automating deployment, scaling, and management of containerized applications.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key Features&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Auto scaling (Scale according to traffic)&lt;/li&gt;
+&lt;li&gt;Auto healing (Ex. Even if we kill one container, It will maintain the no. of container and will create new one.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;application-architectures&#34;&gt;Application Architectures&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h6 id=&#34;monolithic&#34;&gt;Monolithic:&lt;/h6&gt;
+&lt;p&gt;It is Solo / single structure, Whole Application Architecture on single codebase and runtime environment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disadvantage&lt;/strong&gt;: If you want to change something in a part then your whole application will be affected.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h6 id=&#34;microservice&#34;&gt;Microservice:&lt;/h6&gt;
+&lt;p&gt;Single application is deployed as different microservices like, frontend, backend, DB, etc. Use different services, All services are interconnected, if you want to change in some service you can change and no need to stop whole application and neither it will affected.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt; : Kubernetes, openshift, serverless.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;kubernetes-architecture&#34;&gt;Kubernetes Architecture&lt;/h3&gt;
+&lt;p&gt;Kubernetes is consists of two nodes master &amp;amp; worker, Nodes are the physical or virtual machines that are used to run pods.&lt;/p&gt;
+&lt;p&gt;There can be only one master and multiple worker nodes.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;https://dark-kernel.web.app/kubernetes-architecture.png&#34;  alt=&#34;Kubernetes architecture&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+      &lt;figcaption class=&#34;right&#34;  style=&#34;color: black;&#34; &gt;Kubernetes architecture&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h5 id=&#34;master-control-plane&#34;&gt;Master: (Control plane)&lt;/h5&gt;
+&lt;p&gt;Master node often reffered to as control plane and responsible for managing and orchestrating the overall operations of the system, It serves as central control point of cluster. It interact with worker node to deploy pods.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cluster is a group of servers. In kubernetes it refers to entire set of computing resources and components that collectively make up a Kubernetes environment, like Pods, worker node, master node, services, etc.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Components&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Schedhuler: schedule worker node for running pods.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Controller manager: The main function is to maintain desired state of cluster. Checks what the workers are doing and they are up.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;API server: Directly communicated with worker from master and vice versa.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;etcd: Store state of kubernetes cluster in key-value data store.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kubectl: Kubectl is a command-line tool used to communicate with a Kubernetes cluster&amp;rsquo;s control plane using the API server. Allows to run commands to deploy application, inspect and manage resources.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CNI: Container network interface.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pod: This host and manage our containers that run our application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h5 id=&#34;worker-machine-which-runs-containers-and-workloads-this-is-where-the-actual-application-is-running&#34;&gt;Worker: Machine which runs containers and workloads. This is where the actual application is running.&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Components&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;kubelet: Stay in worker node, Manage containers and ensures they&amp;rsquo;re running as expected. It communicates with the API server to receive information about the pods that are assigned to the node.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;service proxy : It maintains some network rules which determines how traffic is allowed to and from the Pods. It also Allow users/clients to access application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&#34;now-lets-run&#34;&gt;Now, Let&amp;rsquo;s run.&lt;/h5&gt;
+&lt;p&gt;Required tools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Minikube: Used to create local cluster, works in single server using virtualiztion (docker, vmware, virtualboxdocker, vmware, virtualbox).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;kubeadm: Used in production servers. &lt;strong&gt;(We will be using this)&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CRI: Container runtime interface. (Docker, podman, etc.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Servers: 2 machines, with at least 2G of ram and 2 cpu. (you can use t2.medium if you are using AWS)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;After creating servers execute commands according on master and worker:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install Dependencies  &lt;em&gt;# Execute On both the nodes (master and worker)&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install -y apt-transport-https ca-certificates curl
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install docker.io -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable --now docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install kubeadm  &lt;em&gt;# Execute On both the nodes (master and worker)&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://packages.cloud.google.com/apt/doc/apt-key.gpg&amp;#34;&lt;/span&gt; | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;deb https://packages.cloud.google.com/apt kubernetes-xenial main&amp;#39;&lt;/span&gt; | sudo tee /etc/apt/sources.list.d/kubernetes.list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install kubeadm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1.20.0-00 kubectl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1.20.0-00 kubelet&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1.20.0-00 -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, initialize kubeadm (kubernetes) in Master node.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo kudeadm init
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setup local kubeconfig  &lt;em&gt;# Execute on master node.&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p $HOME/.kube
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chown &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;id -u&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;:&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;id -g&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt; $HOME/.kube/config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Apply weave network   &lt;em&gt;# On master&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Generate token for worker node to join  &lt;em&gt;# On master&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo kubeadm token create --print-join-command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, copy the output and we will use it in worker node.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reset the kubeadm on worker node&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo kubeadm reset pre-flight checks
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, paste the token (output) of 6th step, also append &lt;code&gt;--v=5&lt;/code&gt; at end.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo kubeadm join 172.31.61.228:6443 --token f4mesu.7rzk86ga48n3uydh --discovery-token-ca-cert-hash sha256:66c9863913ffdb50316e82b74f3703f73e42c4210d3a01ec7afcdbc01f677eec --v&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After successful connection you will see output similar to this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-output&#34; data-lang=&#34;output&#34;&gt;This node has joined the cluster:
+  * Certificate signing request was sent to apiserver and a response was received. 
+  * The kubelet was informed of the new secure connection details.
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify you worker node connection by running this command on Master node.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl get nodes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can now run test application on pod. &lt;em&gt;# On master&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl run hello-world-pod --image&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;busybox --restart&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;Never --command -- sh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;echo &amp;#39;Hello, World&amp;#39; &amp;amp;&amp;amp; sleep 3600&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And verify using &lt;code&gt;docker ps -a&lt;/code&gt; command on worker node.&lt;/p&gt;
+&lt;p&gt;You can even run nginx image&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubetctl run nginx --image&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;nginx 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check if pod is created in worker node:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl get pod
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So, that&amp;rsquo;s it for getting started.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

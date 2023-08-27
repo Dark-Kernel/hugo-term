@@ -64,3 +64,7 @@ exit 0;
 
 {{< disqus >}}
 
+![image](/kubernetes-architecture.png)
+
+{{< image src="/kubernetes-architecture.png" alt="Hello Friend" position="center" style="border-radius: 10px;" >}}
+
