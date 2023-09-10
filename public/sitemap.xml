@@ -3,21 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dark-kernel.web.app/tags/containers/</loc>
-    <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/kubernetes/</loc>
-    <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dark-kernel.web.app/post/kubernetes-start/</loc>
-    <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/post/kubernetes-adv/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/persistentvolumes/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/</loc>
-    <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/</loc>
-    <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/kubernetes-start/</loc>
     <lastmod>2023-08-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/cicd/</loc>

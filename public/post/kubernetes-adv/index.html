@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Kubernetes Voyage: Advanced Ship Steering :: Sumit Patel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Let&#39;s get hands on with advanced topics." />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/post/kubernetes-adv/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Kubernetes Voyage: Advanced Ship Steering">
+<meta property="og:description" content="Let&#39;s get hands on with advanced topics." />
+<meta property="og:url" content="https://dark-kernel.web.app/post/kubernetes-adv/" />
+<meta property="og:site_name" content="Sumit Patel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-09-10 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/post/kubernetes-adv/">Kubernetes Voyage: Advanced Ship Steering</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-09-10</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/kubernetes/">Kubernetes</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/containers/">containers</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/persistentvolumes/">persistentVolumes</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <!-- raw HTML omitted -->
+<p>We will learn</p>
+<ul>
+<li>pods vs container</li>
+<li>Deployments</li>
+<li>Services</li>
+<li>Auto-healing concept</li>
+<li>config maps &amp; secrets</li>
+<li>persistent volume</li>
+</ul>
+<p> </p>
+<p>Let&rsquo;s get started.</p>
+<h3 id="pods-vs-containers">Pods vs Containers<a href="#pods-vs-containers" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<table>
+<thead>
+<tr>
+<th>Pods</th>
+<th>Container</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit of conainers</td>
+<td>Single container by containerization tool.</td>
+</tr>
+<tr>
+<td>Contains one or more Conainers</td>
+<td>Only single container</td>
+</tr>
+<tr>
+<td>Crashed free</td>
+<td>Can be crashed if some error occurs</td>
+</tr>
+<tr>
+<td>Can be Scheduled</td>
+<td>Can&rsquo;t be scheduled</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<hr>
+<h3 id="configuration-file">Configuration file<a href="#configuration-file" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>To create pods we have to use a configuration file in <code>YAML</code>, which is also called <code>manifest</code> in k8s</p>
+<p>We need manifest file for almost everything in kubernetes.</p>
+<ul>
+<li>
+<p>Kind:</p>
+<p>To create maifest file for a paritcular service we have to define a <code>kind</code> keyword. <code>kind</code> defines what type of manifest file is, like for Pods, Service or Deployment, etc.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:   <span style="color:#75715e"># Extra data. # object</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx </span> <span style="color:#75715e"># Any name can be used.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:1.14.2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Namespace:</p>
+<p>logical entity allow you to isolate your resources, like pods, volumne, deploymnets, etc.
+You can create multiple namaspcae for different resources, it is a type of group.</p>
+<blockquote>
+<p>Default name space is already present, and everything is created under it until you specify any other namespace in manifest.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create namespace nginx
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get namespace
+</span></span></code></pre></div><p>Example:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox"  />
+    <label for="1">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">Pod.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: Pod
+metadata:   # Extra data. # object
+  name: nginx  # Any name can be used.
+  namespace: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports: # If you don&#39;t  specify then also it will assume.
+    - containerPort: 80
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>To apply the manifest file to your cluster command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f pod.yml
+</span></span></code></pre></div><p>This will send request to api server, then it will to scheduler (resposnisble fo managing pods) and then it send back to api server and then configuration will be stored.</p>
+</li>
+<li>
+<p>To fetch the pods information from master we can use the below command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get pods -n nginx
+</span></span></code></pre></div><p><code>-n</code>: namespace, by default it only looks for resources in to default namespace.</p>
+</li>
+</ul>
+<p> </p>
+<hr>
+<h3 id="deployment">Deployment<a href="#deployment" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Deployment is a desired state.
+It is also written in manifest file and <code>kind</code> will be set to <code>Deployment</code>. It is used to create replicaset of templates,
+It is a configuration of pods. It is a desired(required) state of your pods. You can also provide some data in pods while deployment using this manifest.</p>
+<p>Example:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="813749625" type="checkbox"  />
+    <label for="813749625">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">deployment.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:  # select all nginx labels
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+ </code></pre>
+  </div>
+
+
+<ul>
+<li><code>replicas</code>: Number of pods clone / replications</li>
+<li><code>labels</code>: Configuration is for, name of the replica.</li>
+</ul>
+<p>Actions:</p>
+<ol>
+<li>
+<p>Apply the deployment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f deployment.yml 
+</span></span></code></pre></div></li>
+<li>
+<p>Get the nodes with more wider output.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get nodes -n nginx -o wide
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME               STATUS   ROLES                  AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION   CONTAINER-RUNTIME      
+ip-172-31-55-54    Ready    &lt;none&gt;                 4d23h   v1.20.0   172.31.55.54    &lt;none&gt;        Ubuntu 22.04.3 LTS   6.2.0-1011-aws   docker://24.0.5        
+ip-172-31-57-166   Ready    control-plane,master   5d      v1.20.0   172.31.57.166   &lt;none&gt;        Ubuntu 22.04.3 LTS   6.2.0-1011-aws   docker://24.0.5
+</code></pre></li>
+<li>
+<p>Get your deployment status.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get deployment -n nginx
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME               READY   UP-TO-DATE   AVAILABLE   AGE                                        │
+nginx-deployment   3/3     3            3           23m
+</code></pre></li>
+<li>
+<p>Get detail information about your deployment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl describe deployment 
+</span></span></code></pre></div></li>
+<li>
+<p>Apply Rolling update to deployment like scaling:  # No need to edit the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl scale deployment nginx-deployment --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> -n nginx
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">deployment.apps/nginx-deployment scaled
+</code></pre></li>
+<li>
+<p>You can even Rollback if you made any mistake.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl rollout undo deployment/nginx-deployment
+</span></span></code></pre></div></li>
+</ol>
+<p> </p>
+<hr>
+<h3 id="services">Services<a href="#services" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>It is method used to allow outside world to access application instance running in pods deployment, some sort of proxy.</p>
+<p>In our example, nginx is running but not accessible because we haven&rsquo;t applied any service yet.</p>
+<p>Example:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="719236584" type="checkbox"  />
+    <label for="719236584">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">service.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - protocol: TCP
+      port: 80 # containers port
+      targetPort: 9376  # service&#39;s port to map with.
+</code></pre>
+  </div>
+
+
+<h5 id="services-are-of-3-types">Services are of 3 types:<a href="#services-are-of-3-types" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<ol>
+<li>
+<p><strong>NodePort</strong>:</p>
+<p>It act as a node machine, this maps the deployment&rsquo;s port to serivce&rsquo;s port.</p>
+<p>We have to provide 3 ports:</p>
+<ul>
+<li><code>port</code>: Port of application running in pods, (80 incase of nginx).</li>
+<li><code>targetPort</code>: Service port, to map pods port with Service port. (incoming)</li>
+<li><code>nodePort</code>: Outgoing port, which is actual accessible port. ( ranges [30000 - 32627])</li>
+</ul>
+<p>Example:</p>
+<p>This service file will provide the access to users for our application which is nginx in this case.</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="925713648" type="checkbox"  />
+    <label for="925713648">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">service.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1                                                                                 
+kind: Service                                                                                  
+metadata:                                                                                      
+  name: my-service                                                                             
+  namespace: webserverss                                                                       
+spec:                                                                                          
+  selector:                                                                                    
+    app: nginx                                                                                 
+  type: NodePort                                                                               
+  ports:                                                                                       
+    - protocol: TCP                                                                            
+      port: 80                                                                                 
+      targetPort: 80                                                                           
+      nodePort: 30004
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>Cluster IP:</p>
+<p>It Exposes the Service on a cluster-internal IP, Making the Service only reachable from within the cluster not outside, And this is used by default.</p>
+</li>
+<li>
+<p>Load balancer:</p>
+<p>It Exposes the Service externally using an external load balancer. Kubernetes does not offer a load balancing component; you have provide one, or you can integrate your cluster with a cloud provider like AWS.</p>
+</li>
+</ol>
+<p>We, will use NodePort which will allow us to access out nginx outside the cluster.</p>
+<ul>
+<li>
+<p>Apply the service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f serivce.yml
+</span></span></code></pre></div></li>
+<li>
+<p>List your Services.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get services -n webserverss
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME         TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE                       │
+my-service   NodePort   10.104.86.172   &lt;none&gt;        80:30004/TCP   15s
+</code></pre></li>
+</ul>
+<p> </p>
+<hr>
+<h3 id="auto-healing">Auto healing.<a href="#auto-healing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Now, our pods are running and our application is also accessible by the user. But, what if we delete one of the pod or container?</p>
+<p>Well, let&rsquo;s do it.</p>
+<ol>
+<li>
+<p>First get list of your pods.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get pods -n webserverss <span style="color:#75715e"># replace with your namespace</span>
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME                                READY   STATUS    RESTARTS   AGE                           
+nginx                               1/1     Running   1          17m                         
+nginx-deployment-66b6c48dd5-2299p   1/1     Running   1          16m                         
+nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
+</code></pre></li>
+<li>
+<p>And now delete one pod.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl delete pod nginx-deployment-66b6c48dd5-2299p -n webserverss
+</span></span></code></pre></div><p>Now, we have deleted one pod, let&rsquo;s check the status of pods.</p>
+<pre tabindex="0"><code class="language-output" data-lang="output">NAME                                READY   STATUS    RESTARTS   AGE                         
+nginx                               1/1     Running   1          17m                         
+nginx-deployment-66b6c48dd5-tlq9v   1/1     Running   0          8s                            
+nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
+</code></pre><p>You saw that right? The <code>Age</code> of second pod is <code>8s</code>.</p>
+<p>Yes, that 2nd pod got created after we deleted one, And this is what we call <strong>Auto Healing</strong>.</p>
+</li>
+<li>
+<p>Anyway, If you want to delete you particular depolyment or manfiest configuration use this syntax:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl delete -f pod.yml <span style="color:#75715e"># your manifest.yml file</span>
+</span></span></code></pre></div></li>
+</ol>
+<p> </p>
+<hr>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="secrets--config-map">Secrets &amp; config map<a href="#secrets--config-map" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>In k8s, we can&rsquo;t pass environment variables through kubectl at runtime. Therefore we use secret &amp; config map file.</p>
+<ul>
+<li>
+<p><strong>Config map</strong>:</p>
+<p>It is a Special kind of manifest file, if you deployment needs particular variable then you can declare that in this manifest file. All variables are passed to all pods. In manifest set kind to <code>kind: ConfigMap</code> to create a config map. It pass data as plain texts.</p>
+</li>
+<li>
+<p><strong>Secrets</strong>:</p>
+<p>It is a type of config which contains credentials (passwords), advantage is you can pass encoded password and it will be decrypted in pods. In manifest set kind to <code>kind: secrets</code> to create secrets.</p>
+</li>
+</ul>
+<p>Example:</p>
+<ol>
+<li>
+<p>Setup servers</p>
+</li>
+<li>
+<p>Create deployment manifest.</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="853196742" type="checkbox"  />
+    <label for="853196742">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">deployment.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: apps/v1                                                                               
+kind: Deployment                                                                                  
+metadata:                                                                                         
+  name: mysql-deplyment                                                                           
+  namespace: mysql                                                                                
+  labels:                                                                                         
+    app: mysql                                                                                    
+spec:                                                                                             
+  replicas: 1                                                                                     
+  selector:                                                                                       
+    matchLabels:                                                                                  
+      app: mysql                                                                                  
+  selector:                                                                                       
+    matchLabels:                                                                                  
+      app: nginx-2                                                                                
+  template:                                                                                       
+    metadata:                                                                                     
+      labels:                                                                                     
+        app: nginx-2                                                                              
+    spec:                                                                                         
+      containers:                                                                                 
+        - name: mysql                                                                             
+          image: mysql                                                                          
+          ports:                                                                                  
+            - containerPort: 3306                                                                 
+          env:                                                                                    
+            - name: MYSQL_DATABASE                                                                
+              valueFrom:                                                                          
+                configMapKeyRef:                                                                  
+                  name: mysql-config                                                              
+                  key: MYSQL_DATABASE                                                             
+              name: MYSQL_ROOT_PASSWORD                                                           
+              valueFrom:                                                                          
+                secretKeyRef:                                                                     
+                  name: mysql-secret                                                              
+                  key: MYSQL_PASSWORD 
+
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>You can rectify errors using dry run, it doesn&rsquo;t apply the changes only show what will be happen if applied:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f deployment.yml --dry-run
+</span></span></code></pre></div></li>
+<li>
+<p>Create defined namespace:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kuebctl create namespace mysql
+</span></span></code></pre></div></li>
+</ol>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ol start="5">
+<li>
+<p>Create configMaps manifest file</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="291785463" type="checkbox"  />
+    <label for="291785463">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">configMaps.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+    name: mysql-config
+    namespace: mysql
+    labels:
+        app: mysql
+data: 
+    MYSQL_DATABASE: &#34;cooldb&#34;
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>Apply config map.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f configMap.yml
+</span></span></code></pre></div></li>
+<li>
+<p>Check your config map.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get configmap -n mysql
+</span></span></code></pre></div></li>
+<li>
+<p>Now create secrests manifest.</p>
+<p>But, before that encrypt your pass using below command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#39;secret&#39;</span> | base64  <span style="color:#75715e"># you can pass -d to decrypt</span>
+</span></span></code></pre></div><p>copy output and pass in data field in secrets.yml</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="531927648" type="checkbox"  />
+    <label for="531927648">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">secrets.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mysql-secret
+    namespace: mysql
+    labels:
+        app: mysql
+type: Opaque
+data: 
+    MYSQL_PASSWORD: dkoafusfmsdjk # base64 password.
+    </code></pre>
+  </div>
+
+
+</li>
+<li>
+<p>Apply secrets manifest to deployment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f secret.yml
+</span></span></code></pre></div></li>
+<li>
+<p>Now, check if secret is added successfully.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get secret -n mysql
+</span></span></code></pre></div></li>
+<li>
+<p>After that, finally apply your deployment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f deployment.yml 
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME              READY   UP-TO-DATE   AVAILABLE   AGE                                            │
+mysql-deplyment   1/1     1            1           40m
+</code></pre><p>After your deployment, you can cross verify by logging in mysql. Run commands in worker node.
+Make sure you are putting correct container id.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker ps | grep mysql 
+</span></span><span style="display:flex;"><span>docker exec -it ef175a2293f2 /bin/mysql -u root -p    
+</span></span></code></pre></div></li>
+<li>
+<p>You can delete your deployment if you want.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl delete -f deployment.yml
+</span></span></code></pre></div></li>
+</ol>
+<p> </p>
+<hr>
+<h3 id="pvc--pv-storage-classes">PVC &amp; PV, Storage classes<a href="#pvc--pv-storage-classes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li>
+<p><strong>PV (Persistent Volume)</strong></p>
+<p>It creates application&rsquo;s stateful location is in your disk where data is stored as snapshot.</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="176253894" type="checkbox"  />
+    <label for="176253894">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">persistenVolume.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: PersistentVolume
+metadata: 
+    name: mysql-pv-volume
+    namespace: mysql
+    labels:
+        app: mysql
+spec: 
+    storageClassName: manual
+    capacity: 
+        storage: 2Gi
+    accessModes: 
+        - ReadWriteOnce
+    hostPath: 
+        path: &#34;/mnt/data&#34;
+    </code></pre>
+  </div>
+
+
+<p><strong>Make sure hostPath.path directory exists in worker node.</strong></p>
+<p>Now apply your peristentVolume manifest</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f persistenVolume.yml
+</span></span></code></pre></div><p>Check if persistentVolume is created.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get pv -n mysql
+</span></span></code></pre></div><pre tabindex="0"><code class="language-output" data-lang="output">NAME              CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE                                                                                        
+mysql-pv-volume   2Gi        RWO            Retain           Available           manual                  16s
+</code></pre></li>
+<li>
+<p><strong>PVC (Persistent Volume Claim):</strong></p>
+<p>After creating the volume you have to claim it to use, until now we have just created not used. You can claim how much you want from volume for your deployment.</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="872164359" type="checkbox"  />
+    <label for="872164359">
+      <span class="collapsable-code__language">yaml</span>
+      <span class="collapsable-code__title">persistentVolumeClaim.yml</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-yaml" ><code>
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: mysql
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+    </code></pre>
+  </div>
+
+
+<p>Then, apply it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f persistentVolumeClaim.yml
+</span></span></code></pre></div><p>After that check if was successfull.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get pvc -n mysql
+</span></span></code></pre></div><p>Now, to use volumes add these into containers object in deployment.yml.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>        <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysql-persistent-storage</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/lib/mysql</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysql-persistent-storage</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">persistentVolumeClaim</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">claimName</span>: <span style="color:#ae81ff">mysql-pv-claim</span>
+</span></span></code></pre></div></li>
+</ul>
+<p> </p>
+<p>So, that&rsquo;s it.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://dark-kernel.web.app/post/kubernetes-start/">
+                <span class="button__text">Kubernetes Ahoy   - Start Steering Your Container Ship</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
