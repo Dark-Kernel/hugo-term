@@ -9,7 +9,7 @@ cover: /isSecured.jpg
 ---
 
 
-Almost everyone things linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice. 
+Almost everyone thinks Linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice.
 
 # Is linux actually secured?
 
@@ -21,7 +21,7 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 
 > Yeah, your whole life was a lie :)
 
-But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there's a plot twist. If you're a everyday Linux user, you're still in the safe zone. Why? 
+But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there's a plot twist. If you're an everyday Linux user, you're still in the safe zone. Why? 
 
 Let's rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.
 
@@ -38,7 +38,7 @@ But wait, this doesn't mean Linux is just chilling in a hammock, sipping coconut
 
 
 
-Well, you got the problem; but what about solution? 
+Well, you got the problem; but what about the solution? 
 
 **Here you go** 
 

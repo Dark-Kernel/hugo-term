@@ -17,7 +17,7 @@
       <pubDate>Mon, 04 Dec 2023 00:00:00 +0000</pubDate>
       
       <guid>https://dark-kernel.web.app/post/securedlinux/</guid>
-      <description>&lt;p&gt;Almost everyone things linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice.&lt;/p&gt;
+      <description>&lt;p&gt;Almost everyone thinks Linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice.&lt;/p&gt;
 &lt;h1 id=&#34;is-linux-actually-secured&#34;&gt;Is linux actually secured?&lt;/h1&gt;
 &lt;p&gt;Simple answer No. yeah, Linux is considered secure, but not straight out of the box, particularly when dealing with minimalist distributions like Arch, Gentoo, and Void Linux. Which ships with literally nothing out of the box.
 Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks like it&amp;rsquo;s rocking a cyberpunk suit, and Linux seems to have left the house without pants.&lt;/p&gt;
@@ -33,13 +33,13 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;blockquote&gt;
 &lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re a everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
+&lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re an everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.&lt;/p&gt;
 &lt;p&gt;In this scenario, users and the operating system share the stage, but there&amp;rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.&lt;/p&gt;
 &lt;p&gt;This led to a period where Windows users were constantly under attack.&lt;/p&gt;
 &lt;p&gt;But, and it&amp;rsquo;s a significant &lt;em&gt;but,&lt;/em&gt; it doesn&amp;rsquo;t mean Linux lacks security; it&amp;rsquo;s simply not inherently secure out of the box. With the right configurations and additional security measures, Linux can surpass Windows security levels by a considerable margin. So, while Windows may seem like it&amp;rsquo;s dressed in cyber armor from the get-go, Linux is more of a security project waiting for customization.&lt;/p&gt;
 &lt;p&gt;But wait, this doesn&amp;rsquo;t mean Linux is just chilling in a hammock, sipping coconut water, and avoiding cyber-attacks. No, it&amp;rsquo;s like the VIP of hacking targets, especially on servers. Linux is like the hottest party spot, and hackers RSVP every day.&lt;/p&gt;
-&lt;p&gt;Well, you got the problem; but what about solution?&lt;/p&gt;
+&lt;p&gt;Well, you got the problem; but what about the solution?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Here you go&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;secure-your-linux-server&#34;&gt;Secure your linux server.&lt;/h1&gt;
 &lt;p&gt;There are plenty of ways you can secure your server but here i will mention only the important one.&lt;/p&gt;

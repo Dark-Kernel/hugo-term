@@ -187,8 +187,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;278964531&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;278964531&#34;&gt;
+    &lt;input id=&#34;958362471&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;958362471&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -276,8 +276,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;726914583&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;726914583&#34;&gt;
+    &lt;input id=&#34;625981437&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;625981437&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
