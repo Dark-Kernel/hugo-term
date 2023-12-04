@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Secure Your Linux Server :: Sumit Patel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Secure you linux server with simple steps." />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/post/securedlinux/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Secure Your Linux Server">
+<meta property="og:description" content="Secure you linux server with simple steps." />
+<meta property="og:url" content="https://dark-kernel.web.app/post/securedlinux/" />
+<meta property="og:site_name" content="Sumit Patel" />
+
+  
+  
+  <meta property="og:image" content="https://dark-kernel.web.app/isSecured.jpg">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-12-04 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/post/securedlinux/">Secure Your Linux Server</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-12-04</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/linux/">linux</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/server/">server</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/secure/">secure</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/ssh/">ssh</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/firewall/">firewall</a>&nbsp;
+      
+    </span>
+  
+  
+  <img src="https://dark-kernel.web.app/isSecured.jpg"
+    class="post-cover"
+    alt="Secure Your Linux Server"
+    title="Cover Image" />
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Almost everyone things linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice.</p>
+<h1 id="is-linux-actually-secured">Is linux actually secured?<a href="#is-linux-actually-secured" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Simple answer No. yeah, Linux is considered secure, but not straight out of the box, particularly when dealing with minimalist distributions like Arch, Gentoo, and Void Linux. Which ships with literally nothing out of the box.
+Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks like it&rsquo;s rocking a cyberpunk suit, and Linux seems to have left the house without pants.</p>
+
+  <figure class="center" >
+    <img src="/window-cyber.jpg"  alt="Hello Friend"   style="border-radius: 8px;"  />
+    
+      <figcaption class="center" >cyberpunk windows</figcaption>
+    
+  </figure>
+
+
+<blockquote>
+<p>Yeah, your whole life was a lie :)</p>
+</blockquote>
+<p>But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&rsquo;s a plot twist. If you&rsquo;re a everyday Linux user, you&rsquo;re still in the safe zone. Why?</p>
+<p>Let&rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.</p>
+<p>In this scenario, users and the operating system share the stage, but there&rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.</p>
+<p>This led to a period where Windows users were constantly under attack.</p>
+<p>But, and it&rsquo;s a significant <em>but,</em> it doesn&rsquo;t mean Linux lacks security; it&rsquo;s simply not inherently secure out of the box. With the right configurations and additional security measures, Linux can surpass Windows security levels by a considerable margin. So, while Windows may seem like it&rsquo;s dressed in cyber armor from the get-go, Linux is more of a security project waiting for customization.</p>
+<p>But wait, this doesn&rsquo;t mean Linux is just chilling in a hammock, sipping coconut water, and avoiding cyber-attacks. No, it&rsquo;s like the VIP of hacking targets, especially on servers. Linux is like the hottest party spot, and hackers RSVP every day.</p>
+<p>Well, you got the problem; but what about solution?</p>
+<p><strong>Here you go</strong></p>
+<h1 id="secure-your-linux-server">Secure your linux server.<a href="#secure-your-linux-server" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>There are plenty of ways you can secure your server but here i will mention only the important one.</p>
+<h1 id="1-network-filtering">1. Network Filtering<a href="#1-network-filtering" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>You might already heard about this thing, but most likely never tried ;)</p>
+<p>It is nothing but securing linux in network.</p>
+<p>For this just open your <code>/etc/sysctl.d/local.conf</code></p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox"  />
+    <label for="1">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">/etc/sysctl.d/local.conf</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-bash" ><code>
+   
+   # Turn on Source Address Verification in all interfaces to
+   # prevent some spoofing attacks
+   #net.ipv4.conf.default.rp_filter=1
+   net.ipv4.conf.all.rp_filter=1
+   
+   # Ignore echo broadcast requests to prevent being part of smurf attacks
+   net.ipv4.icmp_echo_ignore_broadcasts=1
+   
+   # Enable TCP/IP SYN cookies to protect against SYN flood attacks.
+   # See http://lwn.net/Articles/277146/
+   net.ipv4.tcp_syncookies=1
+   
+   # ipv6 settings (no autoconfiguration)
+   net.ipv6.conf.default.autoconf=0
+   net.ipv6.conf.default.accept_dad=0
+   net.ipv6.conf.default.accept_ra=0
+   net.ipv6.conf.default.accept_ra_defrtr=0
+   net.ipv6.conf.default.accept_ra_rtr_pref=0
+   net.ipv6.conf.default.accept_ra_pinfo=0
+   net.ipv6.conf.default.accept_source_route=0
+   net.ipv6.conf.default.accept_redirects=0
+   net.ipv6.conf.default.forwarding=0
+   net.ipv6.conf.all.autoconf=0
+   net.ipv6.conf.all.accept_dad=0
+   net.ipv6.conf.all.accept_ra=0
+   net.ipv6.conf.all.accept_ra_defrtr=0
+   net.ipv6.conf.all.accept_ra_rtr_pref=0
+   net.ipv6.conf.all.accept_ra_pinfo=0
+   net.ipv6.conf.all.accept_source_route=0
+   net.ipv6.conf.all.accept_redirects=0
+   net.ipv6.conf.all.forwarding=0
+   
+   </code></pre>
+  </div>
+
+
+<h1 id="2-secure-ssh-server">2. Secure SSH server<a href="#2-secure-ssh-server" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<ol>
+<li>
+<p>Edit the configuration file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vim /etc/ssh/sshd_config
+</span></span></code></pre></div></li>
+<li>
+<p>Toggle these options</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PermitRootLogin no
+</span></span><span style="display:flex;"><span>X11Forwarding no
+</span></span><span style="display:flex;"><span>AllowUsers &lt;your username&gt;
+</span></span><span style="display:flex;"><span>PubkeyAuthentication yes
+</span></span><span style="display:flex;"><span>ChallengeResponseAuthentication no
+</span></span><span style="display:flex;"><span>Port <span style="color:#ae81ff">2202</span> <span style="color:#75715e"># use random port instead of 22 </span>
+</span></span></code></pre></div></li>
+<li>
+<p>Restart your sshd service.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># For systemd</span>
+</span></span><span style="display:flex;"><span>sudo systemctl restart ssh.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For sysVinit</span>
+</span></span><span style="display:flex;"><span>sudo service sshd restart
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For runit</span>
+</span></span><span style="display:flex;"><span>sudo sv restart sshd
+</span></span></code></pre></div><p>Make sure you have created your keys, then add your host system&rsquo;s key to <code>.ssh/authorized_keys</code> file in server or use below command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i ~/.ssh/id_rsa.pub &lt;server ip&gt;
+</span></span></code></pre></div></li>
+</ol>
+<h1 id="3-setup-firewall">3. Setup firewall<a href="#3-setup-firewall" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Now, here you have two choices:</p>
+<ul>
+<li>Use ufw</li>
+<li>Use Iptables directly</li>
+</ul>
+<p>For UFW.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install ufw -y
+</span></span></code></pre></div><p>Enable it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw enable
+</span></span></code></pre></div><h1 id="4-limit-sudo">4. Limit SUDO<a href="#4-limit-sudo" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>To limit the sudo access use the <code>sudoers</code> file.</p>
+<p>Edit it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vim /etc/sudoers
+</span></span></code></pre></div><p>Add your user with privileges.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## User privilege specification</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root ALL<span style="color:#f92672">=(</span>ALL:ALL<span style="color:#f92672">)</span> ALL
+</span></span><span style="display:flex;"><span>&lt;user&gt; &lt;privileges&gt;
+</span></span></code></pre></div><h1 id="5-use-selinux">5. Use SELinux<a href="#5-use-selinux" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Final suggestion, it is very powerful but sometimes it&rsquo;s annoying. Without learning it don&rsquo;t install it on your server, or you will waste your day in figuring out why you are not able to access your nginx webserver on port 80 ;)</p>
+<h1 id="6-other-tips--tools">6. Other Tips &amp; Tools<a href="#6-other-tips--tools" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<ul>
+<li>Stop &amp; disable all unnecessary services, this will probably reduce the attack surface.</li>
+<li>Enforce strict memory access controls.</li>
+</ul>
+<p>After all these, you can also configure,</p>
+<ul>
+<li>Security &amp; system auditing tool - <code>lynis</code></li>
+<li>Intrusion detection system - <code>psad</code></li>
+<li>Eliminate bruteforce - <code>fail2ban</code></li>
+</ul>
+<hr>
+<h5 id="in-the-end-linux-isnt-just-secure-its-a-security-ninja-doing-a-moonwalk-while-wearing-a-fedora--">In the end, Linux isn&rsquo;t just secure; it&rsquo;s a security ninja doing a moonwalk while wearing a fedora 󰱸 .<a href="#in-the-end-linux-isnt-just-secure-its-a-security-ninja-doing-a-moonwalk-while-wearing-a-fedora--" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+
+<img src="/linux-punk.jpg"  alt="Hello Friend"  class="center"  style="border-radius: 8px;"    />
+
+
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://dark-kernel.web.app/post/kubernetes-adv/">
+                <span class="button__text">Kubernetes Voyage: Advanced Ship Steering</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

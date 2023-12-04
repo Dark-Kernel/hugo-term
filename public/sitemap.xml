@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dark-kernel.web.app/tags/firewall/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/linux/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/secure/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/post/securedlinux/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/server/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/ssh/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/</loc>
+    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://dark-kernel.web.app/tags/containers/</loc>
     <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
@@ -12,15 +39,6 @@
     <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/persistentvolumes/</loc>
-    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/post/</loc>
-    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/</loc>
-    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/</loc>
     <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/kubernetes-start/</loc>
@@ -42,9 +60,6 @@
     <lastmod>2023-08-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/git/</loc>
-    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/linux/</loc>
     <lastmod>2023-08-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/docker/</loc>

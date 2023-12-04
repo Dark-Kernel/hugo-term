@@ -6,10 +6,169 @@
     <description>Recent content in Linux on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 13 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://dark-kernel.web.app/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Secure Your Linux Server</title>
+      <link>https://dark-kernel.web.app/post/securedlinux/</link>
+      <pubDate>Mon, 04 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/securedlinux/</guid>
+      <description>&lt;p&gt;Almost everyone things linux is more secure, right? Well, hold your penguins, because the truth is as slippery as a buttered-up Tux sliding on ice.&lt;/p&gt;
+&lt;h1 id=&#34;is-linux-actually-secured&#34;&gt;Is linux actually secured?&lt;/h1&gt;
+&lt;p&gt;Simple answer No. yeah, Linux is considered secure, but not straight out of the box, particularly when dealing with minimalist distributions like Arch, Gentoo, and Void Linux. Which ships with literally nothing out of the box.
+Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks like it&amp;rsquo;s rocking a cyberpunk suit, and Linux seems to have left the house without pants.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    &lt;img src=&#34;https://dark-kernel.web.app/window-cyber.jpg&#34;  alt=&#34;Hello Friend&#34;   style=&#34;border-radius: 8px;&#34;  /&gt;
+    
+      &lt;figcaption class=&#34;center&#34; &gt;cyberpunk windows&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re a everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.&lt;/p&gt;
+&lt;p&gt;In this scenario, users and the operating system share the stage, but there&amp;rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.&lt;/p&gt;
+&lt;p&gt;This led to a period where Windows users were constantly under attack.&lt;/p&gt;
+&lt;p&gt;But, and it&amp;rsquo;s a significant &lt;em&gt;but,&lt;/em&gt; it doesn&amp;rsquo;t mean Linux lacks security; it&amp;rsquo;s simply not inherently secure out of the box. With the right configurations and additional security measures, Linux can surpass Windows security levels by a considerable margin. So, while Windows may seem like it&amp;rsquo;s dressed in cyber armor from the get-go, Linux is more of a security project waiting for customization.&lt;/p&gt;
+&lt;p&gt;But wait, this doesn&amp;rsquo;t mean Linux is just chilling in a hammock, sipping coconut water, and avoiding cyber-attacks. No, it&amp;rsquo;s like the VIP of hacking targets, especially on servers. Linux is like the hottest party spot, and hackers RSVP every day.&lt;/p&gt;
+&lt;p&gt;Well, you got the problem; but what about solution?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Here you go&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;secure-your-linux-server&#34;&gt;Secure your linux server.&lt;/h1&gt;
+&lt;p&gt;There are plenty of ways you can secure your server but here i will mention only the important one.&lt;/p&gt;
+&lt;h1 id=&#34;1-network-filtering&#34;&gt;1. Network Filtering&lt;/h1&gt;
+&lt;p&gt;You might already heard about this thing, but most likely never tried ;)&lt;/p&gt;
+&lt;p&gt;It is nothing but securing linux in network.&lt;/p&gt;
+&lt;p&gt;For this just open your &lt;code&gt;/etc/sysctl.d/local.conf&lt;/code&gt;&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;1&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;1&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;/etc/sysctl.d/local.conf&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-bash&#34; &gt;&lt;code&gt;
+   
+   # Turn on Source Address Verification in all interfaces to
+   # prevent some spoofing attacks
+   #net.ipv4.conf.default.rp_filter=1
+   net.ipv4.conf.all.rp_filter=1
+   
+   # Ignore echo broadcast requests to prevent being part of smurf attacks
+   net.ipv4.icmp_echo_ignore_broadcasts=1
+   
+   # Enable TCP/IP SYN cookies to protect against SYN flood attacks.
+   # See http://lwn.net/Articles/277146/
+   net.ipv4.tcp_syncookies=1
+   
+   # ipv6 settings (no autoconfiguration)
+   net.ipv6.conf.default.autoconf=0
+   net.ipv6.conf.default.accept_dad=0
+   net.ipv6.conf.default.accept_ra=0
+   net.ipv6.conf.default.accept_ra_defrtr=0
+   net.ipv6.conf.default.accept_ra_rtr_pref=0
+   net.ipv6.conf.default.accept_ra_pinfo=0
+   net.ipv6.conf.default.accept_source_route=0
+   net.ipv6.conf.default.accept_redirects=0
+   net.ipv6.conf.default.forwarding=0
+   net.ipv6.conf.all.autoconf=0
+   net.ipv6.conf.all.accept_dad=0
+   net.ipv6.conf.all.accept_ra=0
+   net.ipv6.conf.all.accept_ra_defrtr=0
+   net.ipv6.conf.all.accept_ra_rtr_pref=0
+   net.ipv6.conf.all.accept_ra_pinfo=0
+   net.ipv6.conf.all.accept_source_route=0
+   net.ipv6.conf.all.accept_redirects=0
+   net.ipv6.conf.all.forwarding=0
+   
+   &lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;h1 id=&#34;2-secure-ssh-server&#34;&gt;2. Secure SSH server&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Edit the configuration file&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vim /etc/ssh/sshd_config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Toggle these options&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PermitRootLogin no
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;X11Forwarding no
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;AllowUsers &amp;lt;your username&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PubkeyAuthentication yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ChallengeResponseAuthentication no
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Port &lt;span style=&#34;color:#ae81ff&#34;&gt;2202&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# use random port instead of 22 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart your sshd service.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# For systemd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl restart ssh.service
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# For sysVinit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo service sshd restart
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# For runit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo sv restart sshd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure you have created your keys, then add your host system&amp;rsquo;s key to &lt;code&gt;.ssh/authorized_keys&lt;/code&gt; file in server or use below command&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-copy-id -i ~/.ssh/id_rsa.pub &amp;lt;server ip&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;3-setup-firewall&#34;&gt;3. Setup firewall&lt;/h1&gt;
+&lt;p&gt;Now, here you have two choices:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use ufw&lt;/li&gt;
+&lt;li&gt;Use Iptables directly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For UFW.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install ufw -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Enable it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw enable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;4-limit-sudo&#34;&gt;4. Limit SUDO&lt;/h1&gt;
+&lt;p&gt;To limit the sudo access use the &lt;code&gt;sudoers&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Edit it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vim /etc/sudoers
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Add your user with privileges.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;## User privilege specification&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;root ALL&lt;span style=&#34;color:#f92672&#34;&gt;=(&lt;/span&gt;ALL:ALL&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ALL
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;user&amp;gt; &amp;lt;privileges&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;5-use-selinux&#34;&gt;5. Use SELinux&lt;/h1&gt;
+&lt;p&gt;Final suggestion, it is very powerful but sometimes it&amp;rsquo;s annoying. Without learning it don&amp;rsquo;t install it on your server, or you will waste your day in figuring out why you are not able to access your nginx webserver on port 80 ;)&lt;/p&gt;
+&lt;h1 id=&#34;6-other-tips--tools&#34;&gt;6. Other Tips &amp;amp; Tools&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Stop &amp;amp; disable all unnecessary services, this will probably reduce the attack surface.&lt;/li&gt;
+&lt;li&gt;Enforce strict memory access controls.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After all these, you can also configure,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Security &amp;amp; system auditing tool - &lt;code&gt;lynis&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Intrusion detection system - &lt;code&gt;psad&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Eliminate bruteforce - &lt;code&gt;fail2ban&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h5 id=&#34;in-the-end-linux-isnt-just-secure-its-a-security-ninja-doing-a-moonwalk-while-wearing-a-fedora--&#34;&gt;In the end, Linux isn&amp;rsquo;t just secure; it&amp;rsquo;s a security ninja doing a moonwalk while wearing a fedora 󰱸 .&lt;/h5&gt;
+
+&lt;img src=&#34;https://dark-kernel.web.app/linux-punk.jpg&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;    /&gt;
+
+
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description> 
+    </item>
     
     <item>
       <title>Git concepts</title>
