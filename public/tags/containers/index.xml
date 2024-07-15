@@ -1,15 +1,275 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>containers on Sumit Patel</title>
+    <title>Containers on Sumit Patel</title>
     <link>https://dark-kernel.web.app/tags/containers/</link>
-    <description>Recent content in containers on Sumit Patel</description>
+    <description>Recent content in Containers on Sumit Patel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Sep 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jul 2024 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://dark-kernel.web.app/tags/containers/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Implementing Blue-Green Deployments in Kubernetes: Achieving Zero-Downtime Updates</title>
+      <link>https://dark-kernel.web.app/post/blue-green-k8s-deployment/</link>
+      <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/blue-green-k8s-deployment/</guid>
+      <description>&lt;p&gt;Things we are going to learn&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Kubernetes Deployments&lt;/li&gt;
+&lt;li&gt;Services and Ingress&lt;/li&gt;
+&lt;li&gt;Database migrations // just as part of the process, not much ;)&lt;/li&gt;
+&lt;li&gt;Automate with CICD&lt;/li&gt;
+&lt;li&gt;Monitoring and health checks&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s get started.&lt;/p&gt;
+&lt;h2 id=&#34;blue-green-deployment-technique&#34;&gt;Blue-Green Deployment Technique&lt;/h2&gt;
+&lt;p&gt;You might or might not know that Blue-green deployment is a technique for releasing applications with zero downtime and easy rollback. Yes, that&amp;rsquo;s the gist of it, at least conceptually.&lt;/p&gt;
+&lt;p&gt;This guide will walk you through implementing blue-green deployments in a Kubernetes environment. Yep, we&amp;rsquo;re diving into Kubernetes.&lt;/p&gt;
+&lt;h2 id=&#34;implementation-steps&#34;&gt;Implementation Steps&lt;/h2&gt;
+&lt;h3 id=&#34;1-prepare-kubernetes-manifests&#34;&gt;1. Prepare Kubernetes Manifests&lt;/h3&gt;
+&lt;p&gt;Since it is a blue-green deployment, we will need two manifests one for the green version and one for the blue version.&lt;/p&gt;
+&lt;p&gt;Create separate deployments for blue and green versions:&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;1&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;1&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;blue-deployment.yml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-yaml&#34; &gt;&lt;code&gt;
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: blue
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:1.0
+        ports:
+        - containerPort: 8080
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;p&gt;green-deployment.yaml (similar, but with version: green and newer image)&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;2&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;2&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;green-deployment.yml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-yaml&#34; &gt;&lt;code&gt;
+# green-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: green
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: green
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:1.1
+        ports:
+        - containerPort: 8080
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;h3 id=&#34;2-set-up-service-and-ingress&#34;&gt;2. Set Up Service and Ingress&lt;/h3&gt;
+&lt;p&gt;What ingress does is it maps the service to the load balancer, exposing the service externally. The load balancer then distributes traffic between the two deployments.&lt;/p&gt;
+&lt;p&gt;Create a service that can be switch between blue and green versions:&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;3&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;3&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-yaml&#34; &gt;&lt;code&gt;
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+    # Note: We don&amp;#39;t specify the version (blue/green) here.
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;p&gt;In the Ingress, we will add the service to the ingress rules.
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;4&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;4&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;ingress.yaml&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-yaml&#34; &gt;&lt;code&gt;
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/canary: &amp;#34;true&amp;#34;
+    nginx.ingress.kubernetes.io/canary-weight: &amp;#34;0&amp;#34;
+spec:
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-service
+                port: 
+                  number: 80
+
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+&lt;/p&gt;
+&lt;h3 id=&#34;3-implement-deployment-script&#34;&gt;3. Implement Deployment Script&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Automation is the key&lt;/strong&gt;. Here&amp;rsquo;s a overview of the bash script to manage the deployment:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Deploy new (green) version&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl apply -f green-deployment.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Wait for green deployment to be ready&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl rollout status deployment/myapp-green
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Run smoke tests on green deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# (implement your tests here)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Switch the traffic to green. Here the game changes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl patch service myapp-service -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;selector&amp;#34;:{&amp;#34;version&amp;#34;:&amp;#34;green&amp;#34;}}}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Wait and monitor for any issues&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sleep &lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If everything is fine, delete the old (blue) deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl delete -f blue-deployment.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If not, you can quickly rollback by switching the service back to blue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl patch service myapp-service -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;selector&amp;#34;:{&amp;#34;version&amp;#34;:&amp;#34;blue&amp;#34;}}}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These are the steps we need to implement in our deployment script.&lt;/p&gt;
+&lt;h3 id=&#34;4-database-migrations&#34;&gt;4. Database Migrations&lt;/h3&gt;
+&lt;p&gt;Database migrations in a blue-green deployment scenario are challenging because you need to maintain compatibility between the two versions of your application (blue and green) and the database schema. What we want is to perform these migrations without downtime and ensure both versions can operate correctly during the transition.
+which is damn easy :) (maybe)&lt;/p&gt;
+&lt;p&gt;You can use any of your strategies.
+For database changes, you can use a migration tool that supports reversible migrations. *Run migrations before deploying the green version:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# I will be something like this:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./migrate up
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# If migration fails, you can roll back&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./migrate down
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s not only this much, but it&amp;rsquo;s enough for now.&lt;/p&gt;
+&lt;h3 id=&#34;5-monitoring-and-health-checks&#34;&gt;5. Monitoring and Health Checks&lt;/h3&gt;
+&lt;p&gt;Implement readiness and liveness probes in your deployments:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;containers&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;myapp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;myapp:1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;readinessProbe&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;httpGet&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/healthz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;port&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;initialDelaySeconds&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;periodSeconds&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;livenessProbe&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;httpGet&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/healthz&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;port&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;initialDelaySeconds&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;periodSeconds&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once the application is up and running, possibly if you&amp;rsquo;re lucky or an expert, you can monitor it with Prometheus and Grafana.&lt;/p&gt;
+&lt;h3 id=&#34;6-automate-with-cicd-pipeline&#34;&gt;6. Automate with CI/CD Pipeline&lt;/h3&gt;
+&lt;p&gt;Integrate the deployment process into your CI/CD pipeline. Personally, I use GitLab (you&amp;rsquo;d never guess). Here&amp;rsquo;s an example GitLab CI configuration:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;stages&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;build&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;stage&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;docker build -t myapp:$CI_COMMIT_SHA .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;docker push myapp:$CI_COMMIT_SHA&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;test&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;stage&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;run_unit_tests.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;run_integration_tests.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;deploy&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;stage&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;update_kubernetes_manifests.sh $CI_COMMIT_SHA&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;./blue_green_deploy.sh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;only&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And if you are wondering what those scripts contain, Then check &lt;a href=&#34;https://gist.github.com/Dark-Kernel/7a1289d56f1e1a38e9551911d5b5fa68&#34;&gt;this out&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;best-practices&#34;&gt;Best Practices&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Automate everything&lt;/strong&gt;: From builds to deployments to rollbacks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Implement robust monitoring&lt;/strong&gt;: Quickly detect any issues post-deployment.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gradual rollout&lt;/strong&gt;: Consider canary releases before full blue-green switch.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In the conlcusion, Kubernetes&amp;rsquo;s blue-green deployments aren&amp;rsquo;t just a fancy color scheme—they&amp;rsquo;re your ticket to stress-free updates. It provide a powerful way to achieve zero-downtime updates. By combining infrastructure management, automation, and *careful testing, we can significantly reduce some of the risks of deployment and improve availability.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;And, that&amp;rsquo;s it.&lt;/p&gt;
+</description> 
+    </item>
     
     <item>
       <title>Kubernetes Voyage: Advanced Ship Steering</title>
@@ -136,8 +396,8 @@ It is a configuration of pods. It is a desired(required) state of your pods. You
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;518634972&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;518634972&#34;&gt;
+    &lt;input id=&#34;735219486&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;735219486&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -215,8 +475,8 @@ nginx-deployment   3/3     3            3           23m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;592346187&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;592346187&#34;&gt;
+    &lt;input id=&#34;713986245&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;713986245&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -254,8 +514,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;694315287&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;694315287&#34;&gt;
+    &lt;input id=&#34;168243957&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;168243957&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -359,8 +619,8 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;925741386&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;925741386&#34;&gt;
+    &lt;input id=&#34;548372196&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;548372196&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -428,8 +688,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;157236489&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;157236489&#34;&gt;
+    &lt;input id=&#34;785469213&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;785469213&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;configMaps.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -466,8 +726,8 @@ data:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;568927314&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;568927314&#34;&gt;
+    &lt;input id=&#34;784215396&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;784215396&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;secrets.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -522,8 +782,8 @@ Make sure you are putting correct container id.&lt;/p&gt;
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;214768935&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;214768935&#34;&gt;
+    &lt;input id=&#34;139864527&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;139864527&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistenVolume.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -563,8 +823,8 @@ mysql-pv-volume   2Gi        RWO            Retain           Available          
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;263719548&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;263719548&#34;&gt;
+    &lt;input id=&#34;693157482&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;693157482&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistentVolumeClaim.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

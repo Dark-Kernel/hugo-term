@@ -536,7 +536,7 @@ That&amp;rsquo;s why we need to change search engine also.&lt;/p&gt;
 
 &lt;h3 id=&#34;customize-look-with-pywal-optional&#34;&gt;Customize look with pywal (optional)&lt;/h3&gt;
 &lt;p&gt;To customize look of firefox you can use pywal to generate colorscheme according to your wallpaper which can improve the look.
-There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/pywalfox/?utm_source=addons.mozilla.org&amp;amp;utm_medium=referral&amp;amp;utm_content=search&#34;&gt;&lt;code&gt;pywalfox&lt;/code&gt;&lt;/a&gt; which will be using.&lt;/p&gt;
+There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/pywalfox/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search&#34;&gt;&lt;code&gt;pywalfox&lt;/code&gt;&lt;/a&gt; which will be using.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Install pywalfox&lt;/li&gt;
 &lt;/ul&gt;
@@ -551,7 +551,7 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;h3 id=&#34;set-custom-homenew-tab-optional&#34;&gt;Set custom home/new tab (optional)&lt;/h3&gt;
 &lt;p&gt;Read this &lt;a href=&#34;https://dark-kernel.web.app/post/firefox-custom-new-tab-file/&#34;&gt;blog&lt;/a&gt; to configure it.&lt;/p&gt;
 &lt;h3 id=&#34;set-master-password&#34;&gt;Set master password.&lt;/h3&gt;
-&lt;p&gt;Yes, you need to set master password, by default when you save password it is stored in firefox&amp;rsquo;s profile directory; which can be decrypted easily using tools like &lt;a href=&#34;https://github.com/unode/firefox_decrypt.git&#34;&gt;firefox_decrypt&lt;/a&gt;; &lt;a href=&#34;https://dark-kernel.web.app/post/decrypt-browser-pass&#34;&gt;see demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Yes, you need to set master password, by default when you save password it is stored in firefox&amp;rsquo;s profile directory; which can be decrypted easily using tools like &lt;a href=&#34;https://github.com/unode/firefox_decrypt.git&#34;&gt;firefox_decrypt&lt;/a&gt;; &lt;a href=&#34;https://dark-kernel.web.app/post/decrypt-browser-pass/&#34;&gt;see demo&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Go to settings -&amp;gt; Privacy &amp;amp; Security -&amp;gt; under &amp;lsquo;Login and Passwords&amp;rsquo; section.&lt;/li&gt;
 &lt;li&gt;Check &amp;lsquo;Use Primary Password&amp;rsquo; -&amp;gt; Enter you super secret master password.&lt;/li&gt;
@@ -562,7 +562,7 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;hr&gt;
 &lt;p&gt;Reference:
 &lt;a href=&#34;https://github.com/yokoffing/Betterfox.git&#34;&gt;Betterfox&lt;/a&gt; |
-&lt;a href=&#34;https://support.mozilla.org/en-US/kb/how-to-fix-preferences-wont-save#&#34;&gt;Mozilla Support&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://support.mozilla.org/en-US/kb/how-to-fix-preferences-wont-save&#34;&gt;Mozilla Support&lt;/a&gt;&lt;/p&gt;
 </description> 
     </item>
     
