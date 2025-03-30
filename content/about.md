@@ -8,7 +8,8 @@ author = "Sumit Patel"
 
 My name is Sumit Patel
 
-- [Resume](/sumit-patel.pdf)
+<!-- - [Resume](/sumit-patel.pdf) -->
+- [Resume](/Patel-Sumit.pdf)
 - [RSS Feed](https://dark-kernel.web.app/index.xml)
 
 I'm a Linux enthusiast with a passion for open-source software and programming. I'm experienced in Shell scripting, C, C++, Java, Python, and Node.js, and have worked on web backend and mobile app development projects. 

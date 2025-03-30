@@ -1,6 +1,6 @@
 +++ 
 title = "Welcome" 
-date = "{{ .Date }}" 
+date = "" 
 author = "Sumit" 
 tags = ["hello", "first"] 
 description = "First post to test it's working" 
