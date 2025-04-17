@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on Sumit Patel</title>
+    <title>Git on My New Hugo Site</title>
     <link>https://dark-kernel.web.app/tags/git/</link>
-    <description>Recent content in Git on Sumit Patel</description>
+    <description>Recent content in Git on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 13 Aug 2023 00:00:00 +0000</lastBuildDate>
@@ -27,8 +27,7 @@
 &lt;li&gt;git stash&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;important-branches&#34;&gt;Important branches:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -77,8 +76,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;big-team-strategy&#34;&gt;Big team strategy&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -103,9 +101,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;nbsp&#34;&gt; &lt;/h2&gt;
+&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;heading&#34;&gt; &lt;/h2&gt;
 &lt;h3 id=&#34;git-revert--reset&#34;&gt;Git Revert &amp;amp; Reset&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -149,8 +146,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;git-merge&#34;&gt;Git Merge&lt;/h3&gt;
@@ -181,18 +177,18 @@
 &lt;p&gt;It Adds commit history of other branch/remote in linear/sequence way while merging.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Difference:&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Merge&lt;/th&gt;
-&lt;th&gt;Rebase&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Only HEAD commit is maintained while merging&lt;/td&gt;
-&lt;td&gt;Full commit history is maintained while merging in sequence&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Merge&lt;/th&gt;
+          &lt;th&gt;Rebase&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Only HEAD commit is maintained while merging&lt;/td&gt;
+          &lt;td&gt;Full commit history is maintained while merging in sequence&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;ol&gt;

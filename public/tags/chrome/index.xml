@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Chrome on Sumit Patel</title>
+    <title>Chrome on My New Hugo Site</title>
     <link>https://dark-kernel.web.app/tags/chrome/</link>
-    <description>Recent content in Chrome on Sumit Patel</description>
+    <description>Recent content in Chrome on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 29 Jul 2023 00:00:00 +0000</lastBuildDate>
@@ -74,8 +74,7 @@
 &lt;li&gt;Using extensions same as firefox.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;So that&amp;rsquo;s it.&lt;/p&gt;
 </description> 
     </item>

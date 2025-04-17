@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Firewall on Sumit Patel</title>
+    <title>Firewall on My New Hugo Site</title>
     <link>https://dark-kernel.web.app/tags/firewall/</link>
-    <description>Recent content in Firewall on Sumit Patel</description>
+    <description>Recent content in Firewall on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate>
@@ -31,8 +31,7 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 
 
 &lt;blockquote&gt;
-&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re an everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.&lt;/p&gt;
 &lt;p&gt;In this scenario, users and the operating system share the stage, but there&amp;rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.&lt;/p&gt;
@@ -162,11 +161,6 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;img src=&#34;https://dark-kernel.web.app/linux-punk.jpg&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;    /&gt;
 
 
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
 </description> 
     </item>
     

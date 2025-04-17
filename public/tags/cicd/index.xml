@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CICD on Sumit Patel</title>
+    <title>CICD on My New Hugo Site</title>
     <link>https://dark-kernel.web.app/tags/cicd/</link>
-    <description>Recent content in CICD on Sumit Patel</description>
+    <description>Recent content in CICD on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 20 Aug 2023 00:00:00 +0000</lastBuildDate>
@@ -102,8 +102,7 @@ In simple it is tool for CICD, we can create CICD pipelines using it.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Triggers: it is some action, when it is performed the pipeline will be started.
-build periodically: Schedule using cron.&lt;/p&gt;
-&lt;/blockquote&gt;
+build periodically: Schedule using cron.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now configure build step. and save.&lt;/p&gt;
@@ -187,8 +186,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;234569187&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;234569187&#34;&gt;
+    &lt;input id=&#34;321578694&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;321578694&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -276,8 +275,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;264571839&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;264571839&#34;&gt;
+    &lt;input id=&#34;129483675&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;129483675&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

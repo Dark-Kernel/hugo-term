@@ -1,15 +1,127 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Sumit Patel</title>
+    <title>Posts on My New Hugo Site</title>
     <link>https://dark-kernel.web.app/post/</link>
-    <description>Recent content in Posts on Sumit Patel</description>
+    <description>Recent content in Posts on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 15 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Oct 2024 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://dark-kernel.web.app/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Building a Lightweight Container System from Scratch Ft. Arch Linux</title>
+      <link>https://dark-kernel.web.app/post/container-from-scratch/</link>
+      <pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/post/container-from-scratch/</guid>
+      <description>&lt;h1 id=&#34;diy-containers-building-a-lightweight-container-system-from-scratch-on-arch-linux&#34;&gt;DIY Containers: Building a Lightweight Container System from Scratch on Arch Linux&lt;/h1&gt;
+&lt;p&gt;In the world of containerization, tools like Docker and Podman reign supreme. But have you ever wondered what&amp;rsquo;s happening under the hood? In this post, we&amp;rsquo;ll leverage the power and flexibility of Arch Linux to build our own lightweight container system from scratch. We&amp;rsquo;ll use Linux namespaces, cgroups, and some Arch-specific tools to create a basic, functional container.&lt;/p&gt;
+&lt;h2 id=&#34;understanding-the-building-blocks&#34;&gt;Understanding the Building Blocks&lt;/h2&gt;
+&lt;p&gt;Before we dive in, let&amp;rsquo;s briefly cover the key concepts:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Namespaces&lt;/strong&gt;: These isolate system resources for a set of processes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cgroups&lt;/strong&gt;: These limit, account for, and isolate resource usage (CPU, memory, disk I/O, etc.) of process groups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Chroot&lt;/strong&gt;: This changes the root directory for a process and its children.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;Ensure you have the following packages installed:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S arch-install-scripts util-linux
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-1-creating-a-root-filesystem&#34;&gt;Step 1: Creating a Root Filesystem&lt;/h2&gt;
+&lt;p&gt;First, let&amp;rsquo;s create a minimal Arch Linux root filesystem for our container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir arch-container
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacstrap -c -d arch-container base
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This creates a basic Arch Linux system in the &lt;code&gt;arch-container&lt;/code&gt; directory.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-setting-up-network-namespace&#34;&gt;Step 2: Setting Up Network Namespace&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll create a network namespace for our container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns add container-ns
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link add veth0 type veth peer name veth1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link set veth1 netns container-ns
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip addr add 10.0.0.1/24 dev veth0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link set veth0 up
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip addr add 10.0.0.2/24 dev veth1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip link set veth1 up
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip route add default via 10.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These commands create a virtual ethernet pair and set up basic networking for our container.&lt;/p&gt;
+&lt;h2 id=&#34;step-3-creating-a-control-group&#34;&gt;Step 3: Creating a Control Group&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s create a cgroup to limit our container&amp;rsquo;s resources:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgcreate -g cpu,memory:mycontainer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgset -r cpu.shares&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; mycontainer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgset -r memory.limit_in_bytes&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;512M mycontainer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This creates a cgroup named &lt;code&gt;mycontainer&lt;/code&gt; with CPU and memory limits.&lt;/p&gt;
+&lt;h2 id=&#34;step-4-writing-the-container-script&#34;&gt;Step 4: Writing the Container Script&lt;/h2&gt;
+&lt;p&gt;Now, let&amp;rsquo;s create a script to launch our container. Save this as &lt;code&gt;run-container.sh&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Function to clean up after the container exits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cleanup&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ip link del veth0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ip netns del container-ns
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    cgdelete -g cpu,memory:mycontainer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Set up cleanup on script exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;trap cleanup EXIT
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Ensure script is run as root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;id -u&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; -ne &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;This script must be run as root&amp;#34;&lt;/span&gt; 1&amp;gt;&amp;amp;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    exit &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Launch the container&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;unshare --fork --pid --net&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/var/run/netns/container-ns --mount-proc &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;cgexec -g cpu,memory:mycontainer &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;arch-chroot arch-container /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make the script executable:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod +x run-container.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-running-our-container&#34;&gt;Step 5: Running our Container&lt;/h2&gt;
+&lt;p&gt;Now we can run our container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./run-container.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You&amp;rsquo;re now inside your homemade container! Let&amp;rsquo;s verify the isolation:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check the network&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ip addr
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check the process tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ps aux
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check available memory&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;free -m
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Exit the container&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;exit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;understanding-whats-happening&#34;&gt;Understanding What&amp;rsquo;s Happening&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s break down the key components of our container system:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Filesystem Isolation&lt;/strong&gt;: &lt;code&gt;arch-chroot&lt;/code&gt; changes the root directory, providing filesystem isolation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Network Isolation&lt;/strong&gt;: The &lt;code&gt;ip netns&lt;/code&gt; commands create a separate network namespace, and &lt;code&gt;unshare --net&lt;/code&gt; ensures the container uses this namespace.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Process Isolation&lt;/strong&gt;: &lt;code&gt;unshare --pid --mount-proc&lt;/code&gt; creates a new PID namespace and mounts a new procfs, isolating the process tree.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Resource Limits&lt;/strong&gt;: &lt;code&gt;cgexec&lt;/code&gt; ensures the container runs within the cgroup we created, enforcing resource limits.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;enhancing-our-container-system&#34;&gt;Enhancing our Container System&lt;/h2&gt;
+&lt;p&gt;This is a basic implementation, but you could extend it in several ways:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Overlay Filesystems&lt;/strong&gt;: Use overlay fs to make containers more efficient.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User Namespaces&lt;/strong&gt;: Implement user namespaces for better security.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Container Images&lt;/strong&gt;: Create a system for building and storing container images.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Networking&lt;/strong&gt;: Implement more advanced networking features like port mapping.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve just scratched the surface of container technology, but this exercise demonstrates the power and flexibility of Linux systems like Arch. By understanding these low-level concepts, you can better appreciate tools like Docker and potentially customize them for your specific needs.&lt;/p&gt;
+&lt;p&gt;Remember, this is a educational exercise and not intended for production use. For real-world applications, stick to well-tested solutions like Docker or Podman.&lt;/p&gt;
+&lt;p&gt;In our next post, we might explore how to extend this system with more features, or perhaps dive into other unique ways to leverage Arch Linux&amp;rsquo;s flexibility. Stay tuned for more advanced Arch Linux adventures!&lt;/p&gt;
+</description> 
+    </item>
     
     <item>
       <title>Implementing Blue-Green Deployments in Kubernetes: Achieving Zero-Downtime Updates</title>
@@ -291,8 +403,7 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 
 
 &lt;blockquote&gt;
-&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re an everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.&lt;/p&gt;
 &lt;p&gt;In this scenario, users and the operating system share the stage, but there&amp;rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.&lt;/p&gt;
@@ -422,11 +533,6 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;img src=&#34;https://dark-kernel.web.app/linux-punk.jpg&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;    /&gt;
 
 
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
 </description> 
     </item>
     
@@ -436,8 +542,7 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
       <pubDate>Sun, 10 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://dark-kernel.web.app/post/kubernetes-adv/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;We will learn&lt;/p&gt;
+      <description>&lt;p&gt;We will learn&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;pods vs container&lt;/li&gt;
 &lt;li&gt;Deployments&lt;/li&gt;
@@ -450,30 +555,30 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;p&gt;Let&amp;rsquo;s get started.&lt;/p&gt;
 &lt;h3 id=&#34;pods-vs-containers&#34;&gt;Pods vs Containers&lt;/h3&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Pods&lt;/th&gt;
-&lt;th&gt;Container&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Unit of conainers&lt;/td&gt;
-&lt;td&gt;Single container by containerization tool.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Contains one or more Conainers&lt;/td&gt;
-&lt;td&gt;Only single container&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Crashed free&lt;/td&gt;
-&lt;td&gt;Can be crashed if some error occurs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Can be Scheduled&lt;/td&gt;
-&lt;td&gt;Can&amp;rsquo;t be scheduled&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Pods&lt;/th&gt;
+          &lt;th&gt;Container&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Unit of conainers&lt;/td&gt;
+          &lt;td&gt;Single container by containerization tool.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Contains one or more Conainers&lt;/td&gt;
+          &lt;td&gt;Only single container&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Crashed free&lt;/td&gt;
+          &lt;td&gt;Can be crashed if some error occurs&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Can be Scheduled&lt;/td&gt;
+          &lt;td&gt;Can&amp;rsquo;t be scheduled&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;hr&gt;
@@ -501,8 +606,7 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;p&gt;logical entity allow you to isolate your resources, like pods, volumne, deploymnets, etc.
 You can create multiple namaspcae for different resources, it is a type of group.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Default name space is already present, and everything is created under it until you specify any other namespace in manifest.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Default name space is already present, and everything is created under it until you specify any other namespace in manifest.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl create namespace nginx
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl get namespace
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Example:&lt;/p&gt;
@@ -555,8 +659,8 @@ It is a configuration of pods. It is a desired(required) state of your pods. You
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;735219486&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;735219486&#34;&gt;
+    &lt;input id=&#34;278946351&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;278946351&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -634,8 +738,8 @@ nginx-deployment   3/3     3            3           23m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;713986245&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;713986245&#34;&gt;
+    &lt;input id=&#34;938164725&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;938164725&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -673,8 +777,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;168243957&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;168243957&#34;&gt;
+    &lt;input id=&#34;482591736&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;482591736&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -753,8 +857,6 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 &lt;/ol&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;hr&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
 &lt;h3 id=&#34;secrets--config-map&#34;&gt;Secrets &amp;amp; config map&lt;/h3&gt;
 &lt;p&gt;In k8s, we can&amp;rsquo;t pass environment variables through kubectl at runtime. Therefore we use secret &amp;amp; config map file.&lt;/p&gt;
 &lt;ul&gt;
@@ -778,8 +880,8 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;548372196&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;548372196&#34;&gt;
+    &lt;input id=&#34;865349217&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;865349217&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -836,10 +938,6 @@ spec:
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kuebctl create namespace mysql
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;Create configMaps manifest file&lt;/p&gt;
@@ -847,8 +945,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;785469213&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;785469213&#34;&gt;
+    &lt;input id=&#34;591487623&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;591487623&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;configMaps.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -885,8 +983,8 @@ data:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;784215396&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;784215396&#34;&gt;
+    &lt;input id=&#34;861457923&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;861457923&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;secrets.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -941,8 +1039,8 @@ Make sure you are putting correct container id.&lt;/p&gt;
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;139864527&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;139864527&#34;&gt;
+    &lt;input id=&#34;932186754&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;932186754&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistenVolume.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -982,8 +1080,8 @@ mysql-pv-volume   2Gi        RWO            Retain           Available          
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;693157482&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;693157482&#34;&gt;
+    &lt;input id=&#34;162743598&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;162743598&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistentVolumeClaim.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1072,8 +1170,7 @@ spec:
 &lt;h5 id=&#34;master-control-plane&#34;&gt;Master: (Control plane)&lt;/h5&gt;
 &lt;p&gt;Master node often reffered to as control plane and responsible for managing and orchestrating the overall operations of the system, It serves as central control point of cluster. It interact with worker node to deploy pods.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;cluster is a group of servers. In kubernetes it refers to entire set of computing resources and components that collectively make up a Kubernetes environment, like Pods, worker node, master node, services, etc.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;cluster is a group of servers. In kubernetes it refers to entire set of computing resources and components that collectively make up a Kubernetes environment, like Pods, worker node, master node, services, etc.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Components&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1288,8 +1385,7 @@ In simple it is tool for CICD, we can create CICD pipelines using it.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Triggers: it is some action, when it is performed the pipeline will be started.
-build periodically: Schedule using cron.&lt;/p&gt;
-&lt;/blockquote&gt;
+build periodically: Schedule using cron.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now configure build step. and save.&lt;/p&gt;
@@ -1373,8 +1469,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;234569187&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;234569187&#34;&gt;
+    &lt;input id=&#34;321578694&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;321578694&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1462,8 +1558,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;264571839&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;264571839&#34;&gt;
+    &lt;input id=&#34;129483675&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;129483675&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1525,8 +1621,7 @@ pipeline {
 &lt;li&gt;git stash&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;important-branches&#34;&gt;Important branches:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -1575,8 +1670,7 @@ pipeline {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;big-team-strategy&#34;&gt;Big team strategy&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1601,9 +1695,8 @@ pipeline {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;nbsp&#34;&gt; &lt;/h2&gt;
+&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;heading&#34;&gt; &lt;/h2&gt;
 &lt;h3 id=&#34;git-revert--reset&#34;&gt;Git Revert &amp;amp; Reset&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1647,8 +1740,7 @@ pipeline {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;git-merge&#34;&gt;Git Merge&lt;/h3&gt;
@@ -1679,18 +1771,18 @@ pipeline {
 &lt;p&gt;It Adds commit history of other branch/remote in linear/sequence way while merging.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Difference:&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Merge&lt;/th&gt;
-&lt;th&gt;Rebase&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Only HEAD commit is maintained while merging&lt;/td&gt;
-&lt;td&gt;Full commit history is maintained while merging in sequence&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Merge&lt;/th&gt;
+          &lt;th&gt;Rebase&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Only HEAD commit is maintained while merging&lt;/td&gt;
+          &lt;td&gt;Full commit history is maintained while merging in sequence&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;ol&gt;
@@ -1746,8 +1838,7 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
       <guid>https://dark-kernel.web.app/post/docker-concepts/</guid>
       <description>&lt;h1 id=&#34;docker&#34;&gt;Docker&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;These are required from fresher DevOps.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;These are required from fresher DevOps.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Used in deployment using containerization method. To run an application in isolated environment.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1766,8 +1857,7 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Docker engine is service which allow you to run any OS, which uses dockercli and dockerd&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Docker engine is service which allow you to run any OS, which uses dockercli and dockerd&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;basic-commands&#34;&gt;Basic commands:&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1800,8 +1890,7 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;We can also force to remove
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker image prune --all --force
@@ -1812,8 +1901,7 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;docker-advanced&#34;&gt;Docker Advanced.&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;These are required from senior DevOps.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;These are required from senior DevOps.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;Volumnes&lt;/li&gt;
 &lt;li&gt;Network&lt;/li&gt;
@@ -1825,8 +1913,7 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
 &lt;p&gt;It stores a copy of your container to your system too.
 So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Data is stored in container till it is in running status, after container is exited data is gone. That&amp;rsquo;s why docker volume is used to save data.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Data is stored in container till it is in running status, after container is exited data is gone. That&amp;rsquo;s why docker volume is used to save data.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -1862,8 +1949,7 @@ So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Volume device data and container&amp;rsquo;s data is synced in real time.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Volume device data and container&amp;rsquo;s data is synced in real time.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1901,8 +1987,7 @@ So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network ls 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;By default 3 types of network are already present in docker, Other needs to be created.
-&lt;strong&gt;Bridge is used by default.&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;strong&gt;Bridge is used by default.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;1-default-bridge&#34;&gt;1. Default bridge:&lt;/h4&gt;
 &lt;p&gt;Provide internet access from inside, other can&amp;rsquo;t access from outside until you publish any port.
 when you bridge network is used docker0 interface create a bridge network with your active interface and then we have to bind ports to access.&lt;/p&gt;
@@ -1926,8 +2011,7 @@ It is running on hosts ip.&lt;/p&gt;
 &lt;p&gt;If you want to associate your container with Mac address, to pretend like a device not container.
 It simply allows containers to have a Mac address this allow containers to appear as physical device.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Directly connect you docker container with your physical network. (router,switch)&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Directly connect you docker container with your physical network. (router,switch)&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h6 id=&#34;bridge-default&#34;&gt;bridge (default):&lt;/h6&gt;
 &lt;p&gt;Create network&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network create -d macvlan &lt;span style=&#34;color:#ae81ff&#34;&gt;\
@@ -2014,21 +2098,18 @@ Here both the subnet can talk to each other.&lt;/p&gt;
 &lt;h3 id=&#34;3-docker-compose&#34;&gt;3. Docker compose.&lt;/h3&gt;
 &lt;p&gt;Used to run multiple container/microservices and different tier application.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;3 tier application architecture:&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;3 tier application architecture:&lt;/p&gt;&lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;1. presentation layer/tier (UI/Frontend)
 2. Business layer/tier (Backend)
 3. Database layer/tier
 &lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;2 tier application&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;2 tier application&lt;/p&gt;&lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;1. Backend
 2. DB
 &lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Configuration language: YML/YAML (key: value)&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Configuration language: YML/YAML (key: value)&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;We need YAML language to write docker-compose file, which contains all the stages and everything including ports, volumes, networks, etc.&lt;/p&gt;
 &lt;p&gt;Syntax:&lt;/p&gt;
 &lt;p&gt;
@@ -2173,8 +2254,7 @@ Build:&lt;/p&gt;
       <description>&lt;h3 id=&#34;using-firefox&#34;&gt;Using firefox?&lt;/h3&gt;
 &lt;p&gt;Firefox is the best browser for linux nerds and others who want browser other than chromium, it&amp;rsquo;s being almost 2 decades of firefox and now it is filled with some craps which needs to be removed to increase the quality.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Well, today we will see some of the steps to increase the security and surfing experience of firefox.&lt;/p&gt;
 &lt;h2 id=&#34;update-the-userjs-profile&#34;&gt;Update the user.js profile.&lt;/h2&gt;
 &lt;ol&gt;
@@ -2301,7 +2381,7 @@ That&amp;rsquo;s why we need to change search engine also.&lt;/p&gt;
 
 &lt;h3 id=&#34;customize-look-with-pywal-optional&#34;&gt;Customize look with pywal (optional)&lt;/h3&gt;
 &lt;p&gt;To customize look of firefox you can use pywal to generate colorscheme according to your wallpaper which can improve the look.
-There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/pywalfox/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search&#34;&gt;&lt;code&gt;pywalfox&lt;/code&gt;&lt;/a&gt; which will be using.&lt;/p&gt;
+There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/pywalfox/?utm_source=addons.mozilla.org&amp;amp;utm_medium=referral&amp;amp;utm_content=search&#34;&gt;&lt;code&gt;pywalfox&lt;/code&gt;&lt;/a&gt; which will be using.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Install pywalfox&lt;/li&gt;
 &lt;/ul&gt;
@@ -2394,8 +2474,7 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;li&gt;Using extensions same as firefox.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;So that&amp;rsquo;s it.&lt;/p&gt;
 </description> 
     </item>
@@ -2504,8 +2583,7 @@ This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; f
 &lt;li&gt;Bullet&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Block quote&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Block quote&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  // your code here
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash:code.sh&#34; data-lang=&#34;bash:code.sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
@@ -2550,8 +2628,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;385214967&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;385214967&#34;&gt;
+    &lt;input id=&#34;781934265&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;781934265&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -2568,7 +2646,7 @@ exit 0;
 
 
 
-&lt;p&gt;&lt;img alt=&#34;image&#34; src=&#34;https://dark-kernel.web.app/kubernetes-architecture.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dark-kernel.web.app/kubernetes-architecture.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 
 &lt;img src=&#34;https://dark-kernel.web.app/kubernetes-architecture.png&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 10px;&#34;    /&gt;
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Kubernetes Voyage: Advanced Ship Steering :: Sumit Patel</title>
+    <title>Kubernetes Voyage: Advanced Ship Steering :: My New Hugo Site</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,6 @@
   <meta name="robots" content="noodp" />
 
 <link rel="canonical" href="https://dark-kernel.web.app/post/kubernetes-adv/" />
-
-
-  
 
 
 
@@ -47,7 +44,7 @@
 <meta property="og:title" content="Kubernetes Voyage: Advanced Ship Steering">
 <meta property="og:description" content="Let&#39;s get hands on with advanced topics." />
 <meta property="og:url" content="https://dark-kernel.web.app/post/kubernetes-adv/" />
-<meta property="og:site_name" content="Sumit Patel" />
+<meta property="og:site_name" content="My New Hugo Site" />
 
   
     <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
@@ -163,8 +160,7 @@
   
 
   <div class="post-content"><div>
-        <!-- raw HTML omitted -->
-<p>We will learn</p>
+        <p>We will learn</p>
 <ul>
 <li>pods vs container</li>
 <li>Deployments</li>
@@ -177,30 +173,30 @@
 <p>Let&rsquo;s get started.</p>
 <h3 id="pods-vs-containers">Pods vs Containers<a href="#pods-vs-containers" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <table>
-<thead>
-<tr>
-<th>Pods</th>
-<th>Container</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Unit of conainers</td>
-<td>Single container by containerization tool.</td>
-</tr>
-<tr>
-<td>Contains one or more Conainers</td>
-<td>Only single container</td>
-</tr>
-<tr>
-<td>Crashed free</td>
-<td>Can be crashed if some error occurs</td>
-</tr>
-<tr>
-<td>Can be Scheduled</td>
-<td>Can&rsquo;t be scheduled</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Pods</th>
+          <th>Container</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Unit of conainers</td>
+          <td>Single container by containerization tool.</td>
+      </tr>
+      <tr>
+          <td>Contains one or more Conainers</td>
+          <td>Only single container</td>
+      </tr>
+      <tr>
+          <td>Crashed free</td>
+          <td>Can be crashed if some error occurs</td>
+      </tr>
+      <tr>
+          <td>Can be Scheduled</td>
+          <td>Can&rsquo;t be scheduled</td>
+      </tr>
+  </tbody>
 </table>
 <p> </p>
 <hr>
@@ -228,8 +224,7 @@
 <p>logical entity allow you to isolate your resources, like pods, volumne, deploymnets, etc.
 You can create multiple namaspcae for different resources, it is a type of group.</p>
 <blockquote>
-<p>Default name space is already present, and everything is created under it until you specify any other namespace in manifest.</p>
-</blockquote>
+<p>Default name space is already present, and everything is created under it until you specify any other namespace in manifest.</p></blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create namespace nginx
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl get namespace
 </span></span></code></pre></div><p>Example:</p>
@@ -282,8 +277,8 @@ It is a configuration of pods. It is a desired(required) state of your pods. You
 
 
   <div class="collapsable-code">
-    <input id="735219486" type="checkbox"  />
-    <label for="735219486">
+    <input id="278946351" type="checkbox"  />
+    <label for="278946351">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">deployment.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -361,8 +356,8 @@ nginx-deployment   3/3     3            3           23m
 
 
   <div class="collapsable-code">
-    <input id="713986245" type="checkbox"  />
-    <label for="713986245">
+    <input id="938164725" type="checkbox"  />
+    <label for="938164725">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">service.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -400,8 +395,8 @@ spec:
 
 
   <div class="collapsable-code">
-    <input id="168243957" type="checkbox"  />
-    <label for="168243957">
+    <input id="482591736" type="checkbox"  />
+    <label for="482591736">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">service.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -480,8 +475,6 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 </ol>
 <p> </p>
 <hr>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 <h3 id="secrets--config-map">Secrets &amp; config map<a href="#secrets--config-map" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>In k8s, we can&rsquo;t pass environment variables through kubectl at runtime. Therefore we use secret &amp; config map file.</p>
 <ul>
@@ -505,8 +498,8 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 
 
   <div class="collapsable-code">
-    <input id="548372196" type="checkbox"  />
-    <label for="548372196">
+    <input id="865349217" type="checkbox"  />
+    <label for="865349217">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">deployment.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -563,10 +556,6 @@ spec:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kuebctl create namespace mysql
 </span></span></code></pre></div></li>
 </ol>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 <ol start="5">
 <li>
 <p>Create configMaps manifest file</p>
@@ -574,8 +563,8 @@ spec:
 
 
   <div class="collapsable-code">
-    <input id="785469213" type="checkbox"  />
-    <label for="785469213">
+    <input id="591487623" type="checkbox"  />
+    <label for="591487623">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">configMaps.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -612,8 +601,8 @@ data:
 
 
   <div class="collapsable-code">
-    <input id="784215396" type="checkbox"  />
-    <label for="784215396">
+    <input id="861457923" type="checkbox"  />
+    <label for="861457923">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">secrets.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -668,8 +657,8 @@ Make sure you are putting correct container id.</p>
 
 
   <div class="collapsable-code">
-    <input id="139864527" type="checkbox"  />
-    <label for="139864527">
+    <input id="932186754" type="checkbox"  />
+    <label for="932186754">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">persistenVolume.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -709,8 +698,8 @@ mysql-pv-volume   2Gi        RWO            Retain           Available          
 
 
   <div class="collapsable-code">
-    <input id="693157482" type="checkbox"  />
-    <label for="693157482">
+    <input id="162743598" type="checkbox"  />
+    <label for="162743598">
       <span class="collapsable-code__language">yaml</span>
       <span class="collapsable-code__title">persistentVolumeClaim.yml</span>
       <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
@@ -798,7 +787,7 @@ spec:
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2024 Powered by <a href="https://gohugo.io">Hugo</a></span>
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
     
       <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
       </div>

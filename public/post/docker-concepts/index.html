@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Docker :: Sumit Patel</title>
+    <title>Docker :: My New Hugo Site</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,6 @@
   <meta name="robots" content="noodp" />
 
 <link rel="canonical" href="https://dark-kernel.web.app/post/docker-concepts/" />
-
-
-  
 
 
 
@@ -47,7 +44,7 @@
 <meta property="og:title" content="Docker">
 <meta property="og:description" content="Almost Everything you need to know about docker." />
 <meta property="og:url" content="https://dark-kernel.web.app/post/docker-concepts/" />
-<meta property="og:site_name" content="Sumit Patel" />
+<meta property="og:site_name" content="My New Hugo Site" />
 
   
     <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
@@ -163,8 +160,7 @@
   <div class="post-content"><div>
         <h1 id="docker">Docker<a href="#docker" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>These are required from fresher DevOps.</p>
-</blockquote>
+<p>These are required from fresher DevOps.</p></blockquote>
 <p>Used in deployment using containerization method. To run an application in isolated environment.</p>
 <ul>
 <li>
@@ -183,8 +179,7 @@
 </li>
 </ul>
 <blockquote>
-<p>Docker engine is service which allow you to run any OS, which uses dockercli and dockerd</p>
-</blockquote>
+<p>Docker engine is service which allow you to run any OS, which uses dockercli and dockerd</p></blockquote>
 <h4 id="basic-commands">Basic commands:<a href="#basic-commands" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <ul>
 <li>
@@ -217,8 +212,7 @@
 </span></span></code></pre></div></li>
 </ul>
 <blockquote>
-<p>prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.</p>
-</blockquote>
+<p>prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.</p></blockquote>
 <ul>
 <li>We can also force to remove
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker image prune --all --force
@@ -229,8 +223,7 @@
 <p> </p>
 <h2 id="docker-advanced">Docker Advanced.<a href="#docker-advanced" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>These are required from senior DevOps.</p>
-</blockquote>
+<p>These are required from senior DevOps.</p></blockquote>
 <ul>
 <li>Volumnes</li>
 <li>Network</li>
@@ -242,8 +235,7 @@
 <p>It stores a copy of your container to your system too.
 So whenever docker container crashes this copy can be used.</p>
 <blockquote>
-<p>Data is stored in container till it is in running status, after container is exited data is gone. That&rsquo;s why docker volume is used to save data.</p>
-</blockquote>
+<p>Data is stored in container till it is in running status, after container is exited data is gone. That&rsquo;s why docker volume is used to save data.</p></blockquote>
 <p>Example:</p>
 <ol>
 <li>
@@ -279,8 +271,7 @@ So whenever docker container crashes this copy can be used.</p>
 </li>
 </ol>
 <blockquote>
-<p>Volume device data and container&rsquo;s data is synced in real time.</p>
-</blockquote>
+<p>Volume device data and container&rsquo;s data is synced in real time.</p></blockquote>
 <p><strong>Example:</strong></p>
 <ul>
 <li>
@@ -318,8 +309,7 @@ So whenever docker container crashes this copy can be used.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker network ls 
 </span></span></code></pre></div><blockquote>
 <p>By default 3 types of network are already present in docker, Other needs to be created.
-<strong>Bridge is used by default.</strong></p>
-</blockquote>
+<strong>Bridge is used by default.</strong></p></blockquote>
 <h4 id="1-default-bridge">1. Default bridge:<a href="#1-default-bridge" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
 <p>Provide internet access from inside, other can&rsquo;t access from outside until you publish any port.
 when you bridge network is used docker0 interface create a bridge network with your active interface and then we have to bind ports to access.</p>
@@ -343,8 +333,7 @@ It is running on hosts ip.</p>
 <p>If you want to associate your container with Mac address, to pretend like a device not container.
 It simply allows containers to have a Mac address this allow containers to appear as physical device.</p>
 <blockquote>
-<p>Directly connect you docker container with your physical network. (router,switch)</p>
-</blockquote>
+<p>Directly connect you docker container with your physical network. (router,switch)</p></blockquote>
 <h6 id="bridge-default">bridge (default):<a href="#bridge-default" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
 <p>Create network</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker network create -d macvlan <span style="color:#ae81ff">\
@@ -431,21 +420,18 @@ Here both the subnet can talk to each other.</p>
 <h3 id="3-docker-compose">3. Docker compose.<a href="#3-docker-compose" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>Used to run multiple container/microservices and different tier application.</p>
 <blockquote>
-<p>3 tier application architecture:</p>
-</blockquote>
+<p>3 tier application architecture:</p></blockquote>
 <pre><code>1. presentation layer/tier (UI/Frontend)
 2. Business layer/tier (Backend)
 3. Database layer/tier
 </code></pre>
 <blockquote>
-<p>2 tier application</p>
-</blockquote>
+<p>2 tier application</p></blockquote>
 <pre><code>1. Backend
 2. DB
 </code></pre>
 <blockquote>
-<p>Configuration language: YML/YAML (key: value)</p>
-</blockquote>
+<p>Configuration language: YML/YAML (key: value)</p></blockquote>
 <p>We need YAML language to write docker-compose file, which contains all the stages and everything including ports, volumes, networks, etc.</p>
 <p>Syntax:</p>
 <p>
@@ -628,7 +614,7 @@ Build:</p>
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2024 Powered by <a href="https://gohugo.io">Hugo</a></span>
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
     
       <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
       </div>
