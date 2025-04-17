@@ -69,61 +69,61 @@ This is all my Linux screenshots
 <!-- 1744901589_grim.png → Tue, May 17, 2025 – 13:53:09 UTC -->
 
 → Tue, Dec 23, 2022
-{{< image src="./1671809318.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1671809318.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Thu, Jan 26, 2023
-{{< image src="./1674648325.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1674648325.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Thu, Jan 26, 2023
-{{< image src="./1674654733.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1674654733.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Tue, Jun 28, 2022
-{{< image src="./2022-06-28_01_34_42-scrot.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./2022-06-28_01_34_42-scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Thu, Jul 14, 2022
-{{< image src="./2022-07-14-002432_1366x768_scrot.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./2022-07-14-002432_1366x768_scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Mon, Sep 18, 2023
-{{< image src="./1695022838_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1695022838_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Mon, Sep 18, 2023
-{{< image src="./1695022850_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1695022850_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Mon, Jul 24, 2023
-{{< image src="./1690190349_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1690190349_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Sun, Jul 23, 2023
-{{< image src="./1690085683_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1690085683_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Wed, Dec 6, 2023
-{{< image src="./1701866595.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1701866595.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Thu, Dec 7, 2023
-{{< image src="./1701961875.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1701961875.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Tue, Dec 26, 2023
-{{< image src="./1703679316.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1703679316.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Wed, Dec 27, 2023
-{{< image src="./1703771341.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1703771341.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Fri, Jan 12, 2024
 {{< image src="./1704980330.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Mon, Feb 12, 2024
-{{< image src="./1707829572.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1707829572.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Sat, Jun 6, 2024
-{{< image src="./1717672552.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1717672552.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Thu, Jul 11, 2024
-{{< image src="./1720699436.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1720699436.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Tue, May 6, 2025
-{{< image src="./1743954314_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1743954314_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Sat, May 17, 2025
-{{< image src="./1744901589_grim.png" alt="Hello Friend" position="center" style="border-radius: 8px;" >}}
+{{< image src="./1744901589_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 <!-- {{< image src="./1674648325.jpg" alt="Hello Friend" position="center" style="border-radius: 8px;" >}} -->
 
