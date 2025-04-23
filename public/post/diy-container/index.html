@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>DIY Containers: Building a Lightweight Container System from Scratch on Linux :: My New Hugo Site</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="We are going to implement a minimal container system from scratch on Linux" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/post/diy-container/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="DIY Containers: Building a Lightweight Container System from Scratch on Linux">
+<meta property="og:description" content="We are going to implement a minimal container system from scratch on Linux" />
+<meta property="og:url" content="https://dark-kernel.web.app/post/diy-container/" />
+<meta property="og:site_name" content="My New Hugo Site" />
+
+  
+  
+  <meta property="og:image" content="https://dark-kernel.web.app/container-from-scratch.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-04-23 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/post/diy-container/">DIY Containers: Building a Lightweight Container System from Scratch on Linux</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-04-23</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/containers/">containers</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/linux/">linux</a>&nbsp;
+      
+    </span>
+  
+  
+  <img src="https://dark-kernel.web.app/container-from-scratch.png"
+    class="post-cover"
+    alt="DIY Containers: Building a Lightweight Container System from Scratch on Linux"
+    title="Cover Image" />
+
+
+  
+
+  <div class="post-content"><div>
+        <p>In today&rsquo;s cloud-native world, containers have revolutionized how we deploy and manage applications. While Docker and Kubernetes dominate the landscape, understanding what&rsquo;s happening under the hood can be valuable. This blog post will guide you through building a minimalist container system from scratch using Linux&rsquo;s namespaces and other kernel features.</p>
+<h2 id="what-are-containers-really">What Are Containers, Really?<a href="#what-are-containers-really" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>At their core, containers are just processes running with isolation features provided by the Linux kernel. Unlike virtual machines, containers don&rsquo;t need a separate OS kernel - they share the host&rsquo;s kernel while maintaining isolation through several key technologies:</p>
+<ul>
+<li><strong>Namespaces</strong>: Provide isolation for system resources</li>
+<li><strong>Control Groups (cgroups)</strong>: Limit and account for resource usage</li>
+<li><strong>Chroot</strong>: Change the root directory for a process</li>
+<li><strong>Mount Points</strong>: Control what filesystems are visible</li>
+</ul>
+<h2 id="before-we-begin">Before we begin<a href="#before-we-begin" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Before jumping to the code, you need a filesystem for your container. You can create one from a base distribution:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Create a directory for your rootfs</span>
+</span></span><span style="display:flex;"><span>mkdir -p mycontainer/rootfs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use debootstrap to create a minimal Debian system</span>
+</span></span><span style="display:flex;"><span>sudo debootstrap --variant<span style="color:#f92672">=</span>minbase bullseye containers/mycontainerr/rootfs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OR Download the Arch Linux rootfs</span>
+</span></span><span style="display:flex;"><span>curl -O https://mirrors.edge.kernel.org/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.zst
+</span></span><span style="display:flex;"><span>sudo tar xf archlinux-bootstrap-x86_64.tar.zst -C mycontainer/rootfs --strip-components<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OR Alpine (Lightweight)</span>
+</span></span><span style="display:flex;"><span>wget https://dl-cdn.alpinelinux.org/alpine/v3.14/releases/x86_64/alpine-minirootfs-3.14.0-x86_64.tar.gz
+</span></span><span style="display:flex;"><span>tar -xzf alpine-minirootfs-3.14.0-x86_64.tar.gz -C containers/mycontainerr/rootfs
+</span></span></code></pre></div><p>The <code>rootfs</code> is a directory containing the root filesystem of our container. It contains the necessary files and directories to run a basic system.</p>
+<h2 id="lets-begin">Let&rsquo;s begin<a href="#lets-begin" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>We&rsquo;ll start with the necessary includes and definitions, yes we are doing it in c :)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#define _GNU_SOURCE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sched.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/mount.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/wait.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;signal.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define STACK_SIZE (1024 * 1024)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> child_stack[STACK_SIZE];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>child_args[] <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;/bin/sh&#34;</span>, NULL };
+</span></span></code></pre></div><p>These includes provide access to necessary system calls for creating our container. We also define a stack size for our container process and set up the default command to run inside our container (<code>/bin/sh</code>).
+If you know docker that last line should be familiar to you.</p>
+<h2 id="creating-the-container-process">Creating the Container Process<a href="#creating-the-container-process" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Next, we need to define what happens inside our container. The <code>child_main</code> function will be executed inside the container namespace:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">child_main</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>arg) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Set container hostname
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sethostname</span>(<span style="color:#e6db74">&#34;minicontainer&#34;</span>, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ... more container setup to come
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="setting-the-hostname">Setting the Hostname<a href="#setting-the-hostname" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>The first step in our container setup is to set a hostname. This is important because it helps identify the container environment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#a6e22e">sethostname</span>(<span style="color:#e6db74">&#34;minicontainer&#34;</span>, <span style="color:#ae81ff">10</span>);
+</span></span></code></pre></div><p>This sets the hostname to &ldquo;container&rdquo; with a maximum length of 10 characters. The hostname is isolated because we&rsquo;re using the <code>CLONE_NEWUTS</code> namespace flag when creating the container.</p>
+<h3 id="changing-root-directory">Changing Root Directory<a href="#changing-root-directory" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Now, we need to isolate the filesystem by changing the root directory using <code>chroot()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">chroot</span>(<span style="color:#e6db74">&#34;/path/to/mycontainer/rootfs&#34;</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">chdir</span>(<span style="color:#e6db74">&#34;/&#34;</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">perror</span>(<span style="color:#e6db74">&#34;chroot/chdir&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This changes the root directory to &ldquo;/path/to/mycontainer/rootfs&rdquo; and let us in there. After changing the root, we also change the current directory to the new root with <code>chdir(&quot;/&quot;)</code>.
+If you still wonder what roofs directory is then you can think it as a OS image.</p>
+<h3 id="setting-up-proc-filesystem">Setting Up /proc Filesystem<a href="#setting-up-proc-filesystem" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>To ensure our container has access to process information (the thing we do using <code>ps</code> command), we need to mount a <code>/proc</code> filesystem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// Make sure /proc exists
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">mkdir</span>(<span style="color:#e6db74">&#34;/proc&#34;</span>, <span style="color:#ae81ff">0555</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Mount /proc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">mount</span>(<span style="color:#e6db74">&#34;proc&#34;</span>, <span style="color:#e6db74">&#34;/proc&#34;</span>, <span style="color:#e6db74">&#34;proc&#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">perror</span>(<span style="color:#e6db74">&#34;mount /proc&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>First, we create the <code>/proc</code> directory with appropriate permissions (if it doesn&rsquo;t already exist). Then we mount the proc filesystem, which gives processes in the container access to information about running processes within <strong>their namespace</strong>.
+This namespace creates the isolation.</p>
+<h3 id="executing-the-container-command">Executing the Container Command<a href="#executing-the-container-command" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Finally, we execute the command that will run inside our container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// Execute shell
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">execv</span>(child_args[<span style="color:#ae81ff">0</span>], child_args);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">perror</span>(<span style="color:#e6db74">&#34;exec&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p>This replaces the current process with the specified command (by default, <code>/bin/sh</code>). If the <code>execv</code> call fails, we print an error and return.</p>
+<h2 id="setting-up-the-main-function">Setting Up the Main Function<a href="#setting-up-the-main-function" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Now let&rsquo;s look at the main function that will create our container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]) {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> flags <span style="color:#f92672">=</span> CLONE_NEWUTS <span style="color:#f92672">|</span> CLONE_NEWPID <span style="color:#f92672">|</span> CLONE_NEWNS <span style="color:#f92672">|</span> CLONE_NEWNET <span style="color:#f92672">|</span> SIGCHLD;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Launching container...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ... container creation code to come
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="defining-namespace-flags">Defining Namespace Flags<a href="#defining-namespace-flags" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Now we define the namespace flags that will determine what isolation features our container will have, read it again:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> flags <span style="color:#f92672">=</span> CLONE_NEWUTS <span style="color:#f92672">|</span> CLONE_NEWPID <span style="color:#f92672">|</span> CLONE_NEWNS <span style="color:#f92672">|</span> CLONE_NEWNET <span style="color:#f92672">|</span> SIGCHLD;
+</span></span></code></pre></div><p>Each flag provides different isolation:</p>
+<ul>
+<li><code>CLONE_NEWUTS</code>: Isolates hostname and domain name</li>
+<li><code>CLONE_NEWPID</code>: Gives the container its own process ID namespace</li>
+<li><code>CLONE_NEWNS</code>: Creates a new mount namespace</li>
+<li><code>CLONE_NEWNET</code>: Isolates the network stack</li>
+<li><code>SIGCHLD</code>: Signal to send when child terminates</li>
+</ul>
+<h3 id="creating-the-container-process-1">Creating the Container Process<a href="#creating-the-container-process-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Finally, we create the container process using the <code>clone()</code> system call:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">pid_t</span> pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(child_main, child_stack <span style="color:#f92672">+</span> STACK_SIZE, flags, NULL);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (pid <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">perror</span>(<span style="color:#e6db74">&#34;clone&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">waitpid</span>(pid, NULL, <span style="color:#ae81ff">0</span>);
+</span></span></code></pre></div><p>The <code>clone()</code> system call creates a new process that runs the <code>child_main</code> function with the specified namespace flags. We pass it the stack we defined earlier and wait for the container process to finish with <code>waitpid()</code>.</p>
+<p>Now our container is ready to go!</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox"  />
+    <label for="1">
+      <span class="collapsable-code__language">c</span>
+      <span class="collapsable-code__title">container.c</span>
+      <span class="collapsable-code__toggle" data-label-expand="△" data-label-collapse="▽"></span>
+    </label>
+    <pre class="language-c" ><code>
+#define _GNU_SOURCE
+#include &lt;sched.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/mount.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;unistd.h&gt;
+
+#define STACK_SIZE (1024 * 1024)
+static char child_stack[STACK_SIZE];
+
+char *child_args[] = {&#34;/bin/sh&#34;, NULL};
+
+int child_main(void *arg) {
+  // Set container hostname
+  sethostname(&#34;minicontainer&#34;, 10);
+
+  if (chroot(&#34;/home/stroky/.local/codes/Dockers/custom_container/containers/&#34;
+             &#34;mycontainerr/rootfs&#34;) != 0 ||
+      chdir(&#34;/&#34;) != 0) {
+    perror(&#34;chroot/chdir&#34;);
+    return 1;
+  }
+
+  mkdir(&#34;/proc&#34;, 0555);
+
+  // Mount /proc
+  if (mount(&#34;proc&#34;, &#34;/proc&#34;, &#34;proc&#34;, 0, &#34;&#34;) != 0) {
+    perror(&#34;mount /proc&#34;);
+    return 1;
+  }
+  // Execute shell
+  execv(child_args[0], child_args);
+  perror(&#34;exec&#34;);
+  return 1;
+
+  return 1;
+}
+
+int main(int argc, char *argv[]) {
+
+  int flags = CLONE_NEWUTS | CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWNET | SIGCHLD;
+  printf(&#34;Launching container...\n&#34;);
+  pid_t pid = clone(child_main, child_stack &#43; STACK_SIZE, flags, NULL);
+  if (pid &lt; 0) {
+    perror(&#34;clone&#34;);
+    return 1;
+  }
+
+  waitpid(pid, NULL, 0);
+  return 0;
+}
+
+</code></pre>
+  </div>
+
+
+<h2 id="building-and-running-the-container">Building and Running the Container<a href="#building-and-running-the-container" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Compile the code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcc -o container container.c
+</span></span></code></pre></div><p>Run it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ./container
+</span></span></code></pre></div><p>You should now be in a shell inside your container with its own isolated environment!</p>
+<pre tabindex="0"><code>❯ sudo ./container
+Launching container...
+sh-5.2#
+sh-5.2# ls
+bin   dev  home  lib64	opt   root  sbin  sys  usr  version
+boot  etc  lib	 mnt	proc  run   srv   tmp  var
+sh-5.2#
+</code></pre><h2 id="what-this-container-provides">What this container provides?<a href="#what-this-container-provides" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Our minimal container provides:</p>
+<ol>
+<li><strong>Process Isolation</strong>: Processes inside the container can&rsquo;t see processes outside</li>
+<li><strong>Filesystem Isolation</strong>: The container has its own root filesystem</li>
+<li><strong>Hostname Isolation</strong>: The container has its own hostname</li>
+<li><strong>Network Isolation</strong>: The container has its own network namespace</li>
+</ol>
+<p>Now, this is a minimalist implementation, but a production-grade container systems also include:</p>
+<ol>
+<li>cgroup support to limit CPU and memory usage</li>
+<li>Implementation of user namespace isolation (<code>CLONE_NEWUSER</code>)</li>
+<li>Bridge network interface for container connectivity</li>
+<li>Support for mounting volumes from the host</li>
+</ol>
+<h2 id="conclusion">Conclusion<a href="#conclusion" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Building a container system from scratch helps in understanding what&rsquo;s going on under the hood. Though our implementation is basic, it reflects the core that underlie all container systems, including Docker and containerd.</p>
+<p>The Linux kernel provides all the building blocks we need like namespaces, chroot, and mount points - to create isolated environments for running applications.</p>
+<p>So that&rsquo;s it.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://dark-kernel.web.app/post/blue-green-k8s-deployment/">
+                <span class="button__text">Implementing Blue-Green Deployments in Kubernetes: Achieving Zero-Downtime Updates</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

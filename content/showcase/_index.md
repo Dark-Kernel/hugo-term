@@ -68,6 +68,12 @@ This is all my Linux screenshots
 
 <!-- 1744901589_grim.png → Tue, May 17, 2025 – 13:53:09 UTC -->
 
+→ Thu, Jul 14, 2022
+{{< image src="./2022-07-14-002432_1366x768_scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
+
+→ Tue, Jun 28, 2022
+{{< image src="./2022-06-28_01_34_42-scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
+
 → Tue, Dec 23, 2022
 {{< image src="./1671809318.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
@@ -76,12 +82,6 @@ This is all my Linux screenshots
 
 → Thu, Jan 26, 2023
 {{< image src="./1674654733.jpg" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
-
-→ Tue, Jun 28, 2022
-{{< image src="./2022-06-28_01_34_42-scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
-
-→ Thu, Jul 14, 2022
-{{< image src="./2022-07-14-002432_1366x768_scrot.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}
 
 → Mon, Sep 18, 2023
 {{< image src="./1695022838_grim.png" alt="Hello Friend" position="center" style="border-radius: 0px;" >}}

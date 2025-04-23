@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Container on My New Hugo Site</title>
-    <link>https://dark-kernel.web.app/tags/container/</link>
+    <link>http://localhost:1313/tags/container/</link>
     <description>Recent content in Container on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 17 Oct 2024 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://dark-kernel.web.app/tags/container/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/tags/container/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Building a Lightweight Container System from Scratch Ft. Arch Linux</title>
-      <link>https://dark-kernel.web.app/post/container-from-scratch/</link>
+      <link>http://localhost:1313/post/container-from-scratch/</link>
       <pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://dark-kernel.web.app/post/container-from-scratch/</guid>
+      <guid>http://localhost:1313/post/container-from-scratch/</guid>
       <description>&lt;h1 id=&#34;diy-containers-building-a-lightweight-container-system-from-scratch-on-arch-linux&#34;&gt;DIY Containers: Building a Lightweight Container System from Scratch on Arch Linux&lt;/h1&gt;
 &lt;p&gt;In the world of containerization, tools like Docker and Podman reign supreme. But have you ever wondered what&amp;rsquo;s happening under the hood? In this post, we&amp;rsquo;ll leverage the power and flexibility of Arch Linux to build our own lightweight container system from scratch. We&amp;rsquo;ll use Linux namespaces, cgroups, and some Arch-specific tools to create a basic, functional container.&lt;/p&gt;
 &lt;h2 id=&#34;understanding-the-building-blocks&#34;&gt;Understanding the Building Blocks&lt;/h2&gt;

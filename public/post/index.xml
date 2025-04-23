@@ -6,120 +6,240 @@
     <description>Recent content in Posts on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Oct 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Apr 2025 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://dark-kernel.web.app/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Building a Lightweight Container System from Scratch Ft. Arch Linux</title>
-      <link>https://dark-kernel.web.app/post/container-from-scratch/</link>
-      <pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate>
+      <title>DIY Containers: Building a Lightweight Container System from Scratch on Linux</title>
+      <link>https://dark-kernel.web.app/post/diy-container/</link>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://dark-kernel.web.app/post/container-from-scratch/</guid>
-      <description>&lt;h1 id=&#34;diy-containers-building-a-lightweight-container-system-from-scratch-on-arch-linux&#34;&gt;DIY Containers: Building a Lightweight Container System from Scratch on Arch Linux&lt;/h1&gt;
-&lt;p&gt;In the world of containerization, tools like Docker and Podman reign supreme. But have you ever wondered what&amp;rsquo;s happening under the hood? In this post, we&amp;rsquo;ll leverage the power and flexibility of Arch Linux to build our own lightweight container system from scratch. We&amp;rsquo;ll use Linux namespaces, cgroups, and some Arch-specific tools to create a basic, functional container.&lt;/p&gt;
-&lt;h2 id=&#34;understanding-the-building-blocks&#34;&gt;Understanding the Building Blocks&lt;/h2&gt;
-&lt;p&gt;Before we dive in, let&amp;rsquo;s briefly cover the key concepts:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Namespaces&lt;/strong&gt;: These isolate system resources for a set of processes.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Cgroups&lt;/strong&gt;: These limit, account for, and isolate resource usage (CPU, memory, disk I/O, etc.) of process groups.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Chroot&lt;/strong&gt;: This changes the root directory for a process and its children.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
-&lt;p&gt;Ensure you have the following packages installed:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S arch-install-scripts util-linux
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-1-creating-a-root-filesystem&#34;&gt;Step 1: Creating a Root Filesystem&lt;/h2&gt;
-&lt;p&gt;First, let&amp;rsquo;s create a minimal Arch Linux root filesystem for our container:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir arch-container
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacstrap -c -d arch-container base
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This creates a basic Arch Linux system in the &lt;code&gt;arch-container&lt;/code&gt; directory.&lt;/p&gt;
-&lt;h2 id=&#34;step-2-setting-up-network-namespace&#34;&gt;Step 2: Setting Up Network Namespace&lt;/h2&gt;
-&lt;p&gt;We&amp;rsquo;ll create a network namespace for our container:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns add container-ns
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link add veth0 type veth peer name veth1
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link set veth1 netns container-ns
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip addr add 10.0.0.1/24 dev veth0
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip link set veth0 up
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip addr add 10.0.0.2/24 dev veth1
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip link set veth1 up
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ip netns exec container-ns ip route add default via 10.0.0.1
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These commands create a virtual ethernet pair and set up basic networking for our container.&lt;/p&gt;
-&lt;h2 id=&#34;step-3-creating-a-control-group&#34;&gt;Step 3: Creating a Control Group&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s create a cgroup to limit our container&amp;rsquo;s resources:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgcreate -g cpu,memory:mycontainer
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgset -r cpu.shares&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; mycontainer
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cgset -r memory.limit_in_bytes&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;512M mycontainer
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This creates a cgroup named &lt;code&gt;mycontainer&lt;/code&gt; with CPU and memory limits.&lt;/p&gt;
-&lt;h2 id=&#34;step-4-writing-the-container-script&#34;&gt;Step 4: Writing the Container Script&lt;/h2&gt;
-&lt;p&gt;Now, let&amp;rsquo;s create a script to launch our container. Save this as &lt;code&gt;run-container.sh&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+      <guid>https://dark-kernel.web.app/post/diy-container/</guid>
+      <description>&lt;p&gt;In today&amp;rsquo;s cloud-native world, containers have revolutionized how we deploy and manage applications. While Docker and Kubernetes dominate the landscape, understanding what&amp;rsquo;s happening under the hood can be valuable. This blog post will guide you through building a minimalist container system from scratch using Linux&amp;rsquo;s namespaces and other kernel features.&lt;/p&gt;
+&lt;h2 id=&#34;what-are-containers-really&#34;&gt;What Are Containers, Really?&lt;/h2&gt;
+&lt;p&gt;At their core, containers are just processes running with isolation features provided by the Linux kernel. Unlike virtual machines, containers don&amp;rsquo;t need a separate OS kernel - they share the host&amp;rsquo;s kernel while maintaining isolation through several key technologies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Namespaces&lt;/strong&gt;: Provide isolation for system resources&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Control Groups (cgroups)&lt;/strong&gt;: Limit and account for resource usage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Chroot&lt;/strong&gt;: Change the root directory for a process&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mount Points&lt;/strong&gt;: Control what filesystems are visible&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;before-we-begin&#34;&gt;Before we begin&lt;/h2&gt;
+&lt;p&gt;Before jumping to the code, you need a filesystem for your container. You can create one from a base distribution:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Create a directory for your rootfs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p mycontainer/rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Use debootstrap to create a minimal Debian system&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo debootstrap --variant&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;minbase bullseye containers/mycontainerr/rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# OR Download the Arch Linux rootfs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -O https://mirrors.edge.kernel.org/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.zst
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo tar xf archlinux-bootstrap-x86_64.tar.zst -C mycontainer/rootfs --strip-components&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# OR Alpine (Lightweight)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://dl-cdn.alpinelinux.org/alpine/v3.14/releases/x86_64/alpine-minirootfs-3.14.0-x86_64.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -xzf alpine-minirootfs-3.14.0-x86_64.tar.gz -C containers/mycontainerr/rootfs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;rootfs&lt;/code&gt; is a directory containing the root filesystem of our container. It contains the necessary files and directories to run a basic system.&lt;/p&gt;
+&lt;h2 id=&#34;lets-begin&#34;&gt;Let&amp;rsquo;s begin&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll start with the necessary includes and definitions, yes we are doing it in c :)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define _GNU_SOURCE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;sched.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;sys/mount.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;sys/wait.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;signal.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;sys/stat.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Function to clean up after the container exits&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cleanup&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ip link del veth0
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ip netns del container-ns
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    cgdelete -g cpu,memory:mycontainer
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define STACK_SIZE (1024 * 1024)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; child_stack[STACK_SIZE];
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Set up cleanup on script exit&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;trap cleanup EXIT
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;child_args[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/bin/sh&amp;#34;&lt;/span&gt;, NULL };
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These includes provide access to necessary system calls for creating our container. We also define a stack size for our container process and set up the default command to run inside our container (&lt;code&gt;/bin/sh&lt;/code&gt;).
+If you know docker that last line should be familiar to you.&lt;/p&gt;
+&lt;h2 id=&#34;creating-the-container-process&#34;&gt;Creating the Container Process&lt;/h2&gt;
+&lt;p&gt;Next, we need to define what happens inside our container. The &lt;code&gt;child_main&lt;/code&gt; function will be executed inside the container namespace:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;child_main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;arg) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Set container hostname
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;sethostname&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;minicontainer&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ... more container setup to come
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;setting-the-hostname&#34;&gt;Setting the Hostname&lt;/h3&gt;
+&lt;p&gt;The first step in our container setup is to set a hostname. This is important because it helps identify the container environment:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sethostname&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;minicontainer&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This sets the hostname to &amp;ldquo;container&amp;rdquo; with a maximum length of 10 characters. The hostname is isolated because we&amp;rsquo;re using the &lt;code&gt;CLONE_NEWUTS&lt;/code&gt; namespace flag when creating the container.&lt;/p&gt;
+&lt;h3 id=&#34;changing-root-directory&#34;&gt;Changing Root Directory&lt;/h3&gt;
+&lt;p&gt;Now, we need to isolate the filesystem by changing the root directory using &lt;code&gt;chroot()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;chroot&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/path/to/mycontainer/rootfs&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;chdir&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;perror&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chroot/chdir&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This changes the root directory to &amp;ldquo;/path/to/mycontainer/rootfs&amp;rdquo; and let us in there. After changing the root, we also change the current directory to the new root with &lt;code&gt;chdir(&amp;quot;/&amp;quot;)&lt;/code&gt;.
+If you still wonder what roofs directory is then you can think it as a OS image.&lt;/p&gt;
+&lt;h3 id=&#34;setting-up-proc-filesystem&#34;&gt;Setting Up /proc Filesystem&lt;/h3&gt;
+&lt;p&gt;To ensure our container has access to process information (the thing we do using &lt;code&gt;ps&lt;/code&gt; command), we need to mount a &lt;code&gt;/proc&lt;/code&gt; filesystem:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Make sure /proc exists
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mkdir&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/proc&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0555&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Ensure script is run as root&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;id -u&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; -ne &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;This script must be run as root&amp;#34;&lt;/span&gt; 1&amp;gt;&amp;amp;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    exit &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Mount /proc
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;mount&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;proc&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/proc&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;proc&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;perror&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mount /proc&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, we create the &lt;code&gt;/proc&lt;/code&gt; directory with appropriate permissions (if it doesn&amp;rsquo;t already exist). Then we mount the proc filesystem, which gives processes in the container access to information about running processes within &lt;strong&gt;their namespace&lt;/strong&gt;.
+This namespace creates the isolation.&lt;/p&gt;
+&lt;h3 id=&#34;executing-the-container-command&#34;&gt;Executing the Container Command&lt;/h3&gt;
+&lt;p&gt;Finally, we execute the command that will run inside our container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Execute shell
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;execv&lt;/span&gt;(child_args[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], child_args);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;perror&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;exec&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This replaces the current process with the specified command (by default, &lt;code&gt;/bin/sh&lt;/code&gt;). If the &lt;code&gt;execv&lt;/code&gt; call fails, we print an error and return.&lt;/p&gt;
+&lt;h2 id=&#34;setting-up-the-main-function&#34;&gt;Setting Up the Main Function&lt;/h2&gt;
+&lt;p&gt;Now let&amp;rsquo;s look at the main function that will create our container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;argv[]) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; flags &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CLONE_NEWUTS &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWPID &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWNS &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWNET &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; SIGCHLD;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Launching container...&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Launch the container&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;unshare --fork --pid --net&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/var/run/netns/container-ns --mount-proc &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;cgexec -g cpu,memory:mycontainer &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;arch-chroot arch-container /bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make the script executable:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod +x run-container.sh
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-5-running-our-container&#34;&gt;Step 5: Running our Container&lt;/h2&gt;
-&lt;p&gt;Now we can run our container:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./run-container.sh
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You&amp;rsquo;re now inside your homemade container! Let&amp;rsquo;s verify the isolation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check the network&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ip addr
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ... container creation code to come
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;defining-namespace-flags&#34;&gt;Defining Namespace Flags&lt;/h3&gt;
+&lt;p&gt;Now we define the namespace flags that will determine what isolation features our container will have, read it again:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; flags &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CLONE_NEWUTS &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWPID &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWNS &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; CLONE_NEWNET &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; SIGCHLD;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each flag provides different isolation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CLONE_NEWUTS&lt;/code&gt;: Isolates hostname and domain name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CLONE_NEWPID&lt;/code&gt;: Gives the container its own process ID namespace&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CLONE_NEWNS&lt;/code&gt;: Creates a new mount namespace&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CLONE_NEWNET&lt;/code&gt;: Isolates the network stack&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SIGCHLD&lt;/code&gt;: Signal to send when child terminates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;creating-the-container-process-1&#34;&gt;Creating the Container Process&lt;/h3&gt;
+&lt;p&gt;Finally, we create the container process using the &lt;code&gt;clone()&lt;/code&gt; system call:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pid_t&lt;/span&gt; pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;clone&lt;/span&gt;(child_main, child_stack &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; STACK_SIZE, flags, NULL);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (pid &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;perror&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clone&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check the process tree&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ps aux
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Check available memory&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;free -m
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Exit the container&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;exit
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;understanding-whats-happening&#34;&gt;Understanding What&amp;rsquo;s Happening&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s break down the key components of our container system:&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;waitpid&lt;/span&gt;(pid, NULL, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;clone()&lt;/code&gt; system call creates a new process that runs the &lt;code&gt;child_main&lt;/code&gt; function with the specified namespace flags. We pass it the stack we defined earlier and wait for the container process to finish with &lt;code&gt;waitpid()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now our container is ready to go!&lt;/p&gt;
+
+
+
+  &lt;div class=&#34;collapsable-code&#34;&gt;
+    &lt;input id=&#34;1&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;1&#34;&gt;
+      &lt;span class=&#34;collapsable-code__language&#34;&gt;c&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__title&#34;&gt;container.c&lt;/span&gt;
+      &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;pre class=&#34;language-c&#34; &gt;&lt;code&gt;
+#define _GNU_SOURCE
+#include &amp;lt;sched.h&amp;gt;
+#include &amp;lt;signal.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;sys/mount.h&amp;gt;
+#include &amp;lt;sys/stat.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;sys/wait.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+
+#define STACK_SIZE (1024 * 1024)
+static char child_stack[STACK_SIZE];
+
+char *child_args[] = {&amp;#34;/bin/sh&amp;#34;, NULL};
+
+int child_main(void *arg) {
+  // Set container hostname
+  sethostname(&amp;#34;minicontainer&amp;#34;, 10);
+
+  if (chroot(&amp;#34;/home/stroky/.local/codes/Dockers/custom_container/containers/&amp;#34;
+             &amp;#34;mycontainerr/rootfs&amp;#34;) != 0 ||
+      chdir(&amp;#34;/&amp;#34;) != 0) {
+    perror(&amp;#34;chroot/chdir&amp;#34;);
+    return 1;
+  }
+
+  mkdir(&amp;#34;/proc&amp;#34;, 0555);
+
+  // Mount /proc
+  if (mount(&amp;#34;proc&amp;#34;, &amp;#34;/proc&amp;#34;, &amp;#34;proc&amp;#34;, 0, &amp;#34;&amp;#34;) != 0) {
+    perror(&amp;#34;mount /proc&amp;#34;);
+    return 1;
+  }
+  // Execute shell
+  execv(child_args[0], child_args);
+  perror(&amp;#34;exec&amp;#34;);
+  return 1;
+
+  return 1;
+}
+
+int main(int argc, char *argv[]) {
+
+  int flags = CLONE_NEWUTS | CLONE_NEWPID | CLONE_NEWNS | CLONE_NEWNET | SIGCHLD;
+  printf(&amp;#34;Launching container...\n&amp;#34;);
+  pid_t pid = clone(child_main, child_stack &amp;#43; STACK_SIZE, flags, NULL);
+  if (pid &amp;lt; 0) {
+    perror(&amp;#34;clone&amp;#34;);
+    return 1;
+  }
+
+  waitpid(pid, NULL, 0);
+  return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+
+&lt;h2 id=&#34;building-and-running-the-container&#34;&gt;Building and Running the Container&lt;/h2&gt;
+&lt;p&gt;Compile the code:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gcc -o container container.c
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./container
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should now be in a shell inside your container with its own isolated environment!&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❯ sudo ./container
+Launching container...
+sh-5.2#
+sh-5.2# ls
+bin   dev  home  lib64	opt   root  sbin  sys  usr  version
+boot  etc  lib	 mnt	proc  run   srv   tmp  var
+sh-5.2#
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;what-this-container-provides&#34;&gt;What this container provides?&lt;/h2&gt;
+&lt;p&gt;Our minimal container provides:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Filesystem Isolation&lt;/strong&gt;: &lt;code&gt;arch-chroot&lt;/code&gt; changes the root directory, providing filesystem isolation.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Network Isolation&lt;/strong&gt;: The &lt;code&gt;ip netns&lt;/code&gt; commands create a separate network namespace, and &lt;code&gt;unshare --net&lt;/code&gt; ensures the container uses this namespace.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Process Isolation&lt;/strong&gt;: &lt;code&gt;unshare --pid --mount-proc&lt;/code&gt; creates a new PID namespace and mounts a new procfs, isolating the process tree.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Resource Limits&lt;/strong&gt;: &lt;code&gt;cgexec&lt;/code&gt; ensures the container runs within the cgroup we created, enforcing resource limits.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Process Isolation&lt;/strong&gt;: Processes inside the container can&amp;rsquo;t see processes outside&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Filesystem Isolation&lt;/strong&gt;: The container has its own root filesystem&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hostname Isolation&lt;/strong&gt;: The container has its own hostname&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Network Isolation&lt;/strong&gt;: The container has its own network namespace&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;enhancing-our-container-system&#34;&gt;Enhancing our Container System&lt;/h2&gt;
-&lt;p&gt;This is a basic implementation, but you could extend it in several ways:&lt;/p&gt;
+&lt;p&gt;Now, this is a minimalist implementation, but a production-grade container systems also include:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Overlay Filesystems&lt;/strong&gt;: Use overlay fs to make containers more efficient.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;User Namespaces&lt;/strong&gt;: Implement user namespaces for better security.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Container Images&lt;/strong&gt;: Create a system for building and storing container images.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Networking&lt;/strong&gt;: Implement more advanced networking features like port mapping.&lt;/li&gt;
+&lt;li&gt;cgroup support to limit CPU and memory usage&lt;/li&gt;
+&lt;li&gt;Implementation of user namespace isolation (&lt;code&gt;CLONE_NEWUSER&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Bridge network interface for container connectivity&lt;/li&gt;
+&lt;li&gt;Support for mounting volumes from the host&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;We&amp;rsquo;ve just scratched the surface of container technology, but this exercise demonstrates the power and flexibility of Linux systems like Arch. By understanding these low-level concepts, you can better appreciate tools like Docker and potentially customize them for your specific needs.&lt;/p&gt;
-&lt;p&gt;Remember, this is a educational exercise and not intended for production use. For real-world applications, stick to well-tested solutions like Docker or Podman.&lt;/p&gt;
-&lt;p&gt;In our next post, we might explore how to extend this system with more features, or perhaps dive into other unique ways to leverage Arch Linux&amp;rsquo;s flexibility. Stay tuned for more advanced Arch Linux adventures!&lt;/p&gt;
+&lt;p&gt;Building a container system from scratch helps in understanding what&amp;rsquo;s going on under the hood. Though our implementation is basic, it reflects the core that underlie all container systems, including Docker and containerd.&lt;/p&gt;
+&lt;p&gt;The Linux kernel provides all the building blocks we need like namespaces, chroot, and mount points - to create isolated environments for running applications.&lt;/p&gt;
+&lt;p&gt;So that&amp;rsquo;s it.&lt;/p&gt;
 </description> 
     </item>
     
@@ -659,8 +779,8 @@ It is a configuration of pods. It is a desired(required) state of your pods. You
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;274985163&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;274985163&#34;&gt;
+    &lt;input id=&#34;964837251&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;964837251&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -738,8 +858,8 @@ nginx-deployment   3/3     3            3           23m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;639754128&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;639754128&#34;&gt;
+    &lt;input id=&#34;962735418&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;962735418&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -777,8 +897,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;317948652&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;317948652&#34;&gt;
+    &lt;input id=&#34;549718263&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;549718263&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -880,8 +1000,8 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;483659217&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;483659217&#34;&gt;
+    &lt;input id=&#34;293875146&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;293875146&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -945,8 +1065,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;632879154&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;632879154&#34;&gt;
+    &lt;input id=&#34;329514678&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;329514678&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;configMaps.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -983,8 +1103,8 @@ data:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;641973285&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;641973285&#34;&gt;
+    &lt;input id=&#34;769213458&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;769213458&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;secrets.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1039,8 +1159,8 @@ Make sure you are putting correct container id.&lt;/p&gt;
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;576198342&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;576198342&#34;&gt;
+    &lt;input id=&#34;479586312&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;479586312&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistenVolume.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1080,8 +1200,8 @@ mysql-pv-volume   2Gi        RWO            Retain           Available          
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;325716948&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;325716948&#34;&gt;
+    &lt;input id=&#34;749632158&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;749632158&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistentVolumeClaim.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1469,8 +1589,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;812364975&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;812364975&#34;&gt;
+    &lt;input id=&#34;315728694&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;315728694&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1558,8 +1678,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;873169254&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;873169254&#34;&gt;
+    &lt;input id=&#34;937218465&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;937218465&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -2628,8 +2748,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;632718495&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;632718495&#34;&gt;
+    &lt;input id=&#34;825649731&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;825649731&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

@@ -2,31 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dark-kernel.web.app/tags/archlinux/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/tags/containers/</loc>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dark-kernel.web.app/post/container-from-scratch/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/container/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/post/diy-container/</loc>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/linux/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/</loc>
-    <lastmod>2024-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/blue-green/</loc>
-    <lastmod>2024-07-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dark-kernel.web.app/tags/containers/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/deployment/</loc>
