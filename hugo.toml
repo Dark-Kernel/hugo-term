@@ -1,13 +1,13 @@
 baseURL = 'https://dark-kernel.web.app/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Dark Kernel'
 theme = 'terminal-theme'
 pagination.pagerSize = 5
 #paginate = 5
 
 
 [author]
-    name = "My Name Here"
+    name = "Sumit Patel"
 
 
 [params]
@@ -25,8 +25,8 @@ pagination.pagerSize = 5
   enableSearch = true
   enableInlineShortcodes = true
   contentDir = "content/post"
-  facebook = "https://www.facebook.com/theauctionqueens"
-  email = "theauctionqueens@gmail.com"
+  facebook = "https://www.facebook.com/"
+  email = "darkkernel@tutamail.com"
   include_toc = true
   Toc = false
   show_comments = true 
@@ -45,7 +45,7 @@ DisqusShortname = 'sumitpatel'
   [languages.en]
     [languages.en.params]
         title = "Sumit Patel"
-        subtitle = "A simple, retro theme for Hugo"
+        subtitle = "Just a personal site."
         keywords = ""
         copyright = ""
         menuMore = "Show more"

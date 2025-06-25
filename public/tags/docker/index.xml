@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on My New Hugo Site</title>
+    <title>Docker on Dark Kernel</title>
     <link>https://dark-kernel.web.app/tags/docker/</link>
-    <description>Recent content in Docker on My New Hugo Site</description>
+    <description>Recent content in Docker on Dark Kernel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 06 Aug 2023 00:00:00 +0000</lastBuildDate>

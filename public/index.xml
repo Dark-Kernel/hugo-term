@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sumit on My New Hugo Site</title>
+    <title>sumit on Dark Kernel</title>
     <link>https://dark-kernel.web.app/</link>
-    <description>Recent content in sumit on My New Hugo Site</description>
+    <description>Recent content in sumit on Dark Kernel</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 07 Jun 2025 00:00:00 +0000</lastBuildDate>
@@ -827,8 +827,8 @@ It is a configuration of pods. It is a desired(required) state of your pods. You
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;596247813&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;596247813&#34;&gt;
+    &lt;input id=&#34;519827634&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;519827634&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -906,8 +906,8 @@ nginx-deployment   3/3     3            3           23m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;236845719&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;236845719&#34;&gt;
+    &lt;input id=&#34;657382419&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;657382419&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -945,8 +945,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;832714596&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;832714596&#34;&gt;
+    &lt;input id=&#34;976341825&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;976341825&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;service.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1048,8 +1048,8 @@ nginx-deployment-66b6c48dd5-vtqq8   1/1     Running   1          16m
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;172954368&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;172954368&#34;&gt;
+    &lt;input id=&#34;874369251&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;874369251&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;deployment.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1113,8 +1113,8 @@ spec:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;431756892&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;431756892&#34;&gt;
+    &lt;input id=&#34;159634728&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;159634728&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;configMaps.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1151,8 +1151,8 @@ data:
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;245861397&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;245861397&#34;&gt;
+    &lt;input id=&#34;584329617&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;584329617&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;secrets.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1207,8 +1207,8 @@ Make sure you are putting correct container id.&lt;/p&gt;
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;291568473&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;291568473&#34;&gt;
+    &lt;input id=&#34;964318275&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;964318275&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistenVolume.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1248,8 +1248,8 @@ mysql-pv-volume   2Gi        RWO            Retain           Available          
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;274153689&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;274153689&#34;&gt;
+    &lt;input id=&#34;678924531&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;678924531&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;yaml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;persistentVolumeClaim.yml&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1637,8 +1637,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;145863279&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;145863279&#34;&gt;
+    &lt;input id=&#34;271438596&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;271438596&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -1726,8 +1726,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;258316947&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;258316947&#34;&gt;
+    &lt;input id=&#34;569812473&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;569812473&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -2796,8 +2796,8 @@ pre {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;193672845&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;193672845&#34;&gt;
+    &lt;input id=&#34;128539476&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;128539476&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;bash&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Simple cool shell script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
