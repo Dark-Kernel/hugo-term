@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tmux on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/tmux/</link>
+    <description>Recent content in Tmux on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Dec 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>tmux error &#39;tmux.conf: no current session&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/</link>
+      <pubDate>Sun, 03 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/</guid>
+      <description>&lt;p&gt;This is because you haven&amp;rsquo;t added &lt;code&gt;-g&lt;/code&gt; in any of the &lt;code&gt;set&lt;/code&gt; command in &lt;code&gt;tmux.conf&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://stackoverflow.com/a/55805036&#34;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Fix go: go.mod file not found in current directory or any parent directory; see &#39;go help modules&#39; :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. First initialize `go mod`." />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Fix go: go.mod file not found in current directory or any parent directory; see &#39;go help modules&#39;">
+<meta property="og:description" content="1. First initialize `go mod`." />
+<meta property="og:url" content="https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-08-25 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/">Fix go: go.mod file not found in current directory or any parent directory; see &lsquo;go help modules&rsquo;</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-08-25</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/go/">go</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/golang/">golang</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <ol>
+<li>First initialize <code>go mod</code>.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go mod init &lt;file.go&gt;
+</span></span></code></pre></div><p>[&ndash;more&ndash;]</p>
+<ol start="2">
+<li>Install modules</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go mod tidy
+</span></span></code></pre></div><p>And you are done.</p>
+<p>Reference: <a href="https://stackoverflow.com/questions/66894200/error-message-go-go-mod-file-not-found-in-current-directory-or-any-parent-dire"> StackOverflow </a></p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

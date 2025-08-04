@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Image on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/image/</link>
+    <description>Recent content in Image on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Nov 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/image/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Flash image to partition, and boot with grub manual entry</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-24-flash-image-to-partition-and-boot-with-grub-manual-entry/</link>
+      <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-24-flash-image-to-partition-and-boot-with-grub-manual-entry/</guid>
+      <description>&lt;h3 id=&#34;how-to-flash-image-iso-to-paritition&#34;&gt;How to flash image (.iso) to paritition&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Create partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo fdisk /dev/sda
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Format partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo mkfs.ext4 /dev/sda11
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Write image to partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dd bs=4M if=/home/stroky/Downloads/cachyos-desktop-linux-241110.iso of=/dev/sda11 status=progress oflag=sync
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Mount partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo mount /dev/sda11 /mnt/cachyos
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Check for the grub.cfg in there&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ls /mnt/cachyos/boot/grub/
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Add entry&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudoedit /etc/grub.d/40_custom
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;There are 3 main ways&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Direct provide path for grub.cfg:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install direct&amp;#39; {
+    set root=(hd1,gpt11)
+    configfile /boot/grub/grub.cfg
+    # linux ($root)/arch/boot/x86_64/vmlinuz-linux-cachyos root=/dev/sda11 ro quiet splash 
+    # initrd ($root)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Boot through partition:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install dev11&amp;#39; {
+    set root=(hd1,gpt11)
+    linux ($root)/arch/boot/x86_64/vmlinuz-linux-cachyos root=/dev/sda11 ro quiet splash cow_spacesize=10G
+    initrd ($root)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Boot through iso:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install&amp;#39; {
+    set isofile=&amp;#34;/home/stroky/Downloads/cachyos-desktop-linux-241110.iso&amp;#34;
+    loopback loop $isofile
+    linux (loop)/arch/boot/x86_64/vmlinuz-linux-cachyos img_dev=/dev/sda8 img_loop=$isofile earlymodules=loop cow_spacesize=10G
+    initrd (loop)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then finally update grub config:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo grub-mkconfig -o /boot/grub/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Reboot&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

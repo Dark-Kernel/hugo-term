@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mpv on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/mpv/</link>
+    <description>Recent content in Mpv on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 30 May 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/mpv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix mpv lags system while playing yt video</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-05-30-fix-mpv-lags-system-while-playing-yt-video/</link>
+      <pubDate>Thu, 30 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-05-30-fix-mpv-lags-system-while-playing-yt-video/</guid>
+      <description>&lt;p&gt;There are different ways:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Using resample&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mpv -vo=gpu --video-sync=display-resample -hwdec=auto &amp;#34;https://www.youtube.com/watch?v=ENxwig2JOKo&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Use yt-dlp&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mpv -ytdl-raw-options=&amp;#39;format=&amp;#34;mp4,best[height&amp;lt;1081]&amp;#34;&amp;#39; -vo=gpu --video-sync=display-resample &amp;#34;https://www.youtube.com/watch?v=ys5MqjzPTag&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;References:
+&lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=283397&#34;&gt;ArchLinux Forum&lt;/a&gt; | &lt;a href=&#34;https://www.reddit.com/r/mpv/comments/m6uv5b/video_lagging_on_mpv/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

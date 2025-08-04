@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Linux stuffs :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="```bash" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Linux stuffs">
+<meta property="og:description" content="```bash" />
+<meta property="og:url" content="https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-07-22 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/">Linux stuffs</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-07-22</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/linux/">linux</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Hello world&#34;</span>
+</span></span></code></pre></div><p>We are going to learn: [&ndash;more&ndash;]</p>
+<ol>
+<li>User / group</li>
+<li>grep, awk, find.</li>
+<li>File permission</li>
+<li>ssh/scp</li>
+<li>systemctl</li>
+</ol>
+<ul>
+<li>
+<h4 id="groups-collection-of-users">Groups: collection of users<a href="#groups-collection-of-users" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo groupadd devops
+</span></span></code></pre></div><p>use the <code>/etc/group</code> file to get groups</p>
+<blockquote>
+<p><strong>Whenever you create a user it creates groups also with the same name.</strong></p></blockquote>
+<ul>
+<li>
+<p>Add user to group</p>
+<p>whenever you add a user to a group you modify the user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG devops user1
+</span></span></code></pre></div></li>
+</ul>
+<ul>
+<li>
+<p>To add multiple users, we can also use gpasswd to add user</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo gpasswd -M user1,user2,user3 testers
+</span></span></code></pre></div></li>
+<li>
+<p>Delete user form group</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo gpasswd -d user2 testers
+</span></span></code></pre></div></li>
+<li>
+<p>Delete group</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo groupdel testers
+</span></span></code></pre></div></li>
+<li>
+<p>Use chgrp to change  group of file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chgrp tester file.txt
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h6></h6>
+<hr>
+<ul>
+<li>
+<h4 id="file-permissions">File permissions:<a href="#file-permissions" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>Numeric Permissions:</p>
+<ul>
+<li>r - read = 4</li>
+<li>w - write = 2</li>
+<li>x - execute = 1</li>
+</ul>
+<p> </p>
+<ul>
+<li>
+<p>There are three set of permissions for:</p>
+<ul>
+<li>U - User/Owner</li>
+<li>G - Group</li>
+<li>O - Others</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<ul>
+<li>
+<p>Combinations</p>
+<p>_ U _ . _ G _ . _ O _ =&gt; rwx rwx rwx</p>
+<h5 id="example">Example:<a href="#example" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<p>U - read+write = 4+2 =&gt; 6</p>
+<p>G - read+executable = 4+1 =&gt; 5</p>
+<p>O - read = 4 =&gt; 4</p>
+<blockquote>
+<p>Final permission numeric == 654</p></blockquote>
+</li>
+</ul>
+<p> </p>
+<ul>
+<li>
+<p>User <code>chmod</code> command to modify permissions</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">700</span> file.txt
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="heading"> <a href="#heading" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>
+<h4 id="find-files">Find files<a href="#find-files" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li>
+<p>Grep: To find anything inside file or name of files.</p>
+<ul>
+<li>Find some keyword or filename in directory.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -r keyword /home/ubuntu/
+</span></span></code></pre></div><p><code>-r</code> is for searching recursively inside directotries</p>
+<ul>
+<li>grep something inside file</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep keyword file.txt
+</span></span></code></pre></div><ul>
+<li>Search case insensitive</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -i keyword file.txt
+</span></span></code></pre></div><p><code>-i</code> stands for case insensitive, by default grep is case sensitive.</p>
+<p> </p>
+</li>
+</ul>
+<ul>
+<li>
+<p>AWK:</p>
+<ul>
+<li>Find <code>TRACE</code> from log and print column 1,2,5</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;/TRACE/ {print $1,$2,$5}&#39;</span> errors.log
+</span></span></code></pre></div><ul>
+<li>Get the exact line number</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;/TRACE/ {print NR,$1,$2,$5}&#39;</span> errors.log
+</span></span></code></pre></div><ul>
+<li>User condition using <code>NR</code> =&gt; row number</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;NR&gt;=1 &amp;&amp; NR&lt;=20 &amp;&amp; /TRACE/ {print NR,$1,$2,$5}&#39;</span> errors.log
+</span></span></code></pre></div></li>
+</ul>
+<p> </p>
+<ul>
+<li>
+<p>Find:</p>
+<ul>
+<li>
+<p>Find files with specific extension</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find *.txt
+</span></span></code></pre></div></li>
+<li>
+<p>Find files in some directory with specific ending</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find dir/ *.log
+</span></span></code></pre></div></li>
+<li>
+<p>Find files by a particular owner</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find dir/ -user ubuntu
+</span></span></code></pre></div></li>
+<li>
+<p>Find files by a particular group</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find dir/ -group devops
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<p> </p>
+</li>
+<li>
+<h4 id="ssh">SSH:<a href="#ssh" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li>
+<p>Keys:</p>
+<ul>
+<li>
+<p>Public key (id_rsa.pub)</p>
+</li>
+<li>
+<p>private key (id_rsa)</p>
+<blockquote>
+<p>Public key must be known by the server where you want to connect, and you must also have private key to connect.</p></blockquote>
+</li>
+</ul>
+<p> </p>
+</li>
+<li>
+<p>Create keys:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen
+</span></span></code></pre></div><p>Keys are stored in <code>~/.ssh/</code> directory.</p>
+</li>
+<li>
+<p>Connect using keys:</p>
+<ol>
+<li>
+<p>Permission must be 400</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">400</span> key.pem
+</span></span></code></pre></div></li>
+<li>
+<p>connect</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i /path/to/key.pem user@ipaddress
+</span></span></code></pre></div></li>
+<li>
+<p>Types <code>yes</code> when asked.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>scp from host system to server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp -i <span style="color:#e6db74">&#34;key.pem&#34;</span> file.txt user@ipadd:/home/user/file.txt
+</span></span></code></pre></div></li>
+<li>
+<p>scp from server to our host system</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp -i <span style="color:#e6db74">&#34;key.pem&#34;</span> user@ipadd:/home/user/file .
+</span></span></code></pre></div><p> </p>
+</li>
+</ul>
+</li>
+<li>
+<h4 id="systemctl">Systemctl<a href="#systemctl" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>It is a Service controller, services like <code>docker</code>, <code>apache2</code>, <code>sshd</code>, <code>nginx</code>, etc.</p>
+<ul>
+<li>
+<p>Start any service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start &lt;service&gt; 
+</span></span></code></pre></div></li>
+<li>
+<p>Stop any service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl stop &lt;service&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>Check status of any service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl status &lt;service&gt;
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

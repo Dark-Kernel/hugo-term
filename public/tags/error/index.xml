@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Error on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/error/</link>
+    <description>Recent content in Error on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Nov 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/error/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix Error executing vim.schedule lua callback: ...lazy/mason-lspconfig.nvim/lua/mason-lspconfig/notify.lua :5: attempt to call field &#39;notify&#39; (a nil value)</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-07-fix-error-executing-vim-schedule-lua-callback-lazy-mason-lspconfig-nvim-lua-mason-lspconfig-notify-lua-5-attempt-to-call-field-notify-a-nil-value/</link>
+      <pubDate>Thu, 07 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-07-fix-error-executing-vim-schedule-lua-callback-lazy-mason-lspconfig-nvim-lua-mason-lspconfig-notify-lua-5-attempt-to-call-field-notify-a-nil-value/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Open init.vim and add this line&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lua require(&amp;#39;lspconfig&amp;#39;).lua_ls.setup({})
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://www.reddit.com/r/neovim/comments/15jceyb/lspconfig_error_attempt_to_index_local_user/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Libmsgpackc.so.2 on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/libmsgpackc.so.2/</link>
+    <description>Recent content in Libmsgpackc.so.2 on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Nov 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/libmsgpackc.so.2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>patchelf, replace pkg dependency</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-03-patchelf-replace-pkg-dependency/</link>
+      <pubDate>Sun, 03 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-03-patchelf-replace-pkg-dependency/</guid>
+      <description>&lt;p&gt;Replace the required dependency error in packages.&lt;/p&gt;
+&lt;p&gt;Error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvim: error while loading shared libraries: libmsgpackc.so.2: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+Solution:&lt;/p&gt;
+&lt;p&gt;[image 1730633405.jpg]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pacman -S patchelf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt; patchelf --replace-needed libmsgpackc.so.2 libmsgpack-c.so.2 $(command -v nvim)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://www.reddit.com/r/termux/comments/1fl4wo8/comment/lo15lw1/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

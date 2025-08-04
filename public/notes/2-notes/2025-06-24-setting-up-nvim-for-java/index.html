@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Setting up nvim for java :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. Install`jdtls` from the mason using `:MasonInstall jdtls` or `:Mason`" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Setting up nvim for java">
+<meta property="og:description" content="1. Install`jdtls` from the mason using `:MasonInstall jdtls` or `:Mason`" />
+<meta property="og:url" content="https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-06-24 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/">Setting up nvim for java</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-06-24</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/nvim/">nvim</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/jdtls/">jdtls</a>&nbsp;
+      
+      #<a href="https://dark-kernel.web.app/tags/java/">java</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <ol>
+<li>Install<code>jdtls</code> from the mason using <code>:MasonInstall jdtls</code> or <code>:Mason</code></li>
+<li>Then add jdtls in list of lsp&rsquo;s :</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#66d9ef">local</span> servers <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#39;clangd&#39;</span>, <span style="color:#e6db74">&#39;rust_analyzer&#39;</span>, <span style="color:#e6db74">&#39;pyright&#39;</span>, <span style="color:#e6db74">&#39;ts_ls&#39;</span>, <span style="color:#e6db74">&#39;gopls&#39;</span>, <span style="color:#e6db74">&#39;jdtls&#39;</span> }
+</span></span></code></pre></div><p>[&ndash;more&ndash;]</p>
+<ol start="2">
+<li>If your are working with just basic java files, Initialize git in you working directory and create .project file.</li>
+</ol>
+<pre tabindex="0"><code>git init
+touch .project
+</code></pre><ol start="3">
+<li>Now, open any java file and check if <code>jdtls</code> lsp is attached using <code>:LspInfo</code>, check for this:</li>
+</ol>
+<pre tabindex="0"><code>- 1 client(s) attached to this buffer
+- Client: `jdtls` (id: 1, bufnr: [1])
+</code></pre><p>if <code>bufnr</code> is &gt; 0 then, it worked.</p>
+<p>Reference: <a href="https://chatgpt.com/share/685aaac3-16e4-8010-88d2-1a02989e89e5">ChatGPT</a></p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

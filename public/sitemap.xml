@@ -2,10 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dark-kernel.web.app/about/</loc>
-    <lastmod>2025-06-07T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/</loc>
+    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/next/</loc>
+    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/</loc>
+    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/</loc>
+    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/</loc>
+    <lastmod>2025-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/arch/</loc>
+    <lastmod>2025-06-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/deb/</loc>
+    <lastmod>2025-06-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2025-06-25-install-deb-in-arch/</loc>
+    <lastmod>2025-06-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/java/</loc>
+    <lastmod>2025-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/jdtls/</loc>
+    <lastmod>2025-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/nvim/</loc>
+    <lastmod>2025-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/</loc>
+    <lastmod>2025-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/about/</loc>
     <lastmod>2025-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/containers/</loc>
@@ -20,8 +53,68 @@
     <loc>https://dark-kernel.web.app/post/</loc>
     <lastmod>2025-04-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dark-kernel.web.app/tags/</loc>
-    <lastmod>2025-04-23T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2025-04-06-fix-invisible-working-mouse-ft-hyprland/</loc>
+    <lastmod>2025-04-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/hyprland/</loc>
+    <lastmod>2025-04-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-11-24-flash-image-to-partition-and-boot-with-grub-manual-entry/</loc>
+    <lastmod>2024-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/grub/</loc>
+    <lastmod>2024-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/image/</loc>
+    <lastmod>2024-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/partition/</loc>
+    <lastmod>2024-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/dotfiles/</loc>
+    <lastmod>2024-11-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-11-08-easy-dotfiles-management/</loc>
+    <lastmod>2024-11-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/git/</loc>
+    <lastmod>2024-11-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/error/</loc>
+    <lastmod>2024-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-11-07-fix-error-executing-vim-schedule-lua-callback-lazy-mason-lspconfig-nvim-lua-mason-lspconfig-notify-lua-5-attempt-to-call-field-notify-a-nil-value/</loc>
+    <lastmod>2024-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/libmsgpackc.so.2/</loc>
+    <lastmod>2024-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-11-03-patchelf-replace-pkg-dependency/</loc>
+    <lastmod>2024-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-09-26-expose-localhost-port-to-internet/</loc>
+    <lastmod>2024-09-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/example/</loc>
+    <lastmod>2024-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-09-07-set-input-devices-permissions-while-starting-display-server/</loc>
+    <lastmod>2024-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/cli/</loc>
+    <lastmod>2024-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/file/</loc>
+    <lastmod>2024-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-08-13-file-tranfer-from-cli-to-share/</loc>
+    <lastmod>2024-08-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-07-29-add-new-change-in-previous-commit/</loc>
+    <lastmod>2024-07-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/rebase/</loc>
+    <lastmod>2024-07-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/blue-green/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
@@ -34,6 +127,66 @@
   </url><url>
     <loc>https://dark-kernel.web.app/tags/kubernetes/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-06-24-combine-audio-video-of-different-length/</loc>
+    <lastmod>2024-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/ffmpeg/</loc>
+    <lastmod>2024-06-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-05-30-fix-mpv-lags-system-while-playing-yt-video/</loc>
+    <lastmod>2024-05-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/mpv/</loc>
+    <lastmod>2024-05-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-05-29-opencv-could-not-find-the-qt-platform-plugin-wayland/</loc>
+    <lastmod>2024-05-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/python/</loc>
+    <lastmod>2024-05-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/wayland/</loc>
+    <lastmod>2024-05-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-04-18-cava-mic-source-input/</loc>
+    <lastmod>2024-04-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-04-09-connect-to-hidden-wifi-from-cli/</loc>
+    <lastmod>2024-04-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/wifi/</loc>
+    <lastmod>2024-04-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-04-03-compress-video-without-quality-loss/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/group/</loc>
+    <lastmod>2024-02-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-02-11-take-effect-of-group-change-without-logout/</loc>
+    <lastmod>2024-02-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/pipwire/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-01-20-setup-pipewire-wireplumber-in-void-linux/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/bluetooth/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-01-07-how-to-setup-bluetooth-in-in-voidlinux/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/limit/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2024-01-07-users-resources-limit/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/voidlinux/</loc>
+    <lastmod>2024-01-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/firewall/</loc>
     <lastmod>2023-12-04T00:00:00+00:00</lastmod>
@@ -50,14 +203,65 @@
     <loc>https://dark-kernel.web.app/tags/ssh/</loc>
     <lastmod>2023-12-04T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://dark-kernel.web.app/tags/tmux/</loc>
+    <lastmod>2023-12-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/</loc>
+    <lastmod>2023-12-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-11-25-import-your-old-ssh-keys-to-new-system/</loc>
+    <lastmod>2023-11-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-11-24-fix-glib-h-error-while-installing-surf/</loc>
+    <lastmod>2023-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/surf/</loc>
+    <lastmod>2023-11-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-11-05-create-new-runit-service/</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/runit/</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://dark-kernel.web.app/post/kubernetes-adv/</loc>
     <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/persistentvolumes/</loc>
     <lastmod>2023-09-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-09-05-fix-wsl-network-unreachable/</loc>
+    <lastmod>2023-09-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/wsl/</loc>
+    <lastmod>2023-09-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://dark-kernel.web.app/post/kubernetes-start/</loc>
     <lastmod>2023-08-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/command/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/go/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/golang/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-08-25-make-directory-and-switch-in-to-it-in-same-command/</loc>
+    <lastmod>2023-08-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-08-24-chroot-into-nixos/</loc>
+    <lastmod>2023-08-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/nixos/</loc>
+    <lastmod>2023-08-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/cicd/</loc>
     <lastmod>2023-08-20T00:00:00+00:00</lastmod>
@@ -71,8 +275,11 @@
     <loc>https://dark-kernel.web.app/tags/pipeline/</loc>
     <lastmod>2023-08-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dark-kernel.web.app/tags/git/</loc>
-    <lastmod>2023-08-13T00:00:00+00:00</lastmod>
+    <loc>https://dark-kernel.web.app/tags/fix/</loc>
+    <lastmod>2023-08-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-08-14-fix-version-glibcxx_3-4-32-not-found/</loc>
+    <lastmod>2023-08-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://dark-kernel.web.app/post/git/</loc>
     <lastmod>2023-08-13T00:00:00+00:00</lastmod>
@@ -104,6 +311,50 @@
     <loc>https://dark-kernel.web.app/post/firefox-custom-new-tab-file/</loc>
     <lastmod>2023-07-24T16:21:22+00:00</lastmod>
   </url><url>
+    <loc>https://dark-kernel.web.app/tags/cava/</loc>
+    <lastmod>2023-07-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/html/</loc>
+    <lastmod>2023-07-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-24-pywal-gradient-for-cava/</loc>
+    <lastmod>2023-07-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-24-set-custom-html-file-as-a-new-tab-in-firefox/</loc>
+    <lastmod>2023-07-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/bash/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/tags/shell/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-23-shell-scripting/</loc>
+    <lastmod>2023-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/</loc>
+    <lastmod>2023-07-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-07-hyprland-windows-rule-v2-using-class/</loc>
+    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</loc>
+    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-03-blog-page-test/</loc>
+    <lastmod>2023-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2023-07-03-docker/</loc>
+    <lastmod>2023-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/</loc>
+    <lastmod>2020-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/some/</loc>
+  </url><url>
     <loc>https://dark-kernel.web.app/categories/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/first/</loc>
@@ -111,6 +362,10 @@
     <loc>https://dark-kernel.web.app/tags/hello/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/post/markdown-test/</loc>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/2-notes/page/</loc>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/page/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/showcase/</loc>
   </url><url>

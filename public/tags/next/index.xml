@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Next on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/next/</link>
+    <description>Recent content in Next on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Jul 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/next/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix Error: Event handlers cannot be passed to Client Component props.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/</link>
+      <pubDate>Sun, 20 Jul 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/</guid>
+      <description>&lt;p&gt;Note:&lt;/p&gt;
+&lt;p&gt;The Challenge:
+[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; ⨯ Error: Event handlers cannot be passed to Client Component props.
+  &amp;lt;button onClick={function onClick} className=... children=...&amp;gt;
+                  ^^^^^^^^^^^^^^^^^^
+
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (&amp;lt;anonymous&amp;gt;)
+    at stringify (&amp;lt;anonymous&amp;gt;)
+digest: &amp;#34;3510721672&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I encountered a persistent and misleading error in a Next.js 14 application: Error: Event handlers cannot be passed to Client Component props. The error occurred when
+navigating to a dynamic user profile page (/app/[username]), but the stack trace was generic and didn&amp;rsquo;t point to a specific component.&lt;/p&gt;
+&lt;p&gt;The Debugging Journey:&lt;/p&gt;
+&lt;p&gt;The initial debugging process was a long chase, as the error message suggested a common but incorrect root cause in this case. My attempts included:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Standard Checks: Ensured all components using client-side hooks (like useState, useEffect, useRouter) were correctly marked with the &amp;ldquo;use client&amp;rdquo;; directive. This fixed
+several minor bugs but not the main error.&lt;/li&gt;
+&lt;li&gt;Refactoring: Broke down large client components into smaller, more manageable ones, thinking the issue was related to component complexity. This improved code quality
+but didn&amp;rsquo;t solve the problem.&lt;/li&gt;
+&lt;li&gt;Data Fetching: Investigated and fixed an unrelated SSL error in the server-side fetch call within the page.js file.&lt;/li&gt;
+&lt;li&gt;Cache Clearing: Completely cleared the Next.js cache (.next directory) to rule out stale build artifacts.&lt;/li&gt;
+&lt;li&gt;The Breakthrough: After exhausting all conventional methods, I decided to investigate the project&amp;rsquo;s recent git history to isolate the exact commit that introduced the
+bug.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The Root Cause &amp;amp; The Solution:&lt;/p&gt;
+&lt;p&gt;The git show &amp;lt;commit_hash&amp;gt; command revealed that the problematic commit had introduced a new file: app/[username]/not-found.js.&lt;/p&gt;
+&lt;p&gt;This file is a special Next.js convention for rendering a 404 page for the /[username] route. The file contained a button with an onClick handler to allow users to go
+back. However, like all components in the App Router, it was a Server Component by default.&lt;/p&gt;
+&lt;p&gt;The error was only triggered when visiting a non-existent user profile, which is why it was so hard to trace. The server-side rendering process for the 404 page failed
+because it encountered an onClick handler, which is client-side interactivity.&lt;/p&gt;
+&lt;p&gt;The fix was a simple, one-line change: adding &amp;ldquo;use client&amp;rdquo;; to the top of app/[username]/not-found.js.&lt;/p&gt;
+&lt;p&gt;Key Takeaways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The error isn&amp;rsquo;t always on the &amp;ldquo;happy path&amp;rdquo;: The bug was in an error-handling file (not-found.js), not the main page component. It&amp;rsquo;s crucial to debug edge cases and
+special files.&lt;/li&gt;
+&lt;li&gt;Next.js conventions are still components: Special files like layout.js, error.js, and not-found.js must adhere to the same Server/Client Component rules as any other
+component.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git&lt;/code&gt; is a powerful debugging tool: When you&amp;rsquo;re stuck, using git log, git show, or git bisect to trace the history of a bug can be the most effective way to find its
+origin.&lt;/li&gt;
+&lt;li&gt;Generic errors can be misleading: The error message pointed to a symptom, not the cause. The real issue was a server component trying to render client-side interactive
+elements.&lt;/li&gt;
+&lt;/ul&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

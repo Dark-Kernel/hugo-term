@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rebase on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/rebase/</link>
+    <description>Recent content in Rebase on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 29 Jul 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/rebase/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Add new change in previous commit</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-07-29-add-new-change-in-previous-commit/</link>
+      <pubDate>Mon, 29 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-07-29-add-new-change-in-previous-commit/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Find the commit hash you want to edit&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git log 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Start interactive rebase, adjust the number if needed
+&lt;code&gt;git rebase -i HEAD~1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the editor, change &amp;lsquo;pick&amp;rsquo; to &amp;rsquo;edit&amp;rsquo; for the commit you want to modify&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Save and close the editor&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the new file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git add path/to/newfile 
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Amend the commit to include the new file
+&lt;code&gt;git commit --amend&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Save and close the commit message editor&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Continue the rebase
+&lt;code&gt;git rebase --continue&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resolve any conflicts if necessary
+Force push to the remote repository if needed
+&lt;code&gt;git push --force &lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

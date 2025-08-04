@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Command on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/command/</link>
+    <description>Recent content in Command on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 25 Aug 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/command/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>make directory and switch in to it in same command</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-25-make-directory-and-switch-in-to-it-in-same-command/</link>
+      <pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-25-make-directory-and-switch-in-to-it-in-same-command/</guid>
+      <description>&lt;p&gt;The command is&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir longtitleproject &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cd $_
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In bash, the &lt;code&gt;$_&lt;/code&gt; variable is the last argument given to the previous command. In this case, the name of the directory you just created.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

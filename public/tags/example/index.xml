@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Example on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/example/</link>
+    <description>Recent content in Example on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Sep 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/example/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Set input devices permissions while starting Display server.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-09-07-set-input-devices-permissions-while-starting-display-server/</link>
+      <pubDate>Sat, 07 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-09-07-set-input-devices-permissions-while-starting-display-server/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chown root:stroky /dev/input/ --recursive
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Cava mic source input</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-04-18-cava-mic-source-input/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-04-18-cava-mic-source-input/</guid>
+      <description>&lt;p&gt;Add below section in cava config&lt;/p&gt;
+&lt;p&gt;get the source ID:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pactl list sources
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[input]
+method = pulse
+source = 55  # source id  
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Blog page test</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-03-blog-page-test/</link>
+      <pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-03-blog-page-test/</guid>
+      <description>&lt;p&gt;This is a new blog page.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Made for people</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/</guid>
+      <description>&lt;p&gt;Datenstrom Yellow is for people who make small websites. Installing is unzipping one file and you are ready to go. The most important things for small websites are included. You can add features, languages and themes. Datenstrom Yellow works as content management system and static site generator.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Blog example page</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/</link>
+      <pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna pizza. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna pizza. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

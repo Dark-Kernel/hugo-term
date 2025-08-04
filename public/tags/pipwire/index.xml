@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pipwire on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/pipwire/</link>
+    <description>Recent content in Pipwire on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 20 Jan 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/pipwire/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setup pipewire &amp; wireplumber in void linux</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-01-20-setup-pipewire-wireplumber-in-void-linux/</link>
+      <pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-01-20-setup-pipewire-wireplumber-in-void-linux/</guid>
+      <description>&lt;p&gt;Remove pulseaudio&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo xbps-remove pulseaudio pulseaudio-devel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Install dependencies&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo xbps-install libspa-bluetooth pipewire wireplumber 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://docs.voidlinux.org/config/media/pipewire.html#session-management&#34;&gt;Void Docs&lt;/a&gt;  | &lt;a href=&#34;https://www.reddit.com/r/pipewire/comments/1389b26/bluetooth_headphones_fail_to_connect_via_pipewire/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

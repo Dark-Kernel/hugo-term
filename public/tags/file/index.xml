@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>File on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/file/</link>
+    <description>Recent content in File on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 13 Aug 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/file/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>file tranfer from CLI to share.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-08-13-file-tranfer-from-cli-to-share/</link>
+      <pubDate>Tue, 13 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-08-13-file-tranfer-from-cli-to-share/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Temp.sh (4G)
+&lt;a href=&#34;https://temp.sh/&#34;&gt;https://temp.sh/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bashupload (insane size)
+&lt;a href=&#34;https://bashupload.com/&#34;&gt;https://bashupload.com/&lt;/a&gt;
+[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Termbin
+&lt;a href=&#34;https://termbin.com/&#34;&gt;https://termbin.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

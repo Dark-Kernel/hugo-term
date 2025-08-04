@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wsl on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/wsl/</link>
+    <description>Recent content in Wsl on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 05 Sep 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/wsl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix wsl network unreachable</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-09-05-fix-wsl-network-unreachable/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-09-05-fix-wsl-network-unreachable/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Move to version 1 on wsl&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-dos&#34; data-lang=&#34;dos&#34;&gt;wsl --set-version 1
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Set correct gateway using this &lt;a href=&#34;https://kontext.tech/article/1042/wsl-2-network-issue-solutions-on-ubuntu-and-other-distros&#34;&gt;article&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

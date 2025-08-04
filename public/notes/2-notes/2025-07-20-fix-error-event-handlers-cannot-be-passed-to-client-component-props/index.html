@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Fix Error: Event handlers cannot be passed to Client Component props. :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Note:" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Fix Error: Event handlers cannot be passed to Client Component props.">
+<meta property="og:description" content="Note:" />
+<meta property="og:url" content="https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-07-20 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/">Fix Error: Event handlers cannot be passed to Client Component props.</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-07-20</time><span class="post-author">Sumit Patel</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://dark-kernel.web.app/tags/next/">next</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Note:</p>
+<p>The Challenge:
+[&ndash;more&ndash;]</p>
+<pre tabindex="0"><code> ⨯ Error: Event handlers cannot be passed to Client Component props.
+  &lt;button onClick={function onClick} className=... children=...&gt;
+                  ^^^^^^^^^^^^^^^^^^
+
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (&lt;anonymous&gt;)
+    at stringify (&lt;anonymous&gt;)
+digest: &#34;3510721672&#34;
+</code></pre><p>I encountered a persistent and misleading error in a Next.js 14 application: Error: Event handlers cannot be passed to Client Component props. The error occurred when
+navigating to a dynamic user profile page (/app/[username]), but the stack trace was generic and didn&rsquo;t point to a specific component.</p>
+<p>The Debugging Journey:</p>
+<p>The initial debugging process was a long chase, as the error message suggested a common but incorrect root cause in this case. My attempts included:</p>
+<ol>
+<li>Standard Checks: Ensured all components using client-side hooks (like useState, useEffect, useRouter) were correctly marked with the &ldquo;use client&rdquo;; directive. This fixed
+several minor bugs but not the main error.</li>
+<li>Refactoring: Broke down large client components into smaller, more manageable ones, thinking the issue was related to component complexity. This improved code quality
+but didn&rsquo;t solve the problem.</li>
+<li>Data Fetching: Investigated and fixed an unrelated SSL error in the server-side fetch call within the page.js file.</li>
+<li>Cache Clearing: Completely cleared the Next.js cache (.next directory) to rule out stale build artifacts.</li>
+<li>The Breakthrough: After exhausting all conventional methods, I decided to investigate the project&rsquo;s recent git history to isolate the exact commit that introduced the
+bug.</li>
+</ol>
+<p>The Root Cause &amp; The Solution:</p>
+<p>The git show &lt;commit_hash&gt; command revealed that the problematic commit had introduced a new file: app/[username]/not-found.js.</p>
+<p>This file is a special Next.js convention for rendering a 404 page for the /[username] route. The file contained a button with an onClick handler to allow users to go
+back. However, like all components in the App Router, it was a Server Component by default.</p>
+<p>The error was only triggered when visiting a non-existent user profile, which is why it was so hard to trace. The server-side rendering process for the 404 page failed
+because it encountered an onClick handler, which is client-side interactivity.</p>
+<p>The fix was a simple, one-line change: adding &ldquo;use client&rdquo;; to the top of app/[username]/not-found.js.</p>
+<p>Key Takeaways:</p>
+<ul>
+<li>The error isn&rsquo;t always on the &ldquo;happy path&rdquo;: The bug was in an error-handling file (not-found.js), not the main page component. It&rsquo;s crucial to debug edge cases and
+special files.</li>
+<li>Next.js conventions are still components: Special files like layout.js, error.js, and not-found.js must adhere to the same Server/Client Component rules as any other
+component.</li>
+<li><code>git</code> is a powerful debugging tool: When you&rsquo;re stuck, using git log, git show, or git bisect to trace the history of a bug can be the most effective way to find its
+origin.</li>
+<li>Generic errors can be misleading: The error message pointed to a symptom, not the cause. The real issue was a server component trying to render client-side interactive
+elements.</li>
+</ul>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

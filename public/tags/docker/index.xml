@@ -426,6 +426,81 @@ Build:&lt;/p&gt;
 </description> 
     </item>
     
+    <item>
+      <title>Docker</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-03-docker/</link>
+      <pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-03-docker/</guid>
+      <description>&lt;p&gt;Docker is an open-source containerization platform. It enables developers to package applications into containers—standardized executable components combining application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Containers simplify the delivery of distributed applications and have become increasingly popular as organizations shift to cloud-native development and hybrid multi-cloud environments. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;[image httpss://patel-sumit.web.app/docker-logo.png DockerLogo center]&lt;/p&gt;
+&lt;p&gt;Containers are made possible by process isolation and virtualization capabilities built into the Linux kernel. Docker provides wide range of prebuilt containers which can be used in our custom image to make work easy.
+Installation&lt;/p&gt;
+&lt;p&gt;~ Arch&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yay -S docker-git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;~ Debian&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install docker.io
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;OR&lt;/p&gt;
+&lt;p&gt;visit &lt;a href=&#34;https://download.docker.com/linux/debian/dists/&#34;&gt;this&lt;/a&gt; page, choose your version, browse to pool/stable/ choose your architecture&lt;/p&gt;
+&lt;p&gt;~ Download .deb file&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dpkg -i path/to/installed-file.deb
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Error fixing&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;After Installation if you face some problem like below:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; tcp://localhost:2375/usr/lib/systemd/system/docker.socket.
+ Is the docker daemon running?
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;then-here-is-the-solution-&#34;&gt;Then here is the solution :&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Add your self to the docker group&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;usermod -aG docker $USER
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Fix permissions on docker socker and command.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chgrp docker /usr/bin/docker
+sudo chgrp docker /var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Output :&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; ~$ ll $(which docker)
+    -rwxr-xr-x 1 root docker 18991768 08.07.2017 22:57 /usr/bin/docker*
+
+ ~$ ll /var/run/docker.sock
+    srw-rw---- 1 root docker 0 23.07.2017 10:21 /var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Add variables to config environment for docker command&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export DOCKER_HOST=unix:///var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Rest Docker&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This should fix the error.&lt;/p&gt;
+&lt;h3 id=&#34;run&#34;&gt;Run&lt;/h3&gt;
+&lt;p&gt;Lets run the hello-world:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; sudo docker run hello-world
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;Let’s pull our first OS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker pull centos
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;You can pull any other os or any available software also from docker hub&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;run it&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run -d -t --name &amp;lt;name&amp;gt; centos
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;check our container is running or not&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker ps
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Get into the container&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker exec -it &amp;lt;name&amp;gt; &amp;lt;shell&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now you will be on your centos.&lt;/p&gt;
+&lt;h3 id=&#34;thanks-for-reading&#34;&gt;Thanks for reading.&lt;/h3&gt;
+&lt;p&gt;© Dark-Kernel 2023&lt;/p&gt;
+</description> 
+    </item>
+    
   </channel>
 </rss>
 

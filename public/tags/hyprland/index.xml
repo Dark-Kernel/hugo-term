@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyprland on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/hyprland/</link>
+    <description>Recent content in Hyprland on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 06 Apr 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/hyprland/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix: invisible working mouse Ft. Hyprland</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-04-06-fix-invisible-working-mouse-ft-hyprland/</link>
+      <pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-04-06-fix-invisible-working-mouse-ft-hyprland/</guid>
+      <description>&lt;p&gt;Just add this entry anywhere in &lt;code&gt;.config/hypr/hyprland.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cursor {
+    no_hardware_cursors = true
+}
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Hyprland windows rule v2 using class</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-07-hyprland-windows-rule-v2-using-class/</link>
+      <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-07-hyprland-windows-rule-v2-using-class/</guid>
+      <description>&lt;h3 id=&#34;to-set-the-window-rule-v2-we-can-use-class-to-get-the-class-of-applications-that-are-running-we-can-use&#34;&gt;To set the window rule v2, we can use class, to get the class of applications that are running we can use:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hyprctl clients
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;h4 id=&#34;we-can-use-a-class-with-regex-also-or-use-the-exact-class-name-using-the-above-command&#34;&gt;We can use a class with regex also, or use the exact class name using the above command:&lt;/h4&gt;
+&lt;p&gt;Window Rule V1:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;windowrule&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;workspace&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;^(&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Brave&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;*)$&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Window Rule V2:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrulev2 = opacity 0.8 0.8,class:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;the-second-param-is-the-class-of-brave-browser-or-we-can-use-the-application-title-as-the-second-param-instead&#34;&gt;The second param is the class of brave browser or we can use the application title, as the second param instead:&lt;/h4&gt;
+&lt;p&gt;Window Rule V1:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrule = workspace 2, ^(.*Brave.*)$,title:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Window Rule V2:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrulev2 = opacity 0.8 0.8,class:^(.*Brave.*)$,title:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.hyprland.org/Configuring/Window-Rules/&#34;&gt;Hyprland window rules docs&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://www.reddit.com/r/hyprland/comments/132nhzy/is_there_any_way_to_open_and_keep_an_app_in_a/&#34;&gt;Reddit issue&lt;/a&gt; &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

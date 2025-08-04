@@ -13,7 +13,7 @@ pagination.pagerSize = 5
 [params]
   contentTypeName = "post"
   # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "pink"
+  themeColor = "green"
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 3
   # set theme to full screen width
@@ -70,4 +70,9 @@ DisqusShortname = 'sumitpatel'
         identifier = "post"
         name = "Post"
         url = "/post"
+
+      [[languages.en.menu.main]]
+        identifier = "notes"
+        name = "Notes"
+        url = "/notes"
 

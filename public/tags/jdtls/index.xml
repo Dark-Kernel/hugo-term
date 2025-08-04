@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jdtls on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/jdtls/</link>
+    <description>Recent content in Jdtls on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 Jun 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/jdtls/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setting up nvim for java</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/</link>
+      <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Install&lt;code&gt;jdtls&lt;/code&gt; from the mason using &lt;code&gt;:MasonInstall jdtls&lt;/code&gt; or &lt;code&gt;:Mason&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Then add jdtls in list of lsp&amp;rsquo;s :&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; servers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;clangd&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rust_analyzer&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ts_ls&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gopls&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;jdtls&amp;#39;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;If your are working with just basic java files, Initialize git in you working directory and create .project file.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init
+touch .project
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Now, open any java file and check if &lt;code&gt;jdtls&lt;/code&gt; lsp is attached using &lt;code&gt;:LspInfo&lt;/code&gt;, check for this:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 1 client(s) attached to this buffer
+- Client: `jdtls` (id: 1, bufnr: [1])
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;if &lt;code&gt;bufnr&lt;/code&gt; is &amp;gt; 0 then, it worked.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://chatgpt.com/share/685aaac3-16e4-8010-88d2-1a02989e89e5&#34;&gt;ChatGPT&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

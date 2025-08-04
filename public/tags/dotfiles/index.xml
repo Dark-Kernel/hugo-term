@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dotfiles on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/dotfiles/</link>
+    <description>Recent content in Dotfiles on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 08 Nov 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/dotfiles/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Easy dotfiles management</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-08-easy-dotfiles-management/</link>
+      <pubDate>Fri, 08 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-08-easy-dotfiles-management/</guid>
+      <description>&lt;h3 id=&#34;the-easiest-way-to-version-control-your-dotfiles&#34;&gt;The easiest way to version control your dotfiles.&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialize empty repo at home&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init --bare $HOME/.dotfiles
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+2. Use working directory of git as &lt;code&gt;$HOME&lt;/code&gt;, and git dir as &lt;code&gt;.dotfiles&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;alias config=&amp;#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Only for current local repo, because it&amp;rsquo;s annoying.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config config status.showUntrackedFiles no
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Here you go, check status, add your configs, and commit.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config status
+config add .config/mpv
+config commit -m &amp;#34;Added mpv config&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Create repo at github/gitlab and add origin -&amp;gt; Push.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config remote add origin &amp;lt;link&amp;gt;
+config push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;here-you-can-use-different-branches-for-different-computers-you-can-replicate-you-configuration-easily-on-new-installation--&#34;&gt;Here you can use different branches for different computers, you can replicate you configuration easily on new installation -&lt;/h3&gt;
+&lt;p&gt;For using dotfiles on other device&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Clone repo into home, if its &lt;strong&gt;empty&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone --separate-git-dir=~/.myconf &amp;lt;link-to-repo&amp;gt; ~
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Or clone into separate tmp dir, otherwise it &lt;strong&gt;will fail if your home directory isn&amp;rsquo;t empty&lt;/strong&gt;. Then copy your configs and remove tmp dir.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone --separate-git-dir=$HOME/.dotfiles &amp;lt;link-to-repo&amp;gt; $HOME/dotfiles-tmp
+cp ~/dotfiles-tmp/.vimrc ~
+rm -r ~/myconf-tmp/
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Again set alias to manage dotfiles.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;alias config=&amp;#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Done!
+easy peezy lemon squeezy :)&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://wiki.archlinux.org/title/Dotfiles&#34;&gt;ArchWiki&lt;/a&gt; | &lt;a href=&#34;https://news.ycombinator.com/item?id=11071754&#34;&gt;Ycombinator&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

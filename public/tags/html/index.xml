@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/html/</link>
+    <description>Recent content in Html on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 24 Jul 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Set custom HTML file as a new tab in Firefox</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-24-set-custom-html-file-as-a-new-tab-in-firefox/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-24-set-custom-html-file-as-a-new-tab-in-firefox/</guid>
+      <description>&lt;p&gt;You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use &lt;a href=&#34;https://github.com/Paul-Houser/StartTree&#34;&gt;StartTree&lt;/a&gt; and something like that. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy,
+This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig.cfg.&lt;/p&gt;
+&lt;h3 id=&#34;steps&#34;&gt;Steps:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go the settings → Home → Set HomePage and new window  =&amp;gt; cutom_urls → Enter the file path.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set new tab to &lt;code&gt;Firefox Home&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure no other extension is managing your new tab, Go to Settings → Extension.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create autoconfig.cfg file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vim /usr/lib/firefox/autoconfig.cfg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paste this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;//
+var {classes:Cc,interfaces:Ci,utils:Cu} = Components;
+
+/* set new tab page */
+try {
+  Cu.import(&amp;#34;resource:///modules/AboutNewTab.jsm&amp;#34;);
+  var newTabURL = &amp;#34;file:///home/stroky/.cache/StartTree/index.html&amp;#34;;
+  AboutNewTab.newTabURL = newTabURL;
+} catch(e){Cu.reportError(e);} // report errors in the Browser Console
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Then create autoconfig.js&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo vim /usr/lib/firefox/defaults/pref/autoconfig.js
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Paste this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// *First line must be a comment*
+pref(&amp;#34;general.config.filename&amp;#34;, &amp;#34;autoconfig.cfg&amp;#34;);
+pref(&amp;#34;general.config.obscure_value&amp;#34;, 0);
+pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Quit the Firefox, and relaunch it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And we are done.
+ &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://support.mozilla.org/en-US/questions/1283835&#34;&gt;Mozilla support&lt;/a&gt; |
+&lt;a href=&#34;https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig&#34;&gt;AutoConfig Docs&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

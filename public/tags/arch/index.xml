@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arch on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/arch/</link>
+    <description>Recent content in Arch on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 25 Jun 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/arch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install .deb in Arch</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-06-25-install-deb-in-arch/</link>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-06-25-install-deb-in-arch/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;It&amp;rsquo;s just an archive&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bsdtar -xf &amp;#34;package_0.1.0-1_amd64.deb&amp;#34; data.tar.xz
+tar xf data.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;this will give &lt;code&gt;usr&lt;/code&gt; directory containing binary in &lt;code&gt;usr/bin/&lt;/code&gt; and other data in &lt;code&gt;usr/share&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❯ tree usr
+usr
+├── bin
+│   └── somebinary
+└── share
+    ├── applications
+    │   └── io.github.some.package.desktop
+    ├── doc
+    │   └── package
+    │       └── copyright
+    └── icons
+        └── hicolor
+            └── scalable
+                └── apps
+                    └── io.github.some.package.svg
+
+10 directories, 4 files
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;One liner:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bsdtar -O -xf &amp;#34;package.1.0-1_amd64.deb&amp;#34; data.tar.xz | bsdtar -xf -
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

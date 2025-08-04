@@ -100,6 +100,38 @@ This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; f
 </description> 
     </item>
     
+    <item>
+      <title>Pywal gradient for cava</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-24-pywal-gradient-for-cava/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-24-pywal-gradient-for-cava/</guid>
+      <description>&lt;p&gt;This can be done simply using Pywal templates&lt;/p&gt;
+&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Just move your cava config to &lt;code&gt;~/.config/wal/templates/cava_config&lt;/code&gt; , and then replace the colors with {color0}, {color1},&amp;hellip; etc.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mv ~/.config/cava/config ~/.config/wal/templates/cava_config
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recommend colors :&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[color]
+gradient = 1
+gradient_count = 4
+gradient_color_1 = &amp;#39;{color1}&amp;#39;
+gradient_color_2 = &amp;#39;{color2}&amp;#39;
+gradient_color_3 = &amp;#39;{color4}&amp;#39;
+gradient_color_4 = &amp;#39;{color5}&amp;#39;
+gradient_color_5 = &amp;#39;{color6}&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Then after you run pywal, just link your cava_config to cava/config back from ~/.cache/wal/&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ln -s ~/.cache/wal/cava_config ~/.config/cava/config
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And you are done.&lt;/p&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://github.com/karlstav/cava/issues/340&#34;&gt;Github Issue&lt;/a&gt; |
+&lt;a href=&#34;https://github.com/dylanaraps/pywal/wiki/User-Template-Files&#34;&gt;Pywal template docs&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
   </channel>
 </rss>
 

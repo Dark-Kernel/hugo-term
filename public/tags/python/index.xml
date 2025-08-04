@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/python/</link>
+    <description>Recent content in Python on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 29 May 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Opencv - Could not find the Qt platform plugin &#39;wayland&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-05-29-opencv-could-not-find-the-qt-platform-plugin-wayland/</link>
+      <pubDate>Wed, 29 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-05-29-opencv-could-not-find-the-qt-platform-plugin-wayland/</guid>
+      <description>&lt;p&gt;Error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❯ python getcolor.py
+qt.qpa.plugin: Could not find the Qt platform plugin &amp;#34;wayland&amp;#34; in &amp;#34;/home/stroky/testline/alemeno/lib/python3.12/site-packages/cv2/qt/plugins&amp;#34;
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: xcb.
+
+fish: Job 1, &amp;#39;python getcolor.py&amp;#39; terminated by signal SIGABRT (Abort)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Solution:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;❯ export QT_QPA_PLATFORM&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xcb&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;❯ python getcolor.py
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--- success execution ---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Pixel value at &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;100, 50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt; 255&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;HSV value at &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;100, 50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; 255&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure &lt;code&gt;qt5-wayland&lt;/code&gt; &amp;amp; &lt;code&gt;qt6-wayland&lt;/code&gt; packages are installed&lt;/p&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://stackoverflow.com/questions/69994530/qt-qpa-plugin-could-not-find-the-qt-platform-plugin-wayland&#34;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

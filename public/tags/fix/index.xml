@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fix on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/fix/</link>
+    <description>Recent content in Fix on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 14 Aug 2023 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/fix/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix &#39;version GLIBCXX_3.4.32 not found&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-14-fix-version-glibcxx_3-4-32-not-found/</link>
+      <pubDate>Mon, 14 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-14-fix-version-glibcxx_3-4-32-not-found/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S libtool gcc gcc-libs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://unix.stackexchange.com/questions/140638/cmake-usr-lib-libstdc-so-6-version-glibcxx-3-4-20-not-found-required-by&#34;&gt;stackexchange&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix `archlinux-tweak-tool` launch error `polkit`</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</guid>
+      <description>&lt;p&gt;The error is because the polkit authentication agent helper is not running.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The GUI window which asks for password&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;We can use any polkit helper like &lt;code&gt;polkit-gnome&lt;/code&gt; or any other [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;h4 id=&#34;to-fix-this-error-execute-below-command-on-another-terminal-or-add-it-to-your-window-manager-script-or-at-startup&#34;&gt;To fix this error execute below command on another terminal, or add it to your window manager script or at startup&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;this-will-fix-the-issue&#34;&gt;This will fix the issue.&lt;/h3&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

@@ -1,0 +1,1410 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/notes/</link>
+    <description>Recent content in Notes on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Jul 2025 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/notes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fix Error: Event handlers cannot be passed to Client Component props.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/</link>
+      <pubDate>Sun, 20 Jul 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-07-20-fix-error-event-handlers-cannot-be-passed-to-client-component-props/</guid>
+      <description>&lt;p&gt;Note:&lt;/p&gt;
+&lt;p&gt;The Challenge:
+[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; ⨯ Error: Event handlers cannot be passed to Client Component props.
+  &amp;lt;button onClick={function onClick} className=... children=...&amp;gt;
+                  ^^^^^^^^^^^^^^^^^^
+
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (&amp;lt;anonymous&amp;gt;)
+    at stringify (&amp;lt;anonymous&amp;gt;)
+digest: &amp;#34;3510721672&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I encountered a persistent and misleading error in a Next.js 14 application: Error: Event handlers cannot be passed to Client Component props. The error occurred when
+navigating to a dynamic user profile page (/app/[username]), but the stack trace was generic and didn&amp;rsquo;t point to a specific component.&lt;/p&gt;
+&lt;p&gt;The Debugging Journey:&lt;/p&gt;
+&lt;p&gt;The initial debugging process was a long chase, as the error message suggested a common but incorrect root cause in this case. My attempts included:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Standard Checks: Ensured all components using client-side hooks (like useState, useEffect, useRouter) were correctly marked with the &amp;ldquo;use client&amp;rdquo;; directive. This fixed
+several minor bugs but not the main error.&lt;/li&gt;
+&lt;li&gt;Refactoring: Broke down large client components into smaller, more manageable ones, thinking the issue was related to component complexity. This improved code quality
+but didn&amp;rsquo;t solve the problem.&lt;/li&gt;
+&lt;li&gt;Data Fetching: Investigated and fixed an unrelated SSL error in the server-side fetch call within the page.js file.&lt;/li&gt;
+&lt;li&gt;Cache Clearing: Completely cleared the Next.js cache (.next directory) to rule out stale build artifacts.&lt;/li&gt;
+&lt;li&gt;The Breakthrough: After exhausting all conventional methods, I decided to investigate the project&amp;rsquo;s recent git history to isolate the exact commit that introduced the
+bug.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The Root Cause &amp;amp; The Solution:&lt;/p&gt;
+&lt;p&gt;The git show &amp;lt;commit_hash&amp;gt; command revealed that the problematic commit had introduced a new file: app/[username]/not-found.js.&lt;/p&gt;
+&lt;p&gt;This file is a special Next.js convention for rendering a 404 page for the /[username] route. The file contained a button with an onClick handler to allow users to go
+back. However, like all components in the App Router, it was a Server Component by default.&lt;/p&gt;
+&lt;p&gt;The error was only triggered when visiting a non-existent user profile, which is why it was so hard to trace. The server-side rendering process for the 404 page failed
+because it encountered an onClick handler, which is client-side interactivity.&lt;/p&gt;
+&lt;p&gt;The fix was a simple, one-line change: adding &amp;ldquo;use client&amp;rdquo;; to the top of app/[username]/not-found.js.&lt;/p&gt;
+&lt;p&gt;Key Takeaways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The error isn&amp;rsquo;t always on the &amp;ldquo;happy path&amp;rdquo;: The bug was in an error-handling file (not-found.js), not the main page component. It&amp;rsquo;s crucial to debug edge cases and
+special files.&lt;/li&gt;
+&lt;li&gt;Next.js conventions are still components: Special files like layout.js, error.js, and not-found.js must adhere to the same Server/Client Component rules as any other
+component.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git&lt;/code&gt; is a powerful debugging tool: When you&amp;rsquo;re stuck, using git log, git show, or git bisect to trace the history of a bug can be the most effective way to find its
+origin.&lt;/li&gt;
+&lt;li&gt;Generic errors can be misleading: The error message pointed to a symptom, not the cause. The real issue was a server component trying to render client-side interactive
+elements.&lt;/li&gt;
+&lt;/ul&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Install .deb in Arch</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-06-25-install-deb-in-arch/</link>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-06-25-install-deb-in-arch/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;It&amp;rsquo;s just an archive&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bsdtar -xf &amp;#34;package_0.1.0-1_amd64.deb&amp;#34; data.tar.xz
+tar xf data.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;this will give &lt;code&gt;usr&lt;/code&gt; directory containing binary in &lt;code&gt;usr/bin/&lt;/code&gt; and other data in &lt;code&gt;usr/share&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❯ tree usr
+usr
+├── bin
+│   └── somebinary
+└── share
+    ├── applications
+    │   └── io.github.some.package.desktop
+    ├── doc
+    │   └── package
+    │       └── copyright
+    └── icons
+        └── hicolor
+            └── scalable
+                └── apps
+                    └── io.github.some.package.svg
+
+10 directories, 4 files
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;One liner:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bsdtar -O -xf &amp;#34;package.1.0-1_amd64.deb&amp;#34; data.tar.xz | bsdtar -xf -
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Setting up nvim for java</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/</link>
+      <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-06-24-setting-up-nvim-for-java/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Install&lt;code&gt;jdtls&lt;/code&gt; from the mason using &lt;code&gt;:MasonInstall jdtls&lt;/code&gt; or &lt;code&gt;:Mason&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Then add jdtls in list of lsp&amp;rsquo;s :&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; servers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;clangd&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rust_analyzer&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pyright&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ts_ls&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;gopls&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;jdtls&amp;#39;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;If your are working with just basic java files, Initialize git in you working directory and create .project file.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init
+touch .project
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Now, open any java file and check if &lt;code&gt;jdtls&lt;/code&gt; lsp is attached using &lt;code&gt;:LspInfo&lt;/code&gt;, check for this:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 1 client(s) attached to this buffer
+- Client: `jdtls` (id: 1, bufnr: [1])
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;if &lt;code&gt;bufnr&lt;/code&gt; is &amp;gt; 0 then, it worked.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://chatgpt.com/share/685aaac3-16e4-8010-88d2-1a02989e89e5&#34;&gt;ChatGPT&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix: invisible working mouse Ft. Hyprland</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2025-04-06-fix-invisible-working-mouse-ft-hyprland/</link>
+      <pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2025-04-06-fix-invisible-working-mouse-ft-hyprland/</guid>
+      <description>&lt;p&gt;Just add this entry anywhere in &lt;code&gt;.config/hypr/hyprland.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cursor {
+    no_hardware_cursors = true
+}
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Flash image to partition, and boot with grub manual entry</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-24-flash-image-to-partition-and-boot-with-grub-manual-entry/</link>
+      <pubDate>Sun, 24 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-24-flash-image-to-partition-and-boot-with-grub-manual-entry/</guid>
+      <description>&lt;h3 id=&#34;how-to-flash-image-iso-to-paritition&#34;&gt;How to flash image (.iso) to paritition&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Create partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo fdisk /dev/sda
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Format partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo mkfs.ext4 /dev/sda11
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Write image to partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dd bs=4M if=/home/stroky/Downloads/cachyos-desktop-linux-241110.iso of=/dev/sda11 status=progress oflag=sync
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Mount partition&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo mount /dev/sda11 /mnt/cachyos
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Check for the grub.cfg in there&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ls /mnt/cachyos/boot/grub/
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Add entry&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudoedit /etc/grub.d/40_custom
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;There are 3 main ways&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Direct provide path for grub.cfg:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install direct&amp;#39; {
+    set root=(hd1,gpt11)
+    configfile /boot/grub/grub.cfg
+    # linux ($root)/arch/boot/x86_64/vmlinuz-linux-cachyos root=/dev/sda11 ro quiet splash 
+    # initrd ($root)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Boot through partition:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install dev11&amp;#39; {
+    set root=(hd1,gpt11)
+    linux ($root)/arch/boot/x86_64/vmlinuz-linux-cachyos root=/dev/sda11 ro quiet splash cow_spacesize=10G
+    initrd ($root)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Boot through iso:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;menuentry &amp;#39;CachyOS Install&amp;#39; {
+    set isofile=&amp;#34;/home/stroky/Downloads/cachyos-desktop-linux-241110.iso&amp;#34;
+    loopback loop $isofile
+    linux (loop)/arch/boot/x86_64/vmlinuz-linux-cachyos img_dev=/dev/sda8 img_loop=$isofile earlymodules=loop cow_spacesize=10G
+    initrd (loop)/arch/boot/x86_64/initramfs-linux-cachyos.img
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then finally update grub config:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo grub-mkconfig -o /boot/grub/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Reboot&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Easy dotfiles management</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-08-easy-dotfiles-management/</link>
+      <pubDate>Fri, 08 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-08-easy-dotfiles-management/</guid>
+      <description>&lt;h3 id=&#34;the-easiest-way-to-version-control-your-dotfiles&#34;&gt;The easiest way to version control your dotfiles.&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialize empty repo at home&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init --bare $HOME/.dotfiles
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+2. Use working directory of git as &lt;code&gt;$HOME&lt;/code&gt;, and git dir as &lt;code&gt;.dotfiles&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;alias config=&amp;#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Only for current local repo, because it&amp;rsquo;s annoying.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config config status.showUntrackedFiles no
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Here you go, check status, add your configs, and commit.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config status
+config add .config/mpv
+config commit -m &amp;#34;Added mpv config&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Create repo at github/gitlab and add origin -&amp;gt; Push.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config remote add origin &amp;lt;link&amp;gt;
+config push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;here-you-can-use-different-branches-for-different-computers-you-can-replicate-you-configuration-easily-on-new-installation--&#34;&gt;Here you can use different branches for different computers, you can replicate you configuration easily on new installation -&lt;/h3&gt;
+&lt;p&gt;For using dotfiles on other device&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Clone repo into home, if its &lt;strong&gt;empty&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone --separate-git-dir=~/.myconf &amp;lt;link-to-repo&amp;gt; ~
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Or clone into separate tmp dir, otherwise it &lt;strong&gt;will fail if your home directory isn&amp;rsquo;t empty&lt;/strong&gt;. Then copy your configs and remove tmp dir.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone --separate-git-dir=$HOME/.dotfiles &amp;lt;link-to-repo&amp;gt; $HOME/dotfiles-tmp
+cp ~/dotfiles-tmp/.vimrc ~
+rm -r ~/myconf-tmp/
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Again set alias to manage dotfiles.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;alias config=&amp;#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Done!
+easy peezy lemon squeezy :)&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://wiki.archlinux.org/title/Dotfiles&#34;&gt;ArchWiki&lt;/a&gt; | &lt;a href=&#34;https://news.ycombinator.com/item?id=11071754&#34;&gt;Ycombinator&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix Error executing vim.schedule lua callback: ...lazy/mason-lspconfig.nvim/lua/mason-lspconfig/notify.lua :5: attempt to call field &#39;notify&#39; (a nil value)</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-07-fix-error-executing-vim-schedule-lua-callback-lazy-mason-lspconfig-nvim-lua-mason-lspconfig-notify-lua-5-attempt-to-call-field-notify-a-nil-value/</link>
+      <pubDate>Thu, 07 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-07-fix-error-executing-vim-schedule-lua-callback-lazy-mason-lspconfig-nvim-lua-mason-lspconfig-notify-lua-5-attempt-to-call-field-notify-a-nil-value/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Open init.vim and add this line&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lua require(&amp;#39;lspconfig&amp;#39;).lua_ls.setup({})
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://www.reddit.com/r/neovim/comments/15jceyb/lspconfig_error_attempt_to_index_local_user/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>patchelf, replace pkg dependency</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-11-03-patchelf-replace-pkg-dependency/</link>
+      <pubDate>Sun, 03 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-11-03-patchelf-replace-pkg-dependency/</guid>
+      <description>&lt;p&gt;Replace the required dependency error in packages.&lt;/p&gt;
+&lt;p&gt;Error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvim: error while loading shared libraries: libmsgpackc.so.2: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+Solution:&lt;/p&gt;
+&lt;p&gt;[image 1730633405.jpg]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pacman -S patchelf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt; patchelf --replace-needed libmsgpackc.so.2 libmsgpack-c.so.2 $(command -v nvim)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://www.reddit.com/r/termux/comments/1fl4wo8/comment/lo15lw1/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Expose localhost port to internet</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-09-26-expose-localhost-port-to-internet/</link>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-09-26-expose-localhost-port-to-internet/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;80&lt;/code&gt; is on which port to map, &lt;code&gt;5000&lt;/code&gt; is the localhost port, the service we want to expose.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh -R 80:localhost:5000 nokey@localhost.run
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Set input devices permissions while starting Display server.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-09-07-set-input-devices-permissions-while-starting-display-server/</link>
+      <pubDate>Sat, 07 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-09-07-set-input-devices-permissions-while-starting-display-server/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chown root:stroky /dev/input/ --recursive
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>file tranfer from CLI to share.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-08-13-file-tranfer-from-cli-to-share/</link>
+      <pubDate>Tue, 13 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-08-13-file-tranfer-from-cli-to-share/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Temp.sh (4G)
+&lt;a href=&#34;https://temp.sh/&#34;&gt;https://temp.sh/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bashupload (insane size)
+&lt;a href=&#34;https://bashupload.com/&#34;&gt;https://bashupload.com/&lt;/a&gt;
+[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Termbin
+&lt;a href=&#34;https://termbin.com/&#34;&gt;https://termbin.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Add new change in previous commit</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-07-29-add-new-change-in-previous-commit/</link>
+      <pubDate>Mon, 29 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-07-29-add-new-change-in-previous-commit/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Find the commit hash you want to edit&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git log 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Start interactive rebase, adjust the number if needed
+&lt;code&gt;git rebase -i HEAD~1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the editor, change &amp;lsquo;pick&amp;rsquo; to &amp;rsquo;edit&amp;rsquo; for the commit you want to modify&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Save and close the editor&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the new file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git add path/to/newfile 
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Amend the commit to include the new file
+&lt;code&gt;git commit --amend&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Save and close the commit message editor&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Continue the rebase
+&lt;code&gt;git rebase --continue&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resolve any conflicts if necessary
+Force push to the remote repository if needed
+&lt;code&gt;git push --force &lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Combine audio &amp; video of different length</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-06-24-combine-audio-video-of-different-length/</link>
+      <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-06-24-combine-audio-video-of-different-length/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Long audio &amp;amp; shortvideo:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ffmpeg -i Downloads/pooja_updated.mp4 -i aum.opus -map 0:v:0 -map 1:a:0 -c:v copy -shortest -y output3.mp4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Long video &amp;amp; short audio:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ffmpeg -stream_loop -1 -i Downloads/pooja.mp4 -i aum.opus -shortest -map 0:v:0 -map 1:a:0 -y output-pooja.mp4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Fix mpv lags system while playing yt video</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-05-30-fix-mpv-lags-system-while-playing-yt-video/</link>
+      <pubDate>Thu, 30 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-05-30-fix-mpv-lags-system-while-playing-yt-video/</guid>
+      <description>&lt;p&gt;There are different ways:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Using resample&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mpv -vo=gpu --video-sync=display-resample -hwdec=auto &amp;#34;https://www.youtube.com/watch?v=ENxwig2JOKo&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Use yt-dlp&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mpv -ytdl-raw-options=&amp;#39;format=&amp;#34;mp4,best[height&amp;lt;1081]&amp;#34;&amp;#39; -vo=gpu --video-sync=display-resample &amp;#34;https://www.youtube.com/watch?v=ys5MqjzPTag&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;References:
+&lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=283397&#34;&gt;ArchLinux Forum&lt;/a&gt; | &lt;a href=&#34;https://www.reddit.com/r/mpv/comments/m6uv5b/video_lagging_on_mpv/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Opencv - Could not find the Qt platform plugin &#39;wayland&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-05-29-opencv-could-not-find-the-qt-platform-plugin-wayland/</link>
+      <pubDate>Wed, 29 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-05-29-opencv-could-not-find-the-qt-platform-plugin-wayland/</guid>
+      <description>&lt;p&gt;Error:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❯ python getcolor.py
+qt.qpa.plugin: Could not find the Qt platform plugin &amp;#34;wayland&amp;#34; in &amp;#34;/home/stroky/testline/alemeno/lib/python3.12/site-packages/cv2/qt/plugins&amp;#34;
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: xcb.
+
+fish: Job 1, &amp;#39;python getcolor.py&amp;#39; terminated by signal SIGABRT (Abort)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Solution:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;❯ export QT_QPA_PLATFORM&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xcb&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;❯ python getcolor.py
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--- success execution ---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Pixel value at &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;100, 50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;255&lt;/span&gt; 255&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;HSV value at &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;100, 50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; 255&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure &lt;code&gt;qt5-wayland&lt;/code&gt; &amp;amp; &lt;code&gt;qt6-wayland&lt;/code&gt; packages are installed&lt;/p&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://stackoverflow.com/questions/69994530/qt-qpa-plugin-could-not-find-the-qt-platform-plugin-wayland&#34;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Cava mic source input</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-04-18-cava-mic-source-input/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-04-18-cava-mic-source-input/</guid>
+      <description>&lt;p&gt;Add below section in cava config&lt;/p&gt;
+&lt;p&gt;get the source ID:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pactl list sources
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[input]
+method = pulse
+source = 55  # source id  
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>connect to hidden wifi from cli</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-04-09-connect-to-hidden-wifi-from-cli/</link>
+      <pubDate>Tue, 09 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-04-09-connect-to-hidden-wifi-from-cli/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;iwd&lt;/code&gt; for &lt;code&gt;iwctl&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S iwd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+2. iwctl
+3. Enter following info&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;station &lt;!-- raw HTML omitted --&gt; connect-hidden &amp;lt;&amp;ldquo;network name&amp;rdquo;&amp;gt;&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;e.g&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; station wlan0 connec-hidden &amp;#34;&amp;lt;SSID&amp;gt;&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference : &lt;a href=&#34;https://www.reddit.com/r/archlinux/comments/10uhl9f/connect_to_a_hidden_wifi/&#34;&gt;Reddit&lt;/a&gt;
+| &lt;a href=&#34;https://unix.stackexchange.com/questions/664646/connecting-to-a-hidden-wi-fi-network-arch-linux&#34;&gt;stackexchange&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Compress video without quality loss</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-04-03-compress-video-without-quality-loss/</link>
+      <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-04-03-compress-video-without-quality-loss/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ffmpeg -i &amp;lt;input file&amp;gt;  -vcodec libx265 -crf &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt; &amp;lt;output file&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Take effect of group change without logout.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-02-11-take-effect-of-group-change-without-logout/</link>
+      <pubDate>Sun, 11 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-02-11-take-effect-of-group-change-without-logout/</guid>
+      <description>&lt;p&gt;Just use following command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;newgrp &amp;lt;group&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Example:
+it is help full in case of new docker installation.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG docker $USER &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; newgrp docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Setup pipewire &amp; wireplumber in void linux</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-01-20-setup-pipewire-wireplumber-in-void-linux/</link>
+      <pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-01-20-setup-pipewire-wireplumber-in-void-linux/</guid>
+      <description>&lt;p&gt;Remove pulseaudio&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo xbps-remove pulseaudio pulseaudio-devel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Install dependencies&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo xbps-install libspa-bluetooth pipewire wireplumber 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://docs.voidlinux.org/config/media/pipewire.html#session-management&#34;&gt;Void Docs&lt;/a&gt;  | &lt;a href=&#34;https://www.reddit.com/r/pipewire/comments/1389b26/bluetooth_headphones_fail_to_connect_via_pipewire/&#34;&gt;Reddit&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>How to setup bluetooth in in voidlinux</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-01-07-how-to-setup-bluetooth-in-in-voidlinux/</link>
+      <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-01-07-how-to-setup-bluetooth-in-in-voidlinux/</guid>
+      <description>&lt;h2 id=&#34;you-need-some-packages-first&#34;&gt;You need some packages first&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo xbps-install libpulseaudio bluez-alsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;h2 id=&#34;now-make-some-changes-in-bluez-alsa-service-etcsvbluez-alsarun--to-add-support-for-a2dp-support&#34;&gt;Now make some changes in bluez-alsa service &lt;code&gt;/etc/sv/bluez-alsa/run&lt;/code&gt;  to add support for &lt;code&gt;A2DP&lt;/code&gt; support:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -r ./conf &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; . ./conf
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;install -d -m0755 -o _bluez_alsa -g audio /run/bluealsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;exec chpst -u _bluez_alsa:audio bluealsa -p a2dp-source -p a2dp-sink
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#exec chpst -u _bluez_alsa:audio bluealsa $OPTS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;then start it&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ln -s /etc/sv/bluez-alsa /var/service
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo sv start bluez-alsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Make sure to stop alsa service first. &lt;code&gt;sudo sv stop alsa&lt;/code&gt;. You pulseaudio should be restarted.&lt;/p&gt;&lt;/blockquote&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Users resources limit</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-01-07-users-resources-limit/</link>
+      <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-01-07-users-resources-limit/</guid>
+      <description>&lt;p&gt;[image 1704619247.jpg]&lt;/p&gt;
+&lt;p&gt;[image 1704619499.jpg]&lt;/p&gt;
+&lt;p&gt;[image 1704619857.jpg]&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>tmux error &#39;tmux.conf: no current session&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/</link>
+      <pubDate>Sun, 03 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/</guid>
+      <description>&lt;p&gt;This is because you haven&amp;rsquo;t added &lt;code&gt;-g&lt;/code&gt; in any of the &lt;code&gt;set&lt;/code&gt; command in &lt;code&gt;tmux.conf&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://stackoverflow.com/a/55805036&#34;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Import your old ssh keys to new system.</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-11-25-import-your-old-ssh-keys-to-new-system/</link>
+      <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-11-25-import-your-old-ssh-keys-to-new-system/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Place it in the right place&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;change permissions on file&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 644 ~/.ssh/id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;start the ssh-agent in the background&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;eval &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;NOTE: If your shell is &lt;code&gt;fish&lt;/code&gt;, then just execute the &lt;code&gt;ssh-agent -s&lt;/code&gt; and then export those printed variables.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Make ssh-agent to actually use the copied key&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;No need to import public key.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>fix glib.h error while installing surf</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-11-24-fix-glib-h-error-while-installing-surf/</link>
+      <pubDate>Fri, 24 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-11-24-fix-glib-h-error-while-installing-surf/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S gst-plugins-base-libs gst-libav gst-plugins-base gst-plugins-good
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S webkit2gtk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
+      <title>create new runit service</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-11-05-create-new-runit-service/</link>
+      <pubDate>Sun, 05 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-11-05-create-new-runit-service/</guid>
+      <description>&lt;p&gt;Create a directory with run file&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir /etc/runit/sv/servdir
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo nvim /etc/runit/sv/servdir/run
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Add following contents:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/sh -e
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;exec 2&amp;gt;&amp;amp;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;exec &amp;lt;commands&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then make that file executable&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chmod +x /etc/sv/docker/run
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Fix wsl network unreachable</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-09-05-fix-wsl-network-unreachable/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-09-05-fix-wsl-network-unreachable/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Move to version 1 on wsl&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-dos&#34; data-lang=&#34;dos&#34;&gt;wsl --set-version 1
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Set correct gateway using this &lt;a href=&#34;https://kontext.tech/article/1042/wsl-2-network-issue-solutions-on-ubuntu-and-other-distros&#34;&gt;article&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix go: go.mod file not found in current directory or any parent directory; see &#39;go help modules&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</link>
+      <pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;First initialize &lt;code&gt;go mod&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go mod init &amp;lt;file.go&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Install modules&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go mod tidy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you are done.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://stackoverflow.com/questions/66894200/error-message-go-go-mod-file-not-found-in-current-directory-or-any-parent-dire&#34;&gt; StackOverflow &lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix go: go.mod file not found in current directory or any parent directory; see &#39;go help modules&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</link>
+      <pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2023-08-25-fix-go-go-mod-file-not-found-in-current-directory-or-any-parent-directory-see-go-help-modules/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;First initialize &lt;code&gt;go mod&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go mod init &amp;lt;file.go&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Install modules&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go mod tidy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And you are done.&lt;/p&gt;
+&lt;p&gt;Reference: &lt;a href=&#34;https://stackoverflow.com/questions/66894200/error-message-go-go-mod-file-not-found-in-current-directory-or-any-parent-dire&#34;&gt; StackOverflow &lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>make directory and switch in to it in same command</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-25-make-directory-and-switch-in-to-it-in-same-command/</link>
+      <pubDate>Fri, 25 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-25-make-directory-and-switch-in-to-it-in-same-command/</guid>
+      <description>&lt;p&gt;The command is&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir longtitleproject &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cd $_
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In bash, the &lt;code&gt;$_&lt;/code&gt; variable is the last argument given to the previous command. In this case, the name of the directory you just created.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Chroot into nixos</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-24-chroot-into-nixos/</link>
+      <pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-24-chroot-into-nixos/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Mount the file system containing the NixOS to chroot into at &lt;code&gt;/mnt&lt;/code&gt; or any other directory, using e.g.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount /dev/sda10 /mnt/nixx/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Mount the host system&amp;rsquo;s Linux run-time api file systems inside the mount, then populate /run using the activate script and chroot inside, starting a bash shell&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount -o bind /dev /mnt/nixx/dev/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount -o bind /proc /mnt/nixx/proc/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount -o bind /sys /mnt/nixx/sys/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chroot /mnt/nixx /nix/var/nix/profiles/system/activate
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chroot /mnt/nixx/ /run/current-system/sw/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://nixos.wiki/wiki/Change_root&#34;&gt;NixOS Wiki&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix &#39;version GLIBCXX_3.4.32 not found&#39;</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-08-14-fix-version-glibcxx_3-4-32-not-found/</link>
+      <pubDate>Mon, 14 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-08-14-fix-version-glibcxx_3-4-32-not-found/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S libtool gcc gcc-libs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reference: &lt;a href=&#34;https://unix.stackexchange.com/questions/140638/cmake-usr-lib-libstdc-so-6-version-glibcxx-3-4-20-not-found-required-by&#34;&gt;stackexchange&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Pywal gradient for cava</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-24-pywal-gradient-for-cava/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-24-pywal-gradient-for-cava/</guid>
+      <description>&lt;p&gt;This can be done simply using Pywal templates&lt;/p&gt;
+&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Just move your cava config to &lt;code&gt;~/.config/wal/templates/cava_config&lt;/code&gt; , and then replace the colors with {color0}, {color1},&amp;hellip; etc.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mv ~/.config/cava/config ~/.config/wal/templates/cava_config
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recommend colors :&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[color]
+gradient = 1
+gradient_count = 4
+gradient_color_1 = &amp;#39;{color1}&amp;#39;
+gradient_color_2 = &amp;#39;{color2}&amp;#39;
+gradient_color_3 = &amp;#39;{color4}&amp;#39;
+gradient_color_4 = &amp;#39;{color5}&amp;#39;
+gradient_color_5 = &amp;#39;{color6}&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Then after you run pywal, just link your cava_config to cava/config back from ~/.cache/wal/&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ln -s ~/.cache/wal/cava_config ~/.config/cava/config
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And you are done.&lt;/p&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://github.com/karlstav/cava/issues/340&#34;&gt;Github Issue&lt;/a&gt; |
+&lt;a href=&#34;https://github.com/dylanaraps/pywal/wiki/User-Template-Files&#34;&gt;Pywal template docs&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Set custom HTML file as a new tab in Firefox</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-24-set-custom-html-file-as-a-new-tab-in-firefox/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-24-set-custom-html-file-as-a-new-tab-in-firefox/</guid>
+      <description>&lt;p&gt;You might want to set up your custom HTML page which contains all the links which you want to access frequently or might want to use &lt;a href=&#34;https://github.com/Paul-Houser/StartTree&#34;&gt;StartTree&lt;/a&gt; and something like that. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;We will be using AutoConfig, which is used to set and lock preferences that are not covered by group policy,
+This requires an autoconfig.js file in the &amp;ldquo;defaults/pref&amp;rdquo; folder where the channel-prefs.js file is located that specifies to use autoconfig.cfg.&lt;/p&gt;
+&lt;h3 id=&#34;steps&#34;&gt;Steps:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go the settings → Home → Set HomePage and new window  =&amp;gt; cutom_urls → Enter the file path.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set new tab to &lt;code&gt;Firefox Home&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure no other extension is managing your new tab, Go to Settings → Extension.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create autoconfig.cfg file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vim /usr/lib/firefox/autoconfig.cfg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Paste this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;//
+var {classes:Cc,interfaces:Ci,utils:Cu} = Components;
+
+/* set new tab page */
+try {
+  Cu.import(&amp;#34;resource:///modules/AboutNewTab.jsm&amp;#34;);
+  var newTabURL = &amp;#34;file:///home/stroky/.cache/StartTree/index.html&amp;#34;;
+  AboutNewTab.newTabURL = newTabURL;
+} catch(e){Cu.reportError(e);} // report errors in the Browser Console
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Then create autoconfig.js&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo vim /usr/lib/firefox/defaults/pref/autoconfig.js
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Paste this:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// *First line must be a comment*
+pref(&amp;#34;general.config.filename&amp;#34;, &amp;#34;autoconfig.cfg&amp;#34;);
+pref(&amp;#34;general.config.obscure_value&amp;#34;, 0);
+pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Quit the Firefox, and relaunch it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And we are done.
+ &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Reference:
+&lt;a href=&#34;https://support.mozilla.org/en-US/questions/1283835&#34;&gt;Mozilla support&lt;/a&gt; |
+&lt;a href=&#34;https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig&#34;&gt;AutoConfig Docs&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Shell Scripting</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-23-shell-scripting/</link>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-23-shell-scripting/</guid>
+      <description>&lt;p&gt;Shell provides an interface between the user and the kernel and executes programs called commands.&lt;/p&gt;
+&lt;p&gt;Different shells:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sh  =&amp;gt; Bourne shell&lt;/li&gt;
+&lt;li&gt;ksh =&amp;gt; korn shell [&amp;ndash;more&amp;ndash;]&lt;/li&gt;
+&lt;li&gt;bash =&amp;gt; Bourne again shell&lt;/li&gt;
+&lt;li&gt;csh =&amp;gt; c shell&lt;/li&gt;
+&lt;li&gt;zsh = z shell&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Most popular one is &lt;code&gt;Bash&lt;/code&gt; and it is used in shell scripting.&lt;/p&gt;
+&lt;h4 id=&#34;script-file&#34;&gt;Script File&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Shell script file should end with &lt;code&gt;.sh&lt;/code&gt; or it should have shebang &lt;code&gt;#!&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello world&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Shebang defines the interpreter to use to interpret the script.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Script is exectued line by line.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It also have programming concepts like conditional statement, loops, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To execute the script you can use either ways&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Make it executable and execute like binary&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod +x script.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./script.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Execute directly using interpreter&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash script.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;variables&#34;&gt;Variables&lt;/h4&gt;
+&lt;p&gt;Variable store some values&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tester&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello &lt;/span&gt;$name&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;read -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter you age: &amp;#34;&lt;/span&gt; age
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your age is &lt;/span&gt;$age&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;read: It is used for user input, &lt;code&gt;age&lt;/code&gt; is variable in which we are storing that user input.&lt;/li&gt;
+&lt;li&gt;$ is use to access variable content.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;arguments&#34;&gt;Arguments&lt;/h4&gt;
+&lt;p&gt;Arguments are values which is provided at runtime&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;File name is: &lt;/span&gt;$0&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello &lt;/span&gt;$1&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Creating file &lt;/span&gt;$2&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch $2 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Execute&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./script tester myfile2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Output&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;File name is: /tmp/script
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello tester
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Creating file myfile2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;$1,$2,.. $n This is how we access arguments.&lt;/li&gt;
+&lt;li&gt;$0 is the first argument, which is the name of file.&lt;/li&gt;
+&lt;li&gt;$# This returns the count of arguments.&lt;/li&gt;
+&lt;li&gt;$@ This represents all the arguments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;loops&#34;&gt;Loops&lt;/h4&gt;
+&lt;p&gt;Execute until a specific condition is met.&lt;/p&gt;
+&lt;h5 id=&#34;example&#34;&gt;Example:&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/home/user/scripts/*.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; files in $dir
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo $files
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This script print all .sh files in that directory.&lt;/p&gt;
+&lt;h5 id=&#34;example-2-script-to-add-multiple-users&#34;&gt;Example 2: Script to add multiple users.&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;read -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter the number of users: &amp;#34;&lt;/span&gt; user_num
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1; i&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$user_num; i++ &lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    read -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter username: &amp;#34;&lt;/span&gt; user
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    read -s -p &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enter pass: &amp;#34;&lt;/span&gt; pass
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sudo useradd -m $user
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$user&lt;span style=&#34;color:#e6db74&#34;&gt;:&lt;/span&gt;$pass&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; | sudo chpasswd
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Done&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cat /etc/passwd | grep $user
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;if-else-statement&#34;&gt;If else statement&lt;/h4&gt;
+&lt;p&gt;Execute something on some condition&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tester&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; $name &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tester&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yes, tester logged in&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Invalid user&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;example-script&#34;&gt;Example script.&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install  nginx and serve page using script.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Update system&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Install nginx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install nginx -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Start &amp;amp; enable nginx service&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable --now nginx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Serve the page&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo rm /var/www/html/*.html &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello world&amp;#34;&lt;/span&gt; | sudo tee /var/www/html/index.html 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Backup script&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;src&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/home/user/devops/script
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tgt&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/home/user/backups
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;filename&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;date +&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%d-%m-%Y&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -cvzf $tgt/$filename $src 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Completed!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can create crontab for this.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;crontab -e
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-cron&#34; data-lang=&#34;cron&#34;&gt;* * * * * /path/to/backup/script
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That&amp;rsquo;s it.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Linux stuffs</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/</link>
+      <pubDate>Sat, 22 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-22-linux-stuffs/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello world&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We are going to learn: [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;User / group&lt;/li&gt;
+&lt;li&gt;grep, awk, find.&lt;/li&gt;
+&lt;li&gt;File permission&lt;/li&gt;
+&lt;li&gt;ssh/scp&lt;/li&gt;
+&lt;li&gt;systemctl&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;groups-collection-of-users&#34;&gt;Groups: collection of users&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo groupadd devops
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;use the &lt;code&gt;/etc/group&lt;/code&gt; file to get groups&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Whenever you create a user it creates groups also with the same name.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add user to group&lt;/p&gt;
+&lt;p&gt;whenever you add a user to a group you modify the user.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG devops user1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;To add multiple users, we can also use gpasswd to add user&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo gpasswd -M user1,user2,user3 testers
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Delete user form group&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo gpasswd -d user2 testers
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Delete group&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo groupdel testers
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use chgrp to change  group of file&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chgrp tester file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;&lt;/h6&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;file-permissions&#34;&gt;File permissions:&lt;/h4&gt;
+&lt;p&gt;Numeric Permissions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;r - read = 4&lt;/li&gt;
+&lt;li&gt;w - write = 2&lt;/li&gt;
+&lt;li&gt;x - execute = 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There are three set of permissions for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;U - User/Owner&lt;/li&gt;
+&lt;li&gt;G - Group&lt;/li&gt;
+&lt;li&gt;O - Others&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Combinations&lt;/p&gt;
+&lt;p&gt;_ U _ . _ G _ . _ O _ =&amp;gt; rwx rwx rwx&lt;/p&gt;
+&lt;h5 id=&#34;example&#34;&gt;Example:&lt;/h5&gt;
+&lt;p&gt;U - read+write = 4+2 =&amp;gt; 6&lt;/p&gt;
+&lt;p&gt;G - read+executable = 4+1 =&amp;gt; 5&lt;/p&gt;
+&lt;p&gt;O - read = 4 =&amp;gt; 4&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Final permission numeric == 654&lt;/p&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;User &lt;code&gt;chmod&lt;/code&gt; command to modify permissions&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;700&lt;/span&gt; file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;heading&#34;&gt; &lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;find-files&#34;&gt;Find files&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Grep: To find anything inside file or name of files.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Find some keyword or filename in directory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;grep -r keyword /home/ubuntu/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;-r&lt;/code&gt; is for searching recursively inside directotries&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;grep something inside file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;grep keyword file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Search case insensitive&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;grep -i keyword file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;-i&lt;/code&gt; stands for case insensitive, by default grep is case sensitive.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;AWK:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Find &lt;code&gt;TRACE&lt;/code&gt; from log and print column 1,2,5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/TRACE/ {print $1,$2,$5}&amp;#39;&lt;/span&gt; errors.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Get the exact line number&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/TRACE/ {print NR,$1,$2,$5}&amp;#39;&lt;/span&gt; errors.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;User condition using &lt;code&gt;NR&lt;/code&gt; =&amp;gt; row number&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;NR&amp;gt;=1 &amp;amp;&amp;amp; NR&amp;lt;=20 &amp;amp;&amp;amp; /TRACE/ {print NR,$1,$2,$5}&amp;#39;&lt;/span&gt; errors.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Find:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Find files with specific extension&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;find *.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find files in some directory with specific ending&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;find dir/ *.log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find files by a particular owner&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;find dir/ -user ubuntu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find files by a particular group&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;find dir/ -group devops
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;ssh&#34;&gt;SSH:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Keys:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Public key (id_rsa.pub)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;private key (id_rsa)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Public key must be known by the server where you want to connect, and you must also have private key to connect.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create keys:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-keygen
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Keys are stored in &lt;code&gt;~/.ssh/&lt;/code&gt; directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Connect using keys:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Permission must be 400&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;400&lt;/span&gt; key.pem
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;connect&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh -i /path/to/key.pem user@ipaddress
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Types &lt;code&gt;yes&lt;/code&gt; when asked.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;scp from host system to server&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;scp -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key.pem&amp;#34;&lt;/span&gt; file.txt user@ipadd:/home/user/file.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;scp from server to our host system&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;scp -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key.pem&amp;#34;&lt;/span&gt; user@ipadd:/home/user/file .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;systemctl&#34;&gt;Systemctl&lt;/h4&gt;
+&lt;p&gt;It is a Service controller, services like &lt;code&gt;docker&lt;/code&gt;, &lt;code&gt;apache2&lt;/code&gt;, &lt;code&gt;sshd&lt;/code&gt;, &lt;code&gt;nginx&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Start any service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start &amp;lt;service&amp;gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Stop any service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl stop &amp;lt;service&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check status of any service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status &amp;lt;service&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Hyprland windows rule v2 using class</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-07-hyprland-windows-rule-v2-using-class/</link>
+      <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-07-hyprland-windows-rule-v2-using-class/</guid>
+      <description>&lt;h3 id=&#34;to-set-the-window-rule-v2-we-can-use-class-to-get-the-class-of-applications-that-are-running-we-can-use&#34;&gt;To set the window rule v2, we can use class, to get the class of applications that are running we can use:&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hyprctl clients
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;h4 id=&#34;we-can-use-a-class-with-regex-also-or-use-the-exact-class-name-using-the-above-command&#34;&gt;We can use a class with regex also, or use the exact class name using the above command:&lt;/h4&gt;
+&lt;p&gt;Window Rule V1:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;windowrule&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;workspace&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;^(&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Brave&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;*)$&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Window Rule V2:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrulev2 = opacity 0.8 0.8,class:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;the-second-param-is-the-class-of-brave-browser-or-we-can-use-the-application-title-as-the-second-param-instead&#34;&gt;The second param is the class of brave browser or we can use the application title, as the second param instead:&lt;/h4&gt;
+&lt;p&gt;Window Rule V1:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrule = workspace 2, ^(.*Brave.*)$,title:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Window Rule V2:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;windowrulev2 = opacity 0.8 0.8,class:^(.*Brave.*)$,title:^(.*Brave.*)$
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.hyprland.org/Configuring/Window-Rules/&#34;&gt;Hyprland window rules docs&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://www.reddit.com/r/hyprland/comments/132nhzy/is_there_any_way_to_open_and_keep_an_app_in_a/&#34;&gt;Reddit issue&lt;/a&gt; &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Fix `archlinux-tweak-tool` launch error `polkit`</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</guid>
+      <description>&lt;p&gt;The error is because the polkit authentication agent helper is not running.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The GUI window which asks for password&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;We can use any polkit helper like &lt;code&gt;polkit-gnome&lt;/code&gt; or any other [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;h4 id=&#34;to-fix-this-error-execute-below-command-on-another-terminal-or-add-it-to-your-window-manager-script-or-at-startup&#34;&gt;To fix this error execute below command on another terminal, or add it to your window manager script or at startup&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;this-will-fix-the-issue&#34;&gt;This will fix the issue.&lt;/h3&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Blog page test</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-03-blog-page-test/</link>
+      <pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-03-blog-page-test/</guid>
+      <description>&lt;p&gt;This is a new blog page.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2023-07-03-docker/</link>
+      <pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-03-docker/</guid>
+      <description>&lt;p&gt;Docker is an open-source containerization platform. It enables developers to package applications into containers—standardized executable components combining application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Containers simplify the delivery of distributed applications and have become increasingly popular as organizations shift to cloud-native development and hybrid multi-cloud environments. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;[image httpss://patel-sumit.web.app/docker-logo.png DockerLogo center]&lt;/p&gt;
+&lt;p&gt;Containers are made possible by process isolation and virtualization capabilities built into the Linux kernel. Docker provides wide range of prebuilt containers which can be used in our custom image to make work easy.
+Installation&lt;/p&gt;
+&lt;p&gt;~ Arch&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yay -S docker-git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;~ Debian&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install docker.io
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;OR&lt;/p&gt;
+&lt;p&gt;visit &lt;a href=&#34;https://download.docker.com/linux/debian/dists/&#34;&gt;this&lt;/a&gt; page, choose your version, browse to pool/stable/ choose your architecture&lt;/p&gt;
+&lt;p&gt;~ Download .deb file&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dpkg -i path/to/installed-file.deb
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Error fixing&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;After Installation if you face some problem like below:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; tcp://localhost:2375/usr/lib/systemd/system/docker.socket.
+ Is the docker daemon running?
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;then-here-is-the-solution-&#34;&gt;Then here is the solution :&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Add your self to the docker group&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;usermod -aG docker $USER
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Fix permissions on docker socker and command.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chgrp docker /usr/bin/docker
+sudo chgrp docker /var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Output :&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; ~$ ll $(which docker)
+    -rwxr-xr-x 1 root docker 18991768 08.07.2017 22:57 /usr/bin/docker*
+
+ ~$ ll /var/run/docker.sock
+    srw-rw---- 1 root docker 0 23.07.2017 10:21 /var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Add variables to config environment for docker command&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export DOCKER_HOST=unix:///var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Rest Docker&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This should fix the error.&lt;/p&gt;
+&lt;h3 id=&#34;run&#34;&gt;Run&lt;/h3&gt;
+&lt;p&gt;Lets run the hello-world:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; sudo docker run hello-world
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;Let’s pull our first OS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker pull centos
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;You can pull any other os or any available software also from docker hub&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;run it&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run -d -t --name &amp;lt;name&amp;gt; centos
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;check our container is running or not&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker ps
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Get into the container&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker exec -it &amp;lt;name&amp;gt; &amp;lt;shell&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now you will be on your centos.&lt;/p&gt;
+&lt;h3 id=&#34;thanks-for-reading&#34;&gt;Thanks for reading.&lt;/h3&gt;
+&lt;p&gt;© Dark-Kernel 2023&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Made for people</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/</guid>
+      <description>&lt;p&gt;Datenstrom Yellow is for people who make small websites. Installing is unzipping one file and you are ready to go. The most important things for small websites are included. You can add features, languages and themes. Datenstrom Yellow works as content management system and static site generator.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Blog example page</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/</link>
+      <pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna pizza. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna pizza. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://dark-kernel.web.app/notes/some/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/some/</guid>
+      <description>&lt;h3 id=&#34;yiooooooooooooooooo&#34;&gt;YIOOOOOOOOOOOOOOOOO&lt;/h3&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Notes</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/page/</guid>
+      <description></description> 
+    </item>
+    
+    <item>
+      <title>Notes</title>
+      <link>https://dark-kernel.web.app/notes/page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/page/</guid>
+      <description></description> 
+    </item>
+    
+  </channel>
+</rss>
+
+

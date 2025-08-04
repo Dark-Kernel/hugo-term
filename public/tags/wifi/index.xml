@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wifi on Dark Kernel</title>
+    <link>https://dark-kernel.web.app/tags/wifi/</link>
+    <description>Recent content in Wifi on Dark Kernel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 09 Apr 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://dark-kernel.web.app/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>connect to hidden wifi from cli</title>
+      <link>https://dark-kernel.web.app/notes/2-notes/2024-04-09-connect-to-hidden-wifi-from-cli/</link>
+      <pubDate>Tue, 09 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/2-notes/2024-04-09-connect-to-hidden-wifi-from-cli/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Install &lt;code&gt;iwd&lt;/code&gt; for &lt;code&gt;iwctl&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo pacman -S iwd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[&amp;ndash;more&amp;ndash;]
+2. iwctl
+3. Enter following info&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;station &lt;!-- raw HTML omitted --&gt; connect-hidden &amp;lt;&amp;ldquo;network name&amp;rdquo;&amp;gt;&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;e.g&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; station wlan0 connec-hidden &amp;#34;&amp;lt;SSID&amp;gt;&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference : &lt;a href=&#34;https://www.reddit.com/r/archlinux/comments/10uhl9f/connect_to_a_hidden_wifi/&#34;&gt;Reddit&lt;/a&gt;
+| &lt;a href=&#34;https://unix.stackexchange.com/questions/664646/connecting-to-a-hidden-wi-fi-network-arch-linux&#34;&gt;stackexchange&lt;/a&gt;&lt;/p&gt;
+</description> 
+    </item>
+    
+  </channel>
+</rss>
+
+
