@@ -73,7 +73,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then finally update grub config:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo grub-mkconfig -o /boot/grub/grub.cfg
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Reboot&lt;/p&gt;
 </description> 
     </item>

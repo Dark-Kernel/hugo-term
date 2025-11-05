@@ -30,7 +30,8 @@
       <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</guid>
       <description>&lt;p&gt;The error is because the polkit authentication agent helper is not running.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;The GUI window which asks for password&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The GUI window which asks for password&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;We can use any polkit helper like &lt;code&gt;polkit-gnome&lt;/code&gt; or any other [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
 &lt;h4 id=&#34;to-fix-this-error-execute-below-command-on-another-terminal-or-add-it-to-your-window-manager-script-or-at-startup&#34;&gt;To fix this error execute below command on another terminal, or add it to your window manager script or at startup&lt;/h4&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

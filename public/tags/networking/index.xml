@@ -19,7 +19,8 @@
       <guid>https://dark-kernel.web.app/post/docker-concepts/</guid>
       <description>&lt;h1 id=&#34;docker&#34;&gt;Docker&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;These are required from fresher DevOps.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;These are required from fresher DevOps.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Used in deployment using containerization method. To run an application in isolated environment.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -38,7 +39,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Docker engine is service which allow you to run any OS, which uses dockercli and dockerd&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Docker engine is service which allow you to run any OS, which uses dockercli and dockerd&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;basic-commands&#34;&gt;Basic commands:&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -71,7 +73,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;prune, can be used to remove unused images, containers, network, etc. Mostly used to clear the disk space.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;We can also force to remove
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker image prune --all --force
@@ -82,7 +85,8 @@
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;docker-advanced&#34;&gt;Docker Advanced.&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;These are required from senior DevOps.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;These are required from senior DevOps.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;Volumnes&lt;/li&gt;
 &lt;li&gt;Network&lt;/li&gt;
@@ -94,7 +98,8 @@
 &lt;p&gt;It stores a copy of your container to your system too.
 So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Data is stored in container till it is in running status, after container is exited data is gone. That&amp;rsquo;s why docker volume is used to save data.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Data is stored in container till it is in running status, after container is exited data is gone. That&amp;rsquo;s why docker volume is used to save data.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Example:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -130,7 +135,8 @@ So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Volume device data and container&amp;rsquo;s data is synced in real time.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Volume device data and container&amp;rsquo;s data is synced in real time.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -168,7 +174,8 @@ So whenever docker container crashes this copy can be used.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network ls 
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;By default 3 types of network are already present in docker, Other needs to be created.
-&lt;strong&gt;Bridge is used by default.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;strong&gt;Bridge is used by default.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;1-default-bridge&#34;&gt;1. Default bridge:&lt;/h4&gt;
 &lt;p&gt;Provide internet access from inside, other can&amp;rsquo;t access from outside until you publish any port.
 when you bridge network is used docker0 interface create a bridge network with your active interface and then we have to bind ports to access.&lt;/p&gt;
@@ -192,7 +199,8 @@ It is running on hosts ip.&lt;/p&gt;
 &lt;p&gt;If you want to associate your container with Mac address, to pretend like a device not container.
 It simply allows containers to have a Mac address this allow containers to appear as physical device.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Directly connect you docker container with your physical network. (router,switch)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Directly connect you docker container with your physical network. (router,switch)&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h6 id=&#34;bridge-default&#34;&gt;bridge (default):&lt;/h6&gt;
 &lt;p&gt;Create network&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network create -d macvlan &lt;span style=&#34;color:#ae81ff&#34;&gt;\
@@ -279,18 +287,21 @@ Here both the subnet can talk to each other.&lt;/p&gt;
 &lt;h3 id=&#34;3-docker-compose&#34;&gt;3. Docker compose.&lt;/h3&gt;
 &lt;p&gt;Used to run multiple container/microservices and different tier application.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;3 tier application architecture:&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;3 tier application architecture:&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;1. presentation layer/tier (UI/Frontend)
 2. Business layer/tier (Backend)
 3. Database layer/tier
 &lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;2 tier application&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;2 tier application&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;1. Backend
 2. DB
 &lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Configuration language: YML/YAML (key: value)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Configuration language: YML/YAML (key: value)&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;We need YAML language to write docker-compose file, which contains all the stages and everything including ports, volumes, networks, etc.&lt;/p&gt;
 &lt;p&gt;Syntax:&lt;/p&gt;
 &lt;p&gt;
@@ -382,14 +393,14 @@ Build:&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;size: 1.01GB&lt;/strong&gt;&lt;/p&gt;
 &lt;h4 id=&#34;after-making-it-multistage-build&#34;&gt;After making it Multistage build:&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Stage 1&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; python:3.9 AS big-stage&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;python:3.9&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AS&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;big-stage&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;WORKDIR&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; /app&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;WORKDIR&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;/app&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;COPY&lt;/span&gt; . .&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Stage 2&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; python:3.9-slim-bullseye &lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;python:3.9-slim-bullseye&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;COPY&lt;/span&gt; --from&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;big-stage /app /app&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;

@@ -263,7 +263,8 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 
 
 &lt;blockquote&gt;
-&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Yeah, your whole life was a lie :)&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;But wait, before you hit the panic button and decide to replace your Linux partition with Windows, there&amp;rsquo;s a plot twist. If you&amp;rsquo;re an everyday Linux user, you&amp;rsquo;re still in the safe zone. Why?&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s rewind to the 1990s when Windows dominated the desktop operating system market with its proprietary MS-DOS. Windows maintained this monopoly for years, making Linux a relatively secure option for normal users. Confused? Allow me to elaborate.&lt;/p&gt;
 &lt;p&gt;In this scenario, users and the operating system share the stage, but there&amp;rsquo;s a third player – hackers. With the majority using Windows, hackers found it convenient to focus on exploiting vulnerabilities in a single OS.&lt;/p&gt;
@@ -412,7 +413,8 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;li&gt;git stash&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Never commit directly in master branch.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;important-branches&#34;&gt;Important branches:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -461,7 +463,8 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;hotfix: Fixing small bugs, like correction of spelling, no devs needed directly team lead can change it.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;big-team-strategy&#34;&gt;Big team strategy&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -486,7 +489,8 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Jira is Issue &amp;amp; project tracking system, which is used by many large scale companies.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;heading&#34;&gt; &lt;/h2&gt;
 &lt;h3 id=&#34;git-revert--reset&#34;&gt;Git Revert &amp;amp; Reset&lt;/h3&gt;
 &lt;ul&gt;
@@ -531,7 +535,8 @@ Not even a firewall :) Shocking, I know. In this case, Windows suddenly looks li
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Don&amp;rsquo;t use &lt;code&gt;git add .&lt;/code&gt;, some times it might track files which is confidential and can lead to risk.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;git-merge&#34;&gt;Git Merge&lt;/h3&gt;
@@ -630,7 +635,8 @@ In simple words apply that particular commit to current branch.&lt;/p&gt;
       <description>&lt;h3 id=&#34;using-firefox&#34;&gt;Using firefox?&lt;/h3&gt;
 &lt;p&gt;Firefox is the best browser for linux nerds and others who want browser other than chromium, it&amp;rsquo;s being almost 2 decades of firefox and now it is filled with some craps which needs to be removed to increase the quality.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Well, today we will see some of the steps to increase the security and surfing experience of firefox.&lt;/p&gt;
 &lt;h2 id=&#34;update-the-userjs-profile&#34;&gt;Update the user.js profile.&lt;/h2&gt;
 &lt;ol&gt;
@@ -808,7 +814,8 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo groupadd devops
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;use the &lt;code&gt;/etc/group&lt;/code&gt; file to get groups&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Whenever you create a user it creates groups also with the same name.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Whenever you create a user it creates groups also with the same name.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Add user to group&lt;/p&gt;
@@ -868,7 +875,8 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;p&gt;G - read+executable = 4+1 =&amp;gt; 5&lt;/p&gt;
 &lt;p&gt;O - read = 4 =&amp;gt; 4&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Final permission numeric == 654&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Final permission numeric == 654&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -959,7 +967,8 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;li&gt;
 &lt;p&gt;private key (id_rsa)&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Public key must be known by the server where you want to connect, and you must also have private key to connect.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Public key must be known by the server where you want to connect, and you must also have private key to connect.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt; &lt;/p&gt;

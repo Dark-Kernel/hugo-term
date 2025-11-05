@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Notes :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/notes/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="http://localhost:1313/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Notes">
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://localhost:1313/notes/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="http://localhost:1313/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+  <link href="/notes/index.xml" rel="alternate" type="application/rss+xml" title="Dark Kernel" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/notes/kill-process/">Kill process on specific port</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <ol>
+<li>Kill process on port 80</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kill -9 <span style="color:#66d9ef">$(</span>lsof -t -i:80<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><ol start="2">
+<li>Another method:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fuser -k 80/tcp
+</span></span></code></pre></div>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/kill-process/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/notes/2-notes/page/">Notes</a>
+        </h1>
+        <div class="post-meta"></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/2-notes/page/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/notes/page/">Notes</a>
+        </h1>
+        <div class="post-meta"></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/page/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/notes/ssh-key-migration/">SSH key migration</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <ol>
+<li>Copy your files to <code>~/.ssh</code>.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+</span></span><span style="display:flex;"><span>cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+</span></span></code></pre></div><ol start="2">
+<li>Change permissions of files</li>
+</ol>
+<pre tabindex="0"><code>sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 644 ~/.ssh/id_rsa.pub
+</code></pre><ol start="3">
+<li>Start the ssh-agent in the background and add the key to agent</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>eval <span style="color:#66d9ef">$(</span>ssh-agent -s<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>ssh-add ~/.ssh/id_rsa
+</span></span></code></pre></div><blockquote>
+<p>NOTE: If using <code>fish</code> shell,then just execute the <code>ssh-agent -s</code> and then export those printed vars.
+No need to import public key.</p>
+</blockquote>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/ssh-key-migration/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/notes/newgrp/">Update Groups Without Logging Out</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p><em>UseCase: After updating a group, you want to take effect of it without logging out.</em></p>
+<ol>
+<li>Use <code>newgrp</code> command followed by group name you updated</li>
+</ol>
+<pre tabindex="0"><code>newgrp &lt;group&gt;
+</code></pre><ol start="2">
+<li>Now check if changes were made.</li>
+</ol>
+<pre tabindex="0"><code>id $USER 
+</code></pre>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/newgrp/">Read more →</a>
+          </div>
+        
+      </article>
+    
+
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+      <a href="/notes/page/9/" class="button previous">
+        <span class="button__icon">←</span>
+        <span class="button__text">Newer posts</span>
+      </a>
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

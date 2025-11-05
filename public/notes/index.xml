@@ -202,7 +202,8 @@ touch .project
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then finally update grub config:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo grub-mkconfig -o /boot/grub/grub.cfg
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;To get the hd1,gpt11 you can go to grub shell and press ls;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Reboot&lt;/p&gt;
 </description> 
     </item>
@@ -546,7 +547,8 @@ it is help full in case of new docker installation.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ln -s /etc/sv/bluez-alsa /var/service
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo sv start bluez-alsa
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;Make sure to stop alsa service first. &lt;code&gt;sudo sv stop alsa&lt;/code&gt;. You pulseaudio should be restarted.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Make sure to stop alsa service first. &lt;code&gt;sudo sv stop alsa&lt;/code&gt;. You pulseaudio should be restarted.&lt;/p&gt;
+&lt;/blockquote&gt;
 </description> 
     </item>
     
@@ -595,7 +597,8 @@ sudo chmod 644 ~/.ssh/id_rsa.pub
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;eval &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;NOTE: If your shell is &lt;code&gt;fish&lt;/code&gt;, then just execute the &lt;code&gt;ssh-agent -s&lt;/code&gt; and then export those printed variables.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;NOTE: If your shell is &lt;code&gt;fish&lt;/code&gt;, then just execute the &lt;code&gt;ssh-agent -s&lt;/code&gt; and then export those printed variables.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Make ssh-agent to actually use the copied key&lt;/li&gt;
 &lt;/ol&gt;
@@ -1020,7 +1023,8 @@ pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo groupadd devops
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;use the &lt;code&gt;/etc/group&lt;/code&gt; file to get groups&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Whenever you create a user it creates groups also with the same name.&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Whenever you create a user it creates groups also with the same name.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Add user to group&lt;/p&gt;
@@ -1080,7 +1084,8 @@ pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
 &lt;p&gt;G - read+executable = 4+1 =&amp;gt; 5&lt;/p&gt;
 &lt;p&gt;O - read = 4 =&amp;gt; 4&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Final permission numeric == 654&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Final permission numeric == 654&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -1171,7 +1176,8 @@ pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
 &lt;li&gt;
 &lt;p&gt;private key (id_rsa)&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Public key must be known by the server where you want to connect, and you must also have private key to connect.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Public key must be known by the server where you want to connect, and you must also have private key to connect.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -1262,7 +1268,8 @@ pref(&amp;#34;general.config.sandbox_enabled&amp;#34;, false);
       <guid>https://dark-kernel.web.app/notes/2-notes/2023-07-05-fix-archlinux-tweak-tool-launch-error-polkit/</guid>
       <description>&lt;p&gt;The error is because the polkit authentication agent helper is not running.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;The GUI window which asks for password&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The GUI window which asks for password&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;We can use any polkit helper like &lt;code&gt;polkit-gnome&lt;/code&gt; or any other [&amp;ndash;more&amp;ndash;]&lt;/p&gt;
 &lt;h4 id=&#34;to-fix-this-error-execute-below-command-on-another-terminal-or-add-it-to-your-window-manager-script-or-at-startup&#34;&gt;To fix this error execute below command on another terminal, or add it to your window manager script or at startup&lt;/h4&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -1299,7 +1306,8 @@ Installation&lt;/p&gt;
 &lt;p&gt;~ Download .deb file&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dpkg -i path/to/installed-file.deb
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;Error fixing&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Error fixing&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;After Installation if you face some problem like below:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; tcp://localhost:2375/usr/lib/systemd/system/docker.socket.
  Is the docker daemon running?
@@ -1336,7 +1344,8 @@ sudo chgrp docker /var/run/docker.sock
 &lt;/ol&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker pull centos
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;You can pull any other os or any available software also from docker hub&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;You can pull any other os or any available software also from docker hub&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;run it&lt;/li&gt;
 &lt;/ol&gt;
@@ -1387,6 +1396,81 @@ sudo chgrp docker /var/run/docker.sock
     </item>
     
     <item>
+      <title>Easy dotfiles management</title>
+      <link>https://dark-kernel.web.app/notes/easy-dot-file/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/easy-dot-file/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Initialize empty repo at $HOME dir&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init --bare $HOME/.dotfiles
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Use working directory of git as &lt;code&gt;$HOME&lt;/code&gt;, and git dir as &lt;code&gt;.dotfiles&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;alias config=&amp;#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Set git to ignore untracked files, Only for current local repo, because it&amp;rsquo;s annoying.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config config status.showUntrackedFiles no
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Here you go, check status, add your configs, commit and push&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;config status
+config add .config/mpv
+config commit -m &amp;#34;Added mpv config&amp;#34;
+config remote add origin &amp;lt;link&amp;gt;
+config push origin master
+&lt;/code&gt;&lt;/pre&gt;</description> 
+    </item>
+    
+    <item>
+      <title>Easy ssh port forwarding</title>
+      <link>https://dark-kernel.web.app/notes/ssh-port-forwarding/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/ssh-port-forwarding/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Forward port server port (80) to localhost (8111).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh -L 8111:localhost:80 user@server
+curl &amp;#34;http://localhost:8111&amp;#34; # on host
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Your server:80 is mapped to localhost:8111.&lt;/em&gt;
+&lt;em&gt;Now in your host system you can access your server&amp;rsquo;s local service.&lt;/em&gt;
+&lt;em&gt;[host]8111&amp;mdash;&amp;lt;&amp;mdash;-[ssh]&amp;mdash;&amp;lt;&amp;ndash;80[server]&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Forward localhost port (5000) to server port (8011).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh -R 8011:localhost:5000 user@server
+curl &amp;#34;http://localhost:8011&amp;#34; # on server
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Your localhost:5000 is mapped to server:8011.&lt;/em&gt;
+&lt;em&gt;Now in server you can access your host systems local service.&lt;/em&gt;
+&lt;em&gt;[host]5000&amp;mdash;-&amp;gt;&amp;mdash;[ssh]&amp;mdash;&amp;gt;&amp;mdash;8011[server]&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Kill process on specific port</title>
+      <link>https://dark-kernel.web.app/notes/kill-process/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/kill-process/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Kill process on port 80&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kill -9 &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;lsof -t -i:80&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Another method:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fuser -k 80/tcp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description> 
+    </item>
+    
+    <item>
       <title>Notes</title>
       <link>https://dark-kernel.web.app/notes/2-notes/page/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1402,6 +1486,52 @@ sudo chgrp docker /var/run/docker.sock
       
       <guid>https://dark-kernel.web.app/notes/page/</guid>
       <description></description> 
+    </item>
+    
+    <item>
+      <title>SSH key migration</title>
+      <link>https://dark-kernel.web.app/notes/ssh-key-migration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/ssh-key-migration/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;Copy your files to &lt;code&gt;~/.ssh&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Change permissions of files&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 644 ~/.ssh/id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Start the ssh-agent in the background and add the key to agent&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;eval &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;ssh-agent -s&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-add ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;NOTE: If using &lt;code&gt;fish&lt;/code&gt; shell,then just execute the &lt;code&gt;ssh-agent -s&lt;/code&gt; and then export those printed vars.
+No need to import public key.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description> 
+    </item>
+    
+    <item>
+      <title>Update Groups Without Logging Out</title>
+      <link>https://dark-kernel.web.app/notes/newgrp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dark-kernel.web.app/notes/newgrp/</guid>
+      <description>&lt;p&gt;&lt;em&gt;UseCase: After updating a group, you want to take effect of it without logging out.&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Use &lt;code&gt;newgrp&lt;/code&gt; command followed by group name you updated&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;newgrp &amp;lt;group&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Now check if changes were made.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;id $USER 
+&lt;/code&gt;&lt;/pre&gt;</description> 
     </item>
     
   </channel>

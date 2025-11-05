@@ -20,7 +20,8 @@
       <description>&lt;h3 id=&#34;using-firefox&#34;&gt;Using firefox?&lt;/h3&gt;
 &lt;p&gt;Firefox is the best browser for linux nerds and others who want browser other than chromium, it&amp;rsquo;s being almost 2 decades of firefox and now it is filled with some craps which needs to be removed to increase the quality.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Mozilla and Google have extended their current search deal to keep Google as the default search engine provider inside the Firefox browser until at least 2023, with an estimated price tag of around $400 million to $450 million per year.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Well, today we will see some of the steps to increase the security and surfing experience of firefox.&lt;/p&gt;
 &lt;h2 id=&#34;update-the-userjs-profile&#34;&gt;Update the user.js profile.&lt;/h2&gt;
 &lt;ol&gt;
@@ -240,7 +241,8 @@ There&amp;rsquo;s an extension for this called &lt;a href=&#34;https://addons.mo
 &lt;li&gt;Using extensions same as firefox.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;chrome doesn&amp;rsquo;t provide built-in feature of master/primary password.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;So that&amp;rsquo;s it.&lt;/p&gt;
 </description> 
     </item>

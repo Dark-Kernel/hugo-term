@@ -102,7 +102,8 @@ In simple it is tool for CICD, we can create CICD pipelines using it.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Triggers: it is some action, when it is performed the pipeline will be started.
-build periodically: Schedule using cron.&lt;/p&gt;&lt;/blockquote&gt;
+build periodically: Schedule using cron.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now configure build step. and save.&lt;/p&gt;
@@ -186,8 +187,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;968425137&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;968425137&#34;&gt;
+    &lt;input id=&#34;961475238&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;961475238&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Sample Declarative pipeline script&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;
@@ -275,8 +276,8 @@ pipeline {
 
 
   &lt;div class=&#34;collapsable-code&#34;&gt;
-    &lt;input id=&#34;389157426&#34; type=&#34;checkbox&#34;  /&gt;
-    &lt;label for=&#34;389157426&#34;&gt;
+    &lt;input id=&#34;286534971&#34; type=&#34;checkbox&#34;  /&gt;
+    &lt;label for=&#34;286534971&#34;&gt;
       &lt;span class=&#34;collapsable-code__language&#34;&gt;groovy&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__title&#34;&gt;Jenkinsfile&lt;/span&gt;
       &lt;span class=&#34;collapsable-code__toggle&#34; data-label-expand=&#34;△&#34; data-label-collapse=&#34;▽&#34;&gt;&lt;/span&gt;

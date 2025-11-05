@@ -161,16 +161,14 @@
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="https://dark-kernel.web.app/notes/2-notes/2024-01-07-how-to-setup-bluetooth-in-in-voidlinux/">How to setup bluetooth in in voidlinux</a>
+          <a href="https://dark-kernel.web.app/notes/2-notes/2020-12-06-made-for-people/">Made for people</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2024-01-07</time><span class="post-author">Sumit Patel</span></div>
+        <div class="post-meta"><time class="post-date">2020-12-06</time><span class="post-author">Sumit</span></div>
 
         
           <span class="post-tags">
             
-            #<a href="https://dark-kernel.web.app/tags/voidlinux/">voidlinux</a>&nbsp;
-            
-            #<a href="https://dark-kernel.web.app/tags/bluetooth/">bluetooth</a>&nbsp;
+            #<a href="https://dark-kernel.web.app/tags/example/">Example</a>&nbsp;
             
           </span>
         
@@ -180,28 +178,27 @@
 
         <div class="post-content">
           
-            <h2 id="you-need-some-packages-first">You need some packages first</h2>
-
+            Datenstrom Yellow is for people who make small websites. Installing is unzipping one file and you are ready to go. The most important things for small
           
         </div>
 
         
           <div>
-            <a class="read-more button" href="/notes/2-notes/2024-01-07-how-to-setup-bluetooth-in-in-voidlinux/">Read more →</a>
+            <a class="read-more button" href="/notes/2-notes/2020-12-06-made-for-people/">Read more →</a>
           </div>
         
       </article>
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="https://dark-kernel.web.app/notes/2-notes/2024-01-07-users-resources-limit/">Users resources limit</a>
+          <a href="https://dark-kernel.web.app/notes/2-notes/2020-04-07-blog-example-page/">Blog example page</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2024-01-07</time><span class="post-author">Sumit Patel</span></div>
+        <div class="post-meta"><time class="post-date">2020-04-07</time><span class="post-author">Datenstrom</span></div>
 
         
           <span class="post-tags">
             
-            #<a href="https://dark-kernel.web.app/tags/limit/">limit</a>&nbsp;
+            #<a href="https://dark-kernel.web.app/tags/example/">Example</a>&nbsp;
             
           </span>
         
@@ -211,29 +208,23 @@
 
         <div class="post-content">
           
-            [image 1704619247.jpg]
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna pizza. Ut enim ad minim veniam, q
           
         </div>
 
         
           <div>
-            <a class="read-more button" href="/notes/2-notes/2024-01-07-users-resources-limit/">Read more →</a>
+            <a class="read-more button" href="/notes/2-notes/2020-04-07-blog-example-page/">Read more →</a>
           </div>
         
       </article>
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="https://dark-kernel.web.app/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/">tmux error &rsquo;tmux.conf: no current session'</a>
+          <a href="https://dark-kernel.web.app/notes/some/"></a>
         </h1>
-        <div class="post-meta"><time class="post-date">2023-12-03</time><span class="post-author">Sumit Patel</span></div>
+        <div class="post-meta"></div>
 
-        
-          <span class="post-tags">
-            
-            #<a href="https://dark-kernel.web.app/tags/tmux/">tmux</a>&nbsp;
-            
-          </span>
         
 
         
@@ -241,29 +232,23 @@
 
         <div class="post-content">
           
-            This is because you haven&rsquo;t added <code>-g</code> in any of the <code>set</code> command in <code>tmux.conf</code> file.
+            <h3 id="yiooooooooooooooooo">YIOOOOOOOOOOOOOOOOO</h3>
           
         </div>
 
         
           <div>
-            <a class="read-more button" href="/notes/2-notes/2023-12-03-tmux-error-tmux-conf-no-current-session/">Read more →</a>
+            <a class="read-more button" href="/notes/some/">Read more →</a>
           </div>
         
       </article>
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="https://dark-kernel.web.app/notes/2-notes/2023-11-25-import-your-old-ssh-keys-to-new-system/">Import your old ssh keys to new system.</a>
+          <a href="https://dark-kernel.web.app/notes/easy-dot-file/">Easy dotfiles management</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2023-11-25</time><span class="post-author">Sumit Patel</span></div>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
 
-        
-          <span class="post-tags">
-            
-            #<a href="https://dark-kernel.web.app/tags/ssh/">ssh</a>&nbsp;
-            
-          </span>
         
 
         
@@ -272,31 +257,42 @@
         <div class="post-content">
           
             <ol>
-<li>Place it in the right place</li>
+<li>Initialize empty repo at $HOME dir</li>
 </ol>
-
+<pre tabindex="0"><code>git init --bare $HOME/.dotfiles
+</code></pre><ol start="2">
+<li>Use working directory of git as <code>$HOME</code>, and git dir as <code>.dotfiles</code></li>
+</ol>
+<pre tabindex="0"><code>alias config=&#39;/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME&#39;
+</code></pre><ol start="3">
+<li>Set git to ignore untracked files, Only for current local repo, because it&rsquo;s annoying.</li>
+</ol>
+<pre tabindex="0"><code>config config status.showUntrackedFiles no
+</code></pre><ol start="4">
+<li>Here you go, check status, add your configs, commit and push</li>
+</ol>
+<pre tabindex="0"><code>config status
+config add .config/mpv
+config commit -m &#34;Added mpv config&#34;
+config remote add origin &lt;link&gt;
+config push origin master
+</code></pre>
           
         </div>
 
         
           <div>
-            <a class="read-more button" href="/notes/2-notes/2023-11-25-import-your-old-ssh-keys-to-new-system/">Read more →</a>
+            <a class="read-more button" href="/notes/easy-dot-file/">Read more →</a>
           </div>
         
       </article>
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="https://dark-kernel.web.app/notes/2-notes/2023-11-24-fix-glib-h-error-while-installing-surf/">fix glib.h error while installing surf</a>
+          <a href="https://dark-kernel.web.app/notes/ssh-port-forwarding/">Easy ssh port forwarding</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2023-11-24</time><span class="post-author">Sumit Patel</span></div>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
 
-        
-          <span class="post-tags">
-            
-            #<a href="https://dark-kernel.web.app/tags/surf/">surf</a>&nbsp;
-            
-          </span>
         
 
         
@@ -304,13 +300,186 @@
 
         <div class="post-content">
           
-            <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"></code></pre></div>
+            <ol>
+<li>Forward port server port (80) to localhost (8111).</li>
+</ol>
+<pre tabindex="0"><code>ssh -L 8111:localhost:80 user@server
+curl &#34;http://localhost:8111&#34; # on host
+</code></pre><blockquote>
+<p><em>Your server:80 is mapped to localhost:8111.</em>
+<em>Now in your host system you can access your server&rsquo;s local service.</em>
+<em>[host]8111&mdash;&lt;&mdash;-[ssh]&mdash;&lt;&ndash;80[server]</em></p>
+</blockquote>
+<ol start="2">
+<li>Forward localhost port (5000) to server port (8011).</li>
+</ol>
+<pre tabindex="0"><code>ssh -R 8011:localhost:5000 user@server
+curl &#34;http://localhost:8011&#34; # on server
+</code></pre><blockquote>
+<p><em>Your localhost:5000 is mapped to server:8011.</em>
+<em>Now in server you can access your host systems local service.</em>
+<em>[host]5000&mdash;-&gt;&mdash;[ssh]&mdash;&gt;&mdash;8011[server]</em></p>
           
         </div>
 
         
           <div>
-            <a class="read-more button" href="/notes/2-notes/2023-11-24-fix-glib-h-error-while-installing-surf/">Read more →</a>
+            <a class="read-more button" href="/notes/ssh-port-forwarding/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="https://dark-kernel.web.app/notes/kill-process/">Kill process on specific port</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <ol>
+<li>Kill process on port 80</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kill -9 <span style="color:#66d9ef">$(</span>lsof -t -i:80<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><ol start="2">
+<li>Another method:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fuser -k 80/tcp
+</span></span></code></pre></div>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/kill-process/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="https://dark-kernel.web.app/notes/2-notes/page/">Notes</a>
+        </h1>
+        <div class="post-meta"></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/2-notes/page/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="https://dark-kernel.web.app/notes/page/">Notes</a>
+        </h1>
+        <div class="post-meta"></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/page/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="https://dark-kernel.web.app/notes/ssh-key-migration/">SSH key migration</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <ol>
+<li>Copy your files to <code>~/.ssh</code>.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+</span></span><span style="display:flex;"><span>cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+</span></span></code></pre></div><ol start="2">
+<li>Change permissions of files</li>
+</ol>
+<pre tabindex="0"><code>sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 644 ~/.ssh/id_rsa.pub
+</code></pre><ol start="3">
+<li>Start the ssh-agent in the background and add the key to agent</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>eval <span style="color:#66d9ef">$(</span>ssh-agent -s<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>ssh-add ~/.ssh/id_rsa
+</span></span></code></pre></div><blockquote>
+<p>NOTE: If using <code>fish</code> shell,then just execute the <code>ssh-agent -s</code> and then export those printed vars.
+No need to import public key.</p>
+</blockquote>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/ssh-key-migration/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="https://dark-kernel.web.app/notes/newgrp/">Update Groups Without Logging Out</a>
+        </h1>
+        <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p><em>UseCase: After updating a group, you want to take effect of it without logging out.</em></p>
+<ol>
+<li>Use <code>newgrp</code> command followed by group name you updated</li>
+</ol>
+<pre tabindex="0"><code>newgrp &lt;group&gt;
+</code></pre><ol start="2">
+<li>Now check if changes were made.</li>
+</ol>
+<pre tabindex="0"><code>id $USER 
+</code></pre>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/notes/newgrp/">Read more →</a>
           </div>
         
       </article>
@@ -324,11 +493,6 @@
         <span class="button__text">Newer posts</span>
       </a>
     
-    
-      <a href="/notes/page/6/" class="button next">
-        <span class="button__text">Older posts</span>
-        <span class="button__icon">→</span>
-      </a>
     
   </div>
 </div>

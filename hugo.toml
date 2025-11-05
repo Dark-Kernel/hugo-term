@@ -2,7 +2,7 @@ baseURL = 'https://dark-kernel.web.app/'
 languageCode = 'en-us'
 title = 'Dark Kernel'
 theme = 'terminal-theme'
-pagination.pagerSize = 5
+pagination.pagerSize = 10
 #paginate = 5
 
 

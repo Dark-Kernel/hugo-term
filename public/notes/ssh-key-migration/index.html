@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>SSH key migration :: Dark Kernel</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" Copy your files to ~/.ssh. cp /path/to/my/key/id_rsa ~/.ssh/id_rsa cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub Change permissions of files sudo chmod 600 ~/.ssh/id_rsa sudo chmod 644 ~/.ssh/id_rsa.pub Start the ssh-agent in the background and add the key to agent eval $(ssh-agent -s) ssh-add ~/.ssh/id_rsa NOTE: If using fish shell,then just execute the ssh-agent -s and then export those printed vars. No need to import public key.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://dark-kernel.web.app/notes/ssh-key-migration/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://dark-kernel.web.app/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://dark-kernel.web.app/profile.jpg">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="SSH key migration">
+<meta property="og:description" content=" Copy your files to ~/.ssh. cp /path/to/my/key/id_rsa ~/.ssh/id_rsa cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub Change permissions of files sudo chmod 600 ~/.ssh/id_rsa sudo chmod 644 ~/.ssh/id_rsa.pub Start the ssh-agent in the background and add the key to agent eval $(ssh-agent -s) ssh-add ~/.ssh/id_rsa NOTE: If using fish shell,then just execute the ssh-agent -s and then export those printed vars. No need to import public key.
+" />
+<meta property="og:url" content="https://dark-kernel.web.app/notes/ssh-key-migration/" />
+<meta property="og:site_name" content="Dark Kernel" />
+
+  
+    <meta property="og:image" content="https://dark-kernel.web.app/profile.jpg">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Sumit Patel
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/notes">Notes</a></li>
+        
+      
+        
+          <li><a href="/post">Post</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about/" >About</a></li>
+        
+      
+        
+          <li><a href="/notes" >Notes</a></li>
+        
+      
+        
+          <li><a href="/post" >Post</a></li>
+        
+      
+      
+        <li>
+          <ul class="menu">
+            <li class="menu__trigger">Show more&nbsp;▾</li>
+            <li>
+              <ul class="menu__dropdown">
+                
+                  
+                    <li><a href="/showcase" >Showcase</a></li>
+                  
+                
+              </ul>
+            </li>
+          </ul>
+        </li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://dark-kernel.web.app/notes/ssh-key-migration/">SSH key migration</a>
+  </h1>
+  <div class="post-meta"><span class="post-author">Sumit Patel</span></div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <ol>
+<li>Copy your files to <code>~/.ssh</code>.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+</span></span><span style="display:flex;"><span>cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+</span></span></code></pre></div><ol start="2">
+<li>Change permissions of files</li>
+</ol>
+<pre tabindex="0"><code>sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 644 ~/.ssh/id_rsa.pub
+</code></pre><ol start="3">
+<li>Start the ssh-agent in the background and add the key to agent</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>eval <span style="color:#66d9ef">$(</span>ssh-agent -s<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>ssh-add ~/.ssh/id_rsa
+</span></span></code></pre></div><blockquote>
+<p>NOTE: If using <code>fish</code> shell,then just execute the <code>ssh-agent -s</code> and then export those printed vars.
+No need to import public key.</p>
+</blockquote>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+  
+</article>
+
+
+
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

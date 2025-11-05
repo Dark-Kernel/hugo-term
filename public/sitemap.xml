@@ -357,9 +357,15 @@
   </url><url>
     <loc>https://dark-kernel.web.app/categories/</loc>
   </url><url>
+    <loc>https://dark-kernel.web.app/notes/easy-dot-file/</loc>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/ssh-port-forwarding/</loc>
+  </url><url>
     <loc>https://dark-kernel.web.app/tags/first/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/tags/hello/</loc>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/kill-process/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/post/markdown-test/</loc>
   </url><url>
@@ -367,7 +373,11 @@
   </url><url>
     <loc>https://dark-kernel.web.app/notes/page/</loc>
   </url><url>
+    <loc>https://dark-kernel.web.app/notes/ssh-key-migration/</loc>
+  </url><url>
     <loc>https://dark-kernel.web.app/showcase/</loc>
+  </url><url>
+    <loc>https://dark-kernel.web.app/notes/newgrp/</loc>
   </url><url>
     <loc>https://dark-kernel.web.app/post/first/</loc>
   </url>
